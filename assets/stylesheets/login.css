@@ -1,5 +1,5 @@
 body {
-  font:13px/1.5 Verdana,Helvetica,Arial,sans-serif;
+  font:13px/1.5 Helvetica,Arial,sans-serif;
   color: #6d6f71;
   background-color: white;
   margin: 0;
@@ -57,7 +57,7 @@ header, footer {
   margin-left:-30px;
 }
 header{
-  font: 120% "Century Gothic", Verdana, sans-serif;
+  /* font: 120% "Century Gothic", Verdana, sans-serif; */
   margin-bottom: 30px;
   text-align: left;
   font-weight:normal;
@@ -100,7 +100,7 @@ footer {
 .loginTitle  {
   color: blue;
   text-align: center;
-  font: 300% "ariel", Verdana, sans-serif;
+  font: 300% "Ariel", Verdana, sans-serif;
 }
 
 .loginHeader {
