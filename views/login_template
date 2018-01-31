@@ -1,0 +1,40 @@
+
+<div class"login-flass-container col-sm-12">
+  <div class="flash-messages row col-sm-4 col-sm-offset-4 lp-flash-messages">
+
+    <div class = "flash-login alert alert-danger fade in">
+
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+
+  </div>
+</div>
+<div class="content-wrap"><section class="description">
+  <div class="container col-sm-12">
+    <p class="loginDescription">TESTWelcome to the AMRC annual data collection tool. You can use this tool to submit the research expenditure
+      and grants data requested by AMRC. Use of this tool helps AMRC improve the efficiency of the data collection, however if you would
+      prefer to send in your data via email as in previous years, please let us know and we are happy to provide you with the forms. If
+      you have any queries please don’t hesitate to get in touch with Jocelyn through<a class="loginContact" href="j.leblanc@amrc.org.uk">j.leblanc@amrc.org.uk!</a></p>
+    </div>
+  </section>
+  <div class="container">
+    <div class="login-btns-input col-sm-12">
+      <h2 class="loginHeader">Login</h2>
+
+      <div class="field">
+
+      </div><br>
+      <div class="field">
+
+      </div>
+      <br>
+      <div class="actions submit-btn-login">
+
+      </div>
+
+      <div class="forgot-password-link">
+
+      </div>
+    </div>
+  </div>
+</div>
