@@ -8,48 +8,6 @@ $connectstr_dbpassword = 'COMPGC06@@';
 $con=mysqli_init();
 // mysqli_ssl_set($con, NULL, NULL, {ca-cert filename}, NULL, NULL);
 mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectstr_dbpassword, $connectstr_dbname, 3306);
-
-// $connectstr_dbname = 'online_acution_db';
-// $connectstr_dbhost = 'database-group21.database.windows.net';
-// $connectstr_dbusername = 'group21';
-// $connectstr_dbpassword = 'COMPGC06!@';
-//
-//
-// // $connectstr_dbname = 'ebay_database';
-// // $connectstr_dbhost = 'localhost';
-// // $connectstr_dbusername = 'root';
-// // $connectstr_dbpassword = '';
-//
-// echo $connectstr_dbname;
-// echo $connectstr_dbhost;
-// echo $connectstr_dbusername;
-// echo $connectstr_dbpassword;
-//
-// foreach ($_SERVER as $key => $value) {
-//     if (strpos($key, "MYSQLCONNSTR_localdb") !== 0) {
-//         continue;
-//     }
-//
-//     $connectstr_dbhost = preg_replace("/^.*Data Source=(.+?);.*$/", "\\1", $value);
-//     $connectstr_dbusername = preg_replace("/^.*User Id=(.+?);.*$/", "\\1", $value);
-//     $connectstr_dbpassword = preg_replace("/^.*Password=(.+?)$/", "\\1", $value);
-// }
-//
-// $link = mysqli_connect($connectstr_dbhost, $connectstr_dbusername, $connectstr_dbpassword,$connectstr_dbname);
-//
-//
-// if (!$link) {
-//     echo "Error: Unable to connect to MySQL." . PHP_EOL;
-//     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-//     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-//     exit;
-// }
-//
-// echo "<p>Success: A proper connection to MySQL was made!</p>";
-// echo "<p>The database is $connectstr_dbname</p>";
-// echo "<p>connectstr_dbhost = $connectstr_dbhost</p>";
-// echo "<p>Host information: " . mysqli_get_host_info($link) . "</p>";
-// echo "<p>connectstr_dbusername: $connectstr_dbusername</p>";
 ?>
 
 
@@ -96,14 +54,14 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
   <div class="content-wrap">
     <div class="container">
 
-    <form class="form-horizontal">
+    <form class="form-horizontal" method="post">
       <fieldset>
         <legend>Sign Up</legend>
 
         <div class="form-group">
           <label for="name" class="col-sm-4 control-label">Name</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" columns="7" id="name" placeholder="Name">
+            <input name="first_name" type="text" class="form-control" columns="7" id="name" placeholder="Name">
           </div>
         </div>
 
@@ -115,30 +73,30 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
         </div>
 
         <div class="form-group">
-          <label for="address" class="col-sm-4 control-label">Address</label>
+          <label for="address_line_1" class="col-sm-4 control-label">Address Line 1</label>
           <div class="col-sm-4">
-            <input type="text-area" class="form-control" columns="7" id="Address" placeholder="Address">
+            <input name="address_line_1" type="text-area" class="form-control" columns="7" id="address_line_1" placeholder="Line 1">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="Grant_name" class="col-sm-4 control-label"></label>
+          <label for="address_line_2" class="col-sm-4 control-label">Address Line 2</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="Grant_name" placeholder="Email">
+            <input name="address_line_2" type="text-area" class="form-control" columns="7" id="address_line_2" placeholder="Line 2">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="Grant_email" class="col-sm-4 control-label">Grant Contact Email</label>
+          <label for="address_line_3" class="col-sm-4 control-label">Address Line 3</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="Grant_email" placeholder="Email">
+            <input name="address_line_3" type="text-area" class="form-control" columns="7" id="address_line_3" placeholder="Line 3">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="username" class="col-sm-4 control-label">Username</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="username" placeholder="username">
+          <label for="admin_role" class="col-sm-4 control-label">Admin Role</label>
+          <div class="col-sm-1">
+            <input name="admin" type="checkbox" class="form-control" columns="7" id="admin_role">
           </div>
         </div>
 
@@ -150,26 +108,44 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
         </div>
 
         <div class="form-group">
-          <label for="select_charity" class="col-sm-4 control-label">Charity Category</label>
+          <label for="confirm_password" class="col-sm-4 control-label">Confirm Password</label>
           <div class="col-sm-4">
-            <select class="form-control" id="select_category">
-              <option>A</option>
-              <option>B</option>
-              <option>C</option>
-              <option>D</option>
-              <option>E</option>
-            </select>
+            <input type="text" class="form-control" id="password" placeholder="password">
           </div>
         </div>
 
         <div class="form-group submit-sign-up">
           <div class="col-sm-8 col-sm-offset-4">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" name="submit-user" value="submit-user" class="btn btn-primary">Submit</button>
           </div>
         </div>
 
       </fieldset>
     </form>
+<pre>
+  <?php
+  if (isset($_POST['submit-user'])) {
+    print_r($_POST);
+    print($_POST['first_name']);
+    print($_POST['address_line_1']);
+    print($_POST['address_line_2']);
+    print($_POST['address_line_3']);
+  }
+  ?>
+</pre>
+
+<?php
+$stmt = $con->prepare("INSERT INTO users (first_name, address_line_1, address_line_2, address_line_3)
+VALUES (?,?,?,?)");
+$stmt->bind_param("ssss", $_POST['first_name'], $_POST['address_line_1'], $_POST['address_line_2'], $_POST['address_line_3']);
+$stmt->execute();
+
+echo "New records created successfully";
+
+$con->close();
+?>
+
+
 
     </div>
 
