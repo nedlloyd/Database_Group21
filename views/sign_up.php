@@ -65,10 +65,12 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
           </div>
         </div>
 
+
+
         <div class="form-group">
           <label for="email" class="col-sm-4 control-label">Email</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="email" placeholder="Email">
+            <input name="email" type="text" class="form-control" id="email" placeholder="Email">
           </div>
         </div>
 
@@ -96,9 +98,13 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
         <div class="form-group">
           <label for="admin_role" class="col-sm-4 control-label">Admin Role</label>
           <div class="col-sm-1">
-            <input name="admin" type="checkbox" class="form-control" columns="7" id="admin_role">
+            <input class="radio-inline" type="checkbox" name="admin" value=1>Yes<br>
+            </div>
+            <div class="col-sm-1">
+            <input class="radio-inline" type="checkbox" name="admin" value=0>No<br>
           </div>
         </div>
+
 
         <div class="form-group">
           <label for="password" class="col-sm-4 control-label">Password</label>
@@ -130,14 +136,17 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
     print($_POST['address_line_1']);
     print($_POST['address_line_2']);
     print($_POST['address_line_3']);
+    // print($_POST['admin']);
+    print($_POST['email']);
   }
   ?>
 </pre>
 
 <?php
-$stmt = $con->prepare("INSERT INTO users (first_name, address_line_1, address_line_2, address_line_3)
-VALUES (?,?,?,?)");
-$stmt->bind_param("ssss", $_POST['first_name'], $_POST['address_line_1'], $_POST['address_line_2'], $_POST['address_line_3']);
+$admin = true;
+$stmt = $con->prepare("INSERT INTO users (first_name, address_line_1, address_line_2, address_line_3, admin, email)
+VALUES (?,?,?,?,?,?)");
+$stmt->bind_param("ssssss", $_POST['first_name'], $_POST['address_line_1'], $_POST['address_line_2'], $_POST['address_line_3'], $_POST['admin'], $_POST['email']);
 $stmt->execute();
 
 echo "New records created successfully";
