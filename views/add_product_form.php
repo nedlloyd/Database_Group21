@@ -55,67 +55,69 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
 
     <form class="form-horizontal" method="post">
       <fieldset>
-        <legend>Sign Up</legend>
+        <legend>Add New Product</legend>
 
         <div class="form-group">
-          <label for="name" class="col-sm-4 control-label">Name</label>
+          <label for="productName" class="col-sm-4 control-label">Product Title</label>
           <div class="col-sm-4">
-            <input name="first_name" type="text" class="form-control" columns="7" id="name" placeholder="Name">
-          </div>
-        </div>
-
-
-
-        <div class="form-group">
-          <label for="email" class="col-sm-4 control-label">Email</label>
-          <div class="col-sm-4">
-            <input name="email" type="text" class="form-control" id="email" placeholder="Email">
+            <input name="productName" type="text" class="form-control" columns="7" id="productName" placeholder="Title">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="address_line_1" class="col-sm-4 control-label">Address Line 1</label>
+          <label for="description" class="col-sm-4 control-label">Description</label>
           <div class="col-sm-4">
-            <input name="address_line_1" type="text-area" class="form-control" columns="7" id="address_line_1" placeholder="Line 1">
+            <input name="description" type="text" class="form-control" id="description" placeholder="description">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="address_line_2" class="col-sm-4 control-label">Address Line 2</label>
+          <label for="startPrice" class="col-sm-4 control-label">Start Price</label>
           <div class="col-sm-4">
-            <input name="address_line_2" type="text-area" class="form-control" columns="7" id="address_line_2" placeholder="Line 2">
+            <input name="startPrice" type="text-area" class="form-control" columns="7" id="startPrice" placeholder="start price">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="address_line_3" class="col-sm-4 control-label">Address Line 3</label>
+          <label for="reservePrice" class="col-sm-4 control-label">Reserve Price</label>
           <div class="col-sm-4">
-            <input name="address_line_3" type="text-area" class="form-control" columns="7" id="address_line_3" placeholder="Line 3">
+            <input name="reservePrice" type="text-area" class="form-control" columns="7" id="reservePrice" placeholder="Reserve Price">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="admin_role" class="col-sm-4 control-label">Admin Role</label>
-          <div class="col-sm-1">
-            <input class="radio-inline" type="checkbox" name="admin" value=1>Yes<br>
-            </div>
-            <div class="col-sm-1">
-            <input class="radio-inline" type="checkbox" name="admin" value=0>No<br>
+          <label for="startTime" class="col-sm-4 control-label">startTime</label>
+          <div class="col-sm-4">
+            <input name="startTime" type="text-area" class="form-control" columns="7" id="startTime" placeholder="startTime">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="startDate" class="col-sm-4 control-label">startDate</label>
+          <div class="col-sm-4">
+            <input name="startDate" type="text-area" class="form-control" columns="7" id="startDate" placeholder="startDate">
           </div>
         </div>
 
 
         <div class="form-group">
-          <label for="password" class="col-sm-4 control-label">Password</label>
+          <label for="endTime" class="col-sm-4 control-label">endTime</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="password" placeholder="password">
+            <input name="endTime" type="text-area" class="form-control" columns="7" id="endTime" placeholder="endTime">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="confirm_password" class="col-sm-4 control-label">Confirm Password</label>
+          <label for="endDate" class="col-sm-4 control-label">endDate</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="password" placeholder="password">
+            <input name="endDate" type="text-area" class="form-control" columns="7" id="endDate" placeholder="endDate">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="category" class="col-sm-4 control-label">category</label>
+          <div class="col-sm-4">
+            <input name="category" type="text-area" class="form-control" columns="7" id="category" placeholder="category">
           </div>
         </div>
 
@@ -143,9 +145,9 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
 
 <?php
 $admin = true;
-$stmt = $con->prepare("INSERT INTO users (first_name, address_line_1, address_line_2, address_line_3, admin, email)
-VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("ssssss", $_POST['first_name'], $_POST['address_line_1'], $_POST['address_line_2'], $_POST['address_line_3'], $_POST['admin'], $_POST['email']);
+$stmt = $con->prepare("INSERT INTO product (description, startPrice, reservePrice, productName, startTime, startDate, endTime, endDate, category)
+VALUES (?,?,?,?,?,?,?,?,?)");
+$stmt->bind_param("sssssssss", $_POST['description'], $_POST['startPrice'], $_POST['reservePrice'], $_POST['productName'], $_POST['startTime'], $_POST['startDate'], $_POST['endTime'], $_POST['endDate'], $_POST['category']);
 $stmt->execute();
 
 echo "New records created successfully";
