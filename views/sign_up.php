@@ -1,12 +1,8 @@
 <?php
-$connectstr_dbhost = "group21-mysql-server.mysql.database.azure.com";
-$connectstr_dbusername = "group21@group21-mysql-server";
-$connectstr_dbname = 'online_auction_db';
-$connectstr_dbpassword = 'COMPGC06@@';
-
-$con=mysqli_init();
-
-mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectstr_dbpassword, $connectstr_dbname, 3306);
+session_start();
+require '../database/connect.php';
+$_SESSION['id'] = $_POST['id'];
+$_SESSION['first_name'] = $_POST['first_name'];
 ?>
 
 
@@ -108,7 +104,7 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
         <div class="form-group">
           <label for="password" class="col-sm-4 control-label">Password</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="password" placeholder="password">
+            <input type="text" name="password" class="form-control" id="password" placeholder="password">
           </div>
         </div>
 
@@ -142,10 +138,22 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
 </pre>
 
 <?php
-$admin = true;
+$first_name = mysqli_escape_string($con, $_POST['first_name']);
+$address_line_1 = mysqli_escape_string($con, $_POST['address_line_1']);
+$address_line_2 = mysqli_escape_string($con, $_POST['address_line_2']);
+$address_line_3 = mysqli_escape_string($con, $_POST['address_line_3']);
+$admin = mysqli_escape_string($con, $_POST['admin']);
+$email = mysqli_escape_string($con, $_POST['email']);
+$password = mysqli_escape_string($con, (password_hash($_POST['password'], PASSWORD_BCRYPT)));
+$hash = mysqli_escape_string($con, ( md5( rand(0,1000))));
+
+$sql = "SELECT * FROM users WHERE email='$email'";
+$result = mysqli_query($con, $sql) or die ($mysqli->error());
+if $result->
+
 $stmt = $con->prepare("INSERT INTO users (first_name, address_line_1, address_line_2, address_line_3, admin, email)
 VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("ssssss", $_POST['first_name'], $_POST['address_line_1'], $_POST['address_line_2'], $_POST['address_line_3'], $_POST['admin'], $_POST['email']);
+$stmt->bind_param("ssssss", $first_name, $address_line_1, $address_line_2, $address_line_3, $admin, $email);
 $stmt->execute();
 
 echo "New records created successfully";

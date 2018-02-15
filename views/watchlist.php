@@ -1,12 +1,5 @@
 <?php
-$connectstr_dbhost = "group21-mysql-server.mysql.database.azure.com";
-$connectstr_dbusername = "group21@group21-mysql-server";
-$connectstr_dbname = 'online_auction_db';
-$connectstr_dbpassword = 'COMPGC06@@';
-
-$con=mysqli_init();
-
-mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectstr_dbpassword, $connectstr_dbname, 3306);
+require '../database/connect.php'
 ?>
 
 
@@ -50,115 +43,52 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
 </head>
 <body>
     <div class="wrapperforstickyfooter">
-  <div class="content-wrap">
-    <div class="container">
+      <h1 class="find_stuff">Find Stuff</h1>
 
-    <form class="form-horizontal" method="post">
-      <fieldset>
-        <legend>Sign Up</legend>
+      <form method="get">
+      <p>
+        <label for="searchterm"> Find Stuff: </label>
+        <input type="search" name="searchterm" id="searchterm">
+        <input type="submit" name="search" id="search" value="search">
+      </p>
+      </form>
 
-        <div class="form-group">
-          <label for="name" class="col-sm-4 control-label">Name</label>
-          <div class="col-sm-4">
-            <input name="first_name" type="text" class="form-control" columns="7" id="name" placeholder="Name">
-          </div>
-        </div>
+      <?php if (isset($_GET['searchterm'])) { ?>
+        <p>You searched for <?php echo $_GET['searchterm'];?>.<p>
 
+      <?php
+      $term = mysqli_real_escape_string($con, $_GET['searchterm']);
+      echo $term;
 
-
-        <div class="form-group">
-          <label for="email" class="col-sm-4 control-label">Email</label>
-          <div class="col-sm-4">
-            <input name="email" type="text" class="form-control" id="email" placeholder="Email">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="address_line_1" class="col-sm-4 control-label">Address Line 1</label>
-          <div class="col-sm-4">
-            <input name="address_line_1" type="text-area" class="form-control" columns="7" id="address_line_1" placeholder="Line 1">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="address_line_2" class="col-sm-4 control-label">Address Line 2</label>
-          <div class="col-sm-4">
-            <input name="address_line_2" type="text-area" class="form-control" columns="7" id="address_line_2" placeholder="Line 2">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="address_line_3" class="col-sm-4 control-label">Address Line 3</label>
-          <div class="col-sm-4">
-            <input name="address_line_3" type="text-area" class="form-control" columns="7" id="address_line_3" placeholder="Line 3">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="admin_role" class="col-sm-4 control-label">Admin Role</label>
-          <div class="col-sm-1">
-            <input class="radio-inline" type="checkbox" name="admin" value=1>Yes<br>
-            </div>
-            <div class="col-sm-1">
-            <input class="radio-inline" type="checkbox" name="admin" value=0>No<br>
-          </div>
-        </div>
-
-
-        <div class="form-group">
-          <label for="password" class="col-sm-4 control-label">Password</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="password" placeholder="password">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="confirm_password" class="col-sm-4 control-label">Confirm Password</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="password" placeholder="password">
-          </div>
-        </div>
-
-        <div class="form-group submit-sign-up">
-          <div class="col-sm-8 col-sm-offset-4">
-            <button type="submit" name="submit-user" value="submit-user" class="btn btn-primary">Submit</button>
-          </div>
-        </div>
-
-      </fieldset>
-    </form>
-<pre>
-  <?php
-  if (isset($_POST['submit-user'])) {
-    print_r($_POST);
-    print($_POST['first_name']);
-    print($_POST['address_line_1']);
-    print($_POST['address_line_2']);
-    print($_POST['address_line_3']);
-    // print($_POST['admin']);
-    print($_POST['email']);
-  }
-  ?>
-</pre>
-
-<?php
-$admin = true;
-$stmt = $con->prepare("INSERT INTO users (first_name, address_line_1, address_line_2, address_line_3, admin, email)
-VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("ssssss", $_POST['first_name'], $_POST['address_line_1'], $_POST['address_line_2'], $_POST['address_line_3'], $_POST['admin'], $_POST['email']);
-$stmt->execute();
-
-echo "New records created successfully";
-
-$con->close();
-?>
-
-
-
-    </div>
-
-
-  </div>
+      $sql = "SELECT * FROM product WHERE productName LIKE '%".$term."%'";
+      $r_query = mysqli_query($con, $sql);
+      }
+      ?>
+      <div class="container">
+        <h2>What we've got</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Descritpion</th>
+              <th>Category</th>
+              <th>Start Price</th>
+              <th>Reserve Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php while ($row = mysqli_fetch_array($r_query)) { ?>
+            <tr>
+              <td><?php echo $row['productName'];?></td>
+              <td><?php echo $row['description'];?></td>
+              <td><?php echo $row['category'];?></td>
+              <td><?php echo $row['startPrice'];?></td>
+              <td><?php echo $row['reservePrice'];?></td>
+            </tr>
+          <?php } ?>
+          </tbody>
+        </table>
+      </div>
 </div>
 </body>
 

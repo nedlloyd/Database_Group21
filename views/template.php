@@ -1,12 +1,5 @@
 <?php
-$connectstr_dbhost = "group21-mysql-server.mysql.database.azure.com";
-$connectstr_dbusername = "group21@group21-mysql-server";
-$connectstr_dbname = 'online_auction_db';
-$connectstr_dbpassword = 'COMPGC06@@';
-
-$con=mysqli_init();
-
-mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectstr_dbpassword, $connectstr_dbname, 3306);
+require '../database/connect.php'
 ?>
 
 
@@ -54,7 +47,7 @@ mysqli_real_connect($con, $connectstr_dbhost, $connectstr_dbusername, $connectst
 
   <footer>
     <div class="content-wrap">
-      <p>AMRC is a registered charity in England and Wales (296772). Registered as a company limited by guarantee (2107400) in England and Wales. Registered office at Charles Darwin House 2, 107 Gray's Inn Rd, London WC1X 8TZ. Visit the AMRC website for more information:<a href="https://www.amrc.org.uk/" class="link-footer-tem" title="www.amrc.org.uk" target="_blank">www.amrc.org.uk</a></p>
+      <p>Esway</p>
     </div>
   </footer>
 
