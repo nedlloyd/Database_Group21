@@ -1,8 +1,37 @@
 <?php
 session_start();
 require '../database/connect.php';
-$_SESSION['id'] = $_POST['id'];
-$_SESSION['first_name'] = $_POST['first_name'];
+?>
+
+<?php
+$_SESSION['message'] = "";
+if (isset($_POST['submit-user'])) {
+  $first_name = mysqli_escape_string($con, $_POST['first_name']);
+  $address_line_1 = mysqli_escape_string($con, $_POST['address_line_1']);
+  $address_line_2 = mysqli_escape_string($con, $_POST['address_line_2']);
+  $address_line_3 = mysqli_escape_string($con, $_POST['address_line_3']);
+  $admin = mysqli_escape_string($con, $_POST['admin']);
+  $email = mysqli_escape_string($con, $_POST['email']);
+  $password = mysqli_escape_string($con, (password_hash($_POST['password'], PASSWORD_BCRYPT)));
+  $hash = mysqli_escape_string($con, ( md5( rand(0,1000))));
+
+  $sql = "SELECT * FROM users WHERE email='$email'";
+  $result = mysqli_query($con, $sql) or die ($mysqli->error());
+  if ($result->num_rows == 0) {
+
+    $_SESSION['message'] = "Your account has been created!";
+
+    $stmt = $con->prepare("INSERT INTO users (first_name, address_line_1, address_line_2, address_line_3, admin, email, password, hash)
+    VALUES (?,?,?,?,?,?,?,?)");
+    $stmt->bind_param("ssssssss", $first_name, $address_line_1, $address_line_2, $address_line_3, $admin, $email, $password, $hash);
+    $stmt->execute();
+
+  } else {
+    $_SESSION['message'] = "I'm afraid that email address has already been taken, please try another one";
+  }
+
+  $con->close();
+}
 ?>
 
 
@@ -17,14 +46,6 @@ $_SESSION['first_name'] = $_POST['first_name'];
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../assets/stylesheets/sign_up.css">
-
-  <!-- Optional IE8 Support -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <!-- Minified CSS -->
 
   <header role="banner" class="header-reports">
     <div class="content-wrap">
@@ -52,6 +73,7 @@ $_SESSION['first_name'] = $_POST['first_name'];
     <form class="form-horizontal" method="post">
       <fieldset>
         <legend>Sign Up</legend>
+              <p><?php echo $_SESSION['message'] ?></p>
 
         <div class="form-group">
           <label for="name" class="col-sm-4 control-label">Name</label>
@@ -123,44 +145,6 @@ $_SESSION['first_name'] = $_POST['first_name'];
 
       </fieldset>
     </form>
-<pre>
-  <?php
-  if (isset($_POST['submit-user'])) {
-    print_r($_POST);
-    print($_POST['first_name']);
-    print($_POST['address_line_1']);
-    print($_POST['address_line_2']);
-    print($_POST['address_line_3']);
-    // print($_POST['admin']);
-    print($_POST['email']);
-  }
-  ?>
-</pre>
-
-<?php
-$first_name = mysqli_escape_string($con, $_POST['first_name']);
-$address_line_1 = mysqli_escape_string($con, $_POST['address_line_1']);
-$address_line_2 = mysqli_escape_string($con, $_POST['address_line_2']);
-$address_line_3 = mysqli_escape_string($con, $_POST['address_line_3']);
-$admin = mysqli_escape_string($con, $_POST['admin']);
-$email = mysqli_escape_string($con, $_POST['email']);
-$password = mysqli_escape_string($con, (password_hash($_POST['password'], PASSWORD_BCRYPT)));
-$hash = mysqli_escape_string($con, ( md5( rand(0,1000))));
-
-$sql = "SELECT * FROM users WHERE email='$email'";
-$result = mysqli_query($con, $sql) or die ($mysqli->error());
-if $result->
-
-$stmt = $con->prepare("INSERT INTO users (first_name, address_line_1, address_line_2, address_line_3, admin, email)
-VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("ssssss", $first_name, $address_line_1, $address_line_2, $address_line_3, $admin, $email);
-$stmt->execute();
-
-echo "New records created successfully";
-
-$con->close();
-?>
-
 
 
     </div>
@@ -171,9 +155,7 @@ $con->close();
 </body>
 
   <footer>
-    <div class="content-wrap">
-      <p>AMRC is a registered charity in England and Wales (296772). Registered as a company limited by guarantee (2107400) in England and Wales. Registered office at Charles Darwin House 2, 107 Gray's Inn Rd, London WC1X 8TZ. Visit the AMRC website for more information:<a href="https://www.amrc.org.uk/" class="link-footer-tem" title="www.amrc.org.uk" target="_blank">www.amrc.org.uk</a></p>
-    </div>
+
   </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

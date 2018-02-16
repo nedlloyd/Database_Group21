@@ -14,6 +14,14 @@ if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }
 
+// add_column
+$sql = "ALTER TABLE users ADD COLUMN password VARCHAR(100);";
+
+if ($con->query($sql) === TRUE) {
+    echo "column password added";
+} else {
+    echo "column password adding error" . $con->error;
+}
 
 // add_column
 $sql = "ALTER TABLE users ADD COLUMN hash VARCHAR(32);";

@@ -1,6 +1,7 @@
-<?php session_start(); ?>
+<?php session_start();?>
 <?php
-require '../database/connect.php'
+require '../database/connect.php';
+require '../assets/php/login_function.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,22 +43,23 @@ require '../database/connect.php'
       </section>
       <div class="container">
         <div class="login-btns-input col-sm-12">
-
+          <p><?php echo $_SESSION['message']?></p>
 
           <div class="container login-fields-all">
 
-            <form class="form-signin">
+            <form class="form-signin" method="post">
               <h2 class="form-signin-heading">Please sign in</h2>
               <label for="inputEmail" class="sr-only login-field">Email address</label>
-              <input type="email" id="inputEmail" class="form-control login-field" placeholder="Email address" required autofocus>
+              <input type="email" name="email" id="inputEmail" class="form-control login-field" placeholder="Email address" required autofocus>
               <label for="inputPassword" class="sr-only login-field">Password</label>
-              <input type="password" id="inputPassword" class="form-control login-field" placeholder="Password" required>
+              <input type="password" name="password" id="inputPassword" class="form-control login-field" placeholder="Password" required>
               <div class="checkbox">
                 <label>
                   <input type="checkbox" value="remember-me"> Remember me
                 </label>
               </div>
-              <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+              <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit-login">Sign in</button>
+              <a class="btn btn-lg btn-primary btn-block btn-sign_up" href="sign_up.php">Sign Up</a>
             </form>
 
           </div>

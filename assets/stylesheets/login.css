@@ -120,3 +120,7 @@ footer {
 .login-field {
   margin-bottom: 5px;
 }
+
+.btn-sign_up {
+  color: red;
+}

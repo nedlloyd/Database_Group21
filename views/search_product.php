@@ -1,5 +1,6 @@
 <?php
-require '../database/connect.php'
+require '../database/connect.php';
+$r_query = null;
 ?>
 
 
@@ -76,7 +77,8 @@ $r_query = mysqli_query($con, $sql);
       </tr>
     </thead>
     <tbody>
-      <?php while ($row = mysqli_fetch_array($r_query)) { ?>
+      <?php if ($r_query != null) {
+      while ($row = mysqli_fetch_array($r_query)) { ?>
       <tr>
         <td><?php echo $row['productName'];?></td>
         <td><?php echo $row['description'];?></td>
@@ -85,18 +87,15 @@ $r_query = mysqli_query($con, $sql);
         <td><?php echo $row['reservePrice'];?></td>
         <td><?php echo $row['reservePrice'];?></td>
       </tr>
-    <?php } ?>
+    <?php }
+  } ?>
     </tbody>
   </table>
 </div>
 
 </body>
 
-  <footer>
-    <div class="content-wrap">
-      <p>Esway</p>
-    </div>
-  </footer>
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
