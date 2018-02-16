@@ -12,6 +12,7 @@ require '../assets/php/login_function.php';
   <!-- IE Edge Meta Tag// edge means the browser should use the best and newest machine -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/stylesheets/login.css">
+  <link rel="stylesheet" href="../assets/stylesheets/application.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 

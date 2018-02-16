@@ -45,7 +45,7 @@ if (isset($_POST['submit-user'])) {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../assets/stylesheets/sign_up.css">
+  <link rel="stylesheet" href="../assets/stylesheets/application.css">
 
   <header role="banner" class="header-reports">
     <div class="content-wrap">
@@ -155,7 +155,6 @@ if (isset($_POST['submit-user'])) {
 </body>
 
   <footer>
-
   </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -14,7 +14,7 @@ $r_query = null;
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../assets/stylesheets/sign_up.css">
+  <link rel="stylesheet" href="../assets/stylesheets/application.css">
 
   <!-- Optional IE8 Support -->
   <!--[if lt IE 9]>
@@ -66,6 +66,7 @@ $r_query = mysqli_query($con, $sql);
 ?>
 <div class="container">
   <h2>What we've got</h2>
+  <a class="btn btn-lg btn-primary btn-block" href="add_product_form.php">Add a new item</a>
   <table class="table table-striped">
     <thead>
       <tr>
