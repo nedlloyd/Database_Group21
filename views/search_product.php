@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../database/connect.php';
 $r_query = null;
 ?>
@@ -55,6 +56,7 @@ $r_query = mysqli_query($con, $sql);
 }
 ?>
 <div class="container">
+    <p><?php echo $_SESSION['userID'];?><p>
   <h2>What we've got</h2>
   <a class="btn btn-lg btn-primary btn-block" href="add_product_form.php">Add a new item</a>
   <table class="table table-striped">
@@ -65,6 +67,8 @@ $r_query = mysqli_query($con, $sql);
         <th>Category</th>
         <th>Start Price</th>
         <th>Reserve Price</th>
+        <th>ProductID</th>
+        <th>Watchlist</th>
       </tr>
     </thead>
     <tbody>
@@ -76,7 +80,11 @@ $r_query = mysqli_query($con, $sql);
         <td><?php echo $row['category'];?></td>
         <td><?php echo $row['startPrice'];?></td>
         <td><?php echo $row['reservePrice'];?></td>
-        <td><?php echo $row['reservePrice'];?></td>
+        <td><?php echo $row['productID'];?></td>
+        <form method="post">
+        <input type="hidden" name="productID" value="<?php echo $row['productID']; ?>">
+        <td><button type="submit" name="add-watchlist" value="add-watchlist" class="btn btn-primary">Add To Watchlist</button></td>
+        </form>
       </tr>
     <?php }
   } ?>
@@ -84,7 +92,21 @@ $r_query = mysqli_query($con, $sql);
   </table>
 </div>
 
+
+
 </body>
+
+<?php
+if (isset($_POST['add-watchlist'])) {
+$stmt = $con->prepare("INSERT INTO watchlist (userID, productID)
+VALUES (?,?)");
+$stmt->bind_param("ss", $_SESSION['userID'], $_POST['productID']);
+$stmt->execute();
+echo "done";
+$con->close();
+}
+?>
+
 
 
 
