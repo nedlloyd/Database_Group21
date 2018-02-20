@@ -13,7 +13,7 @@ require '../database/connect.php'
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../assets/stylesheets/application.css">
+  <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
 
   <!-- Optional IE8 Support -->
   <!--[if lt IE 9]>
@@ -46,7 +46,7 @@ require '../database/connect.php'
 </body>
 
   <footer>
-  
+
   </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

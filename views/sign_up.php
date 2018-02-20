@@ -45,7 +45,7 @@ if (isset($_POST['submit-user'])) {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../assets/stylesheets/application.css">
+  <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
 
   <header role="banner" class="header-reports">
     <div class="content-wrap">
