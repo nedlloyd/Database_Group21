@@ -60,6 +60,7 @@ $r_query = mysqli_query($con, $sql);
     <p><?php echo $_SESSION['userID'];?><p>
   <h2>What we've got</h2>
   <a class="btn btn-lg btn-primary btn-block" href="add_product_form.php">Add a new item</a>
+  <a class="btn btn-lg btn-primary btn-block" href="watchlist.php">View Watchlist</a>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -84,6 +85,7 @@ $r_query = mysqli_query($con, $sql);
         <td><?php echo $row['productID'];?></td>
         <form method="post">
         <input type="hidden" name="productID" value="<?php echo $row['productID']; ?>">
+        <input type="hidden" name="productName" value="<?php echo $row['productName']; ?>">
         <td><button type="submit" name="add-watchlist" value="add-watchlist" class="btn btn-primary">Add To Watchlist</button></td>
         </form>
       </tr>
@@ -93,18 +95,23 @@ $r_query = mysqli_query($con, $sql);
   </table>
 </div>
 
-
-
 </body>
 
 <?php
 if (isset($_POST['add-watchlist'])) {
+  $productID = mysqli_escape_string($con, $_POST['productID']);
+  $sql = "SELECT * FROM watchlist WHERE productID=$productID";
+  $result = mysqli_query($con, $sql) or die ($mysqli->error());
+  if ($result->num_rows == 0) {
 $stmt = $con->prepare("INSERT INTO watchlist (userID, productID)
 VALUES (?,?)");
 $stmt->bind_param("ss", $_SESSION['userID'], $_POST['productID']);
 $stmt->execute();
 echo "done";
 $con->close();
+} else {
+  echo "you already have this item to your watchlist";
+}
 }
 ?>
 
