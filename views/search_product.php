@@ -85,7 +85,7 @@ $r_query = mysqli_query($con, $sql);
         <td><?php echo $row['productID'];?></td>
         <form method="post">
         <input type="hidden" name="productID" value="<?php echo $row['productID']; ?>">
-        <input type="hidden" name="productName" value="<?php echo $row['productName']; ?>">
+        <input id="productName" type="hidden" name="productName" value="<?php echo $row['productName']; ?>">
         <td><button type="submit" name="add-watchlist" value="add-watchlist" class="btn btn-primary">Add To Watchlist</button></td>
         </form>
       </tr>
@@ -99,6 +99,7 @@ $r_query = mysqli_query($con, $sql);
 
 <?php
 if (isset($_POST['add-watchlist'])) {
+  $productName = mysqli_escape_string($con, $_POST['productName']);
   $productID = mysqli_escape_string($con, $_POST['productID']);
   $sql = "SELECT * FROM watchlist WHERE productID=$productID";
   $result = mysqli_query($con, $sql) or die ($mysqli->error());
@@ -109,8 +110,13 @@ $stmt->bind_param("ss", $_SESSION['userID'], $_POST['productID']);
 $stmt->execute();
 echo "done";
 $con->close();
-} else {
-  echo "you already have this item to your watchlist";
+} else { ?>
+
+    <div class="alert alert-warning">
+  <p><strong>Warning!</strong> you already have added <?php $productName ?> to your watchlist;</p>
+</div>
+
+<?php
 }
 }
 ?>

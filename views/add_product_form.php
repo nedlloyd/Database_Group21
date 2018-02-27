@@ -15,7 +15,7 @@ require '../assets/php/connect.php';
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../assets/stylesheets/sign_up.css">
+  <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
 
 
   <header role="banner" class="header-reports">
@@ -74,31 +74,9 @@ require '../assets/php/connect.php';
         </div>
 
         <div class="form-group">
-          <label for="startTime" class="col-sm-4 control-label">startTime</label>
+          <label for="endDateTime" class="col-sm-4 control-label">End Date and Time</label>
           <div class="col-sm-4">
-            <input name="startTime" type="text-area" class="form-control" columns="7" id="startTime" placeholder="startTime">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="startDate" class="col-sm-4 control-label">startDate</label>
-          <div class="col-sm-4">
-            <input name="startDate" type="text-area" class="form-control" columns="7" id="startDate" placeholder="startDate">
-          </div>
-        </div>
-
-
-        <div class="form-group">
-          <label for="endTime" class="col-sm-4 control-label">endTime</label>
-          <div class="col-sm-4">
-            <input name="endTime" type="text-area" class="form-control" columns="7" id="endTime" placeholder="endTime">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="endDate" class="col-sm-4 control-label">endDate</label>
-          <div class="col-sm-4">
-            <input name="endDate" type="text-area" class="form-control" columns="7" id="endDate" placeholder="endDate">
+            <input class="form-control" name="endDateTime" id="endDateTime" type="datetime-local" name="bdaytime">
           </div>
         </div>
 
@@ -117,25 +95,13 @@ require '../assets/php/connect.php';
 
       </fieldset>
     </form>
-<pre>
-  <?php
-  if (isset($_POST['submit-user'])) {
-    print_r($_POST);
-    print($_POST['first_name']);
-    print($_POST['address_line_1']);
-    print($_POST['address_line_2']);
-    print($_POST['address_line_3']);
-    // print($_POST['admin']);
-    print($_POST['email']);
-  }
-  ?>
-</pre>
 
 <?php
+echo $_POST['endDateTime'];
 $admin = true;
-$stmt = $con->prepare("INSERT INTO product (description, startPrice, reservePrice, productName, startTime, startDate, endTime, endDate, category)
-VALUES (?,?,?,?,?,?,?,?,?)");
-$stmt->bind_param("sssssssss", $_POST['description'], $_POST['startPrice'], $_POST['reservePrice'], $_POST['productName'], $_POST['startTime'], $_POST['startDate'], $_POST['endTime'], $_POST['endDate'], $_POST['category']);
+$stmt = $con->prepare("INSERT INTO product (description, startPrice, reservePrice, productName, endDateTime, category)
+VALUES (?,?,?,?,?,?)");
+$stmt->bind_param("ssssss", $_POST['description'], $_POST['startPrice'], $_POST['reservePrice'], $_POST['productName'], $_POST['endDateTime'], $_POST['category']);
 $stmt->execute();
 
 echo "New records created successfully";
@@ -151,12 +117,6 @@ $con->close();
   </div>
 </div>
 </body>
-
-  <footer>
-    <div class="content-wrap">
-      <p>AMRC is a registered charity in England and Wales (296772). Registered as a company limited by guarantee (2107400) in England and Wales. Registered office at Charles Darwin House 2, 107 Gray's Inn Rd, London WC1X 8TZ. Visit the AMRC website for more information:<a href="https://www.amrc.org.uk/" class="link-footer-tem" title="www.amrc.org.uk" target="_blank">www.amrc.org.uk</a></p>
-    </div>
-  </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
