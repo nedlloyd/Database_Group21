@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../assets/php/connect.php';
 ?>
 
@@ -7,21 +8,12 @@ require '../assets/php/connect.php';
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <!-- Viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- IE Edge Meta Tag// edge means the browser should use the best and newest machine -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../assets/stylesheets/sign_up.css">
+  <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
 
-  <!-- Optional IE8 Support -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <!-- Minified CSS -->
 
   <header role="banner" class="header-reports">
     <div class="content-wrap">
@@ -42,61 +34,89 @@ require '../assets/php/connect.php';
 
 </head>
 <body>
-    <div class="wrapperforstickyfooter">
-      <h1 class="find_stuff">Find Stuff</h1>
 
-      <form method="get">
-      <p>
-        <label for="searchterm"> Find Stuff: </label>
-        <input type="search" name="searchterm" id="searchterm">
-        <input type="submit" name="search" id="search" value="search">
-      </p>
-      </form>
+  <?php
+  if (isset($_POST['remove-watchlist'])) {
+  $id = $_POST['productID'];
+  echo $id;
+  $sql = "DELETE FROM watchlist WHERE productID='$id'";
+    if ($con->query($sql) === TRUE) {
+      echo '<script></script>';
+    } else {
+      echo "Error deleting record: " . $con->error;
+    }
+  }
+  $id = '';
+  ?>
 
-      <?php if (isset($_GET['searchterm'])) { ?>
-        <p>You searched for <?php echo $_GET['searchterm'];?>.<p>
+<?php
+$userID = mysqli_real_escape_string($con, $_SESSION['userID']);
+$sql = "SELECT * FROM watchlist WHERE userID = $userID";
+$r_query = mysqli_query($con, $sql);
+$productIDs = array();
+while ($row = mysqli_fetch_array($r_query)) {
+   array_push($productIDs, $row['productID']);
+}
 
-      <?php
-      $term = mysqli_real_escape_string($con, $_GET['searchterm']);
-      echo $term;
+$sql = "SELECT * FROM product";
+$r_query = mysqli_query($con, $sql);
+$products = array();
+while ($row = mysqli_fetch_array($r_query)) {
+   if (in_array($row['productID'], $productIDs)){
+      array_push($products, $row);
+   }
+}
+?>
 
-      $sql = "SELECT * FROM product WHERE productName LIKE '%".$term."%'";
-      $r_query = mysqli_query($con, $sql);
-      }
-      ?>
-      <div class="container">
-        <h2>What we've got</h2>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Product Name</th>
-              <th>Descritpion</th>
-              <th>Category</th>
-              <th>Start Price</th>
-              <th>Reserve Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php while ($row = mysqli_fetch_array($r_query)) { ?>
-            <tr>
-              <td><?php echo $row['productName'];?></td>
-              <td><?php echo $row['description'];?></td>
-              <td><?php echo $row['category'];?></td>
-              <td><?php echo $row['startPrice'];?></td>
-              <td><?php echo $row['reservePrice'];?></td>
-            </tr>
-          <?php } ?>
-          </tbody>
-        </table>
-      </div>
-</div>
+  <div class="container">
+      <p><?php echo $_SESSION['userID'];?><p>
+    <h2>Your Watchlist</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Descritpion</th>
+          <th>Category</th>
+          <th>Start Price</th>
+          <th>End Time</th>
+          <th>End Date</th>
+          <th>Current Bid</th>
+          <th>Remove From Watchlist</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php if ($products != null) {
+          $i = 0;
+        while ($i < count($products)) { ?>
+        <tr>
+          <td><?php echo $products[$i]['productName'];?></td>
+          <td><?php echo $products[$i]['description'];?></td>
+          <td><?php echo $products[$i]['category'];?></td>
+          <td><?php echo $products[$i]['startPrice'];?></td>
+          <td><?php echo $products[$i]['endTime'];?></td>
+          <td><?php echo $products[$i]['endDate'];?></td>
+          <td></td>
+          <td><form method="post">
+            <input id="productID" type="hidden" name="productID" value="<?php echo $products[$i]['productID'];?>">
+          <td><button type="submit" name="remove-watchlist" value="remove-watchlist" class="btn btn-primary"><rb>Remove</rb>
+          </form>
+        </tr>
+<?php
+$i += 1;
+}
+}
+$con->close();
+?>
+      </tbody>
+    </table>
+  </div>
+
+
+
 </body>
 
-  <footer>
-    <div class="content-wrap">
-      <p>AMRC is a registered charity in England and Wales (296772). Registered as a company limited by guarantee (2107400) in England and Wales. Registered office at Charles Darwin House 2, 107 Gray's Inn Rd, London WC1X 8TZ. Visit the AMRC website for more information:<a href="https://www.amrc.org.uk/" class="link-footer-tem" title="www.amrc.org.uk" target="_blank">www.amrc.org.uk</a></p>
-    </div>
-  </footer>
+
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
