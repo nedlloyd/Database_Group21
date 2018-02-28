@@ -78,8 +78,7 @@ while ($row = mysqli_fetch_array($r_query)) {
           <th>Descritpion</th>
           <th>Category</th>
           <th>Start Price</th>
-          <th>End Time</th>
-          <th>End Date</th>
+          <th>End Time and Date</th>
           <th>Current Bid</th>
           <th>Remove From Watchlist</th>
         </tr>
@@ -89,12 +88,20 @@ while ($row = mysqli_fetch_array($r_query)) {
           $i = 0;
         while ($i < count($products)) { ?>
         <tr>
+          <?php $currentEndDate = $products[$i]['endDateTime'];
+          echo $currentEndDate;
+          ?>
+          <script>
+          function dateToString(date) {
+              return date.substring(0, 10);
+          }
+          document.getElementById("demo").innerHTML = dateToString('<?php echo $currentEndDate ?>');
+          </script>
           <td><?php echo $products[$i]['productName'];?></td>
           <td><?php echo $products[$i]['description'];?></td>
           <td><?php echo $products[$i]['category'];?></td>
           <td><?php echo $products[$i]['startPrice'];?></td>
-          <td><?php echo $products[$i]['endTime'];?></td>
-          <td><?php echo $products[$i]['endDate'];?></td>
+          <td><p id="demo"></p></td>
           <td></td>
           <td><form method="post">
             <input id="productID" type="hidden" name="productID" value="<?php echo $products[$i]['productID'];?>">
@@ -105,7 +112,6 @@ while ($row = mysqli_fetch_array($r_query)) {
 $i += 1;
 }
 }
-$con->close();
 ?>
       </tbody>
     </table>
@@ -116,6 +122,7 @@ $con->close();
 </body>
 
 
+<?php $con->close(); ?>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
