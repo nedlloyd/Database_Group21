@@ -83,13 +83,15 @@ require '../assets/php/connect.php';
         <div class="form-group">
           <label for="category" class="col-sm-4 control-label">category</label>
           <div class="col-sm-4">
-            <input name="category" type="text-area" class="form-control" columns="7" id="category" placeholder="category">
+            <input name="category" class="form-control" columns="7" id="category" placeholder="category" list="browsers"/>
+            <datalist id="browsers">
+            </datalist>
           </div>
         </div>
 
         <div class="form-group submit-sign-up">
           <div class="col-sm-8 col-sm-offset-4">
-            <button type="submit" name="submit-user" value="submit-user" class="btn btn-primary">Submit</button>
+            <button type="submit" name="submit-product" value="submit-product" class="btn btn-primary">Submit</button>
           </div>
         </div>
 
@@ -97,15 +99,24 @@ require '../assets/php/connect.php';
     </form>
 
 <?php
-echo $_POST['endDateTime'];
-$admin = true;
+if (isset($_POST['submit-product'])) {
+  $description = mysqli_escape_string($con, $_POST['description']);
+  $startPrice = mysqli_escape_string($con, $_POST['$startPrice']);
+  $reservePrice = mysqli_escape_string($con, $_POST['reservePrice']);
+  $productName = mysqli_escape_string($con, $_POST['productName']);
+  $endDateTime = mysqli_escape_string($con, $_POST['endDateTime']);
+  $category = mysqli_escape_string($con, $_POST['category']);
+
+
+
 $stmt = $con->prepare("INSERT INTO product (description, startPrice, reservePrice, productName, endDateTime, category)
 VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("ssssss", $_POST['description'], $_POST['startPrice'], $_POST['reservePrice'], $_POST['productName'], $_POST['endDateTime'], $_POST['category']);
+$stmt->bind_param("ssssss", $description, $startPrice, $reservePrice, $productName, $endDateTime, $category);
 $stmt->execute();
 
 echo "New records created successfully";
 
+}
 $con->close();
 ?>
 
