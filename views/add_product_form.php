@@ -12,7 +12,7 @@ while ($row = mysqli_fetch_array($r_query)) {
 }
 
 if ($_SESSION['userID'] != $productUserID){
-$sql = "UPDATE product SET views= views + 1 WHERE productID=48";
+$sql = "UPDATE product SET views= views + 1 WHERE productID=49";
 $con->query($sql);
 }
 ?>
