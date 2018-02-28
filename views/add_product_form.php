@@ -2,6 +2,19 @@
 session_start();
 require '../assets/php/connect.php';
 
+$sql = "SELECT userID FROM product WHERE productID=49;";
+$r_query = mysqli_query($con, $sql);
+$productUserID = '';
+if ($r_query != null) {
+while ($row = mysqli_fetch_array($r_query)) {
+  $productUserID = $row['userID'];
+}
+}
+
+if ($_SESSION['userID'] != $productUserID){
+$sql = "UPDATE product SET views= views + 1 WHERE productID=48";
+$con->query($sql);
+}
 ?>
 
 
@@ -40,7 +53,6 @@ require '../assets/php/connect.php';
     <div class="wrapperforstickyfooter">
   <div class="content-wrap">
     <div class="container">
-
     <form class="form-horizontal" method="post">
       <fieldset>
         <legend>Add New Product</legend>
@@ -62,7 +74,7 @@ require '../assets/php/connect.php';
         <div class="form-group">
           <label for="startPrice" class="col-sm-4 control-label">Start Price</label>
           <div class="col-sm-4">
-            <input name="startPrice" type="text-area" class="form-control" columns="7" id="startPrice" placeholder="start price">
+            <input name="startPrice" type="text-area" class="form-control" columns="7" id="startPrice" placeholder="Reserve Price">
           </div>
         </div>
 
@@ -84,7 +96,7 @@ require '../assets/php/connect.php';
           <label for="category" class="col-sm-4 control-label">category</label>
           <div class="col-sm-4">
             <input name="category" class="form-control" columns="7" id="category" placeholder="category" list="browsers"/>
-            <datalist id="browsers">
+            <datalist id="categorys">
             </datalist>
           </div>
         </div>
@@ -101,20 +113,18 @@ require '../assets/php/connect.php';
 <?php
 if (isset($_POST['submit-product'])) {
   $description = mysqli_escape_string($con, $_POST['description']);
-  $startPrice = mysqli_escape_string($con, $_POST['$startPrice']);
+  $startPrice = mysqli_escape_string($con, $_POST['startPrice']);
   $reservePrice = mysqli_escape_string($con, $_POST['reservePrice']);
   $productName = mysqli_escape_string($con, $_POST['productName']);
   $endDateTime = mysqli_escape_string($con, $_POST['endDateTime']);
   $category = mysqli_escape_string($con, $_POST['category']);
 
+  $stmt = $con->prepare("INSERT INTO product (description, startPrice, reservePrice, productName, endDateTime, category, userID)
+  VALUES (?,?,?,?,?,?,?)");
+  $stmt->bind_param("sssssss", $description, $startPrice, $reservePrice, $productName, $endDateTime, $category, $_SESSION['userID']);
+  $stmt->execute();
 
-
-$stmt = $con->prepare("INSERT INTO product (description, startPrice, reservePrice, productName, endDateTime, category)
-VALUES (?,?,?,?,?,?)");
-$stmt->bind_param("ssssss", $description, $startPrice, $reservePrice, $productName, $endDateTime, $category);
-$stmt->execute();
-
-echo "New records created successfully";
+  echo "New records created successfully";
 
 }
 $con->close();
@@ -123,11 +133,10 @@ $con->close();
 
 
     </div>
-
-
   </div>
 </div>
 </body>
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
