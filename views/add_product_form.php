@@ -95,9 +95,21 @@ $con->query($sql);
         <div class="form-group">
           <label for="category" class="col-sm-4 control-label">category</label>
           <div class="col-sm-4">
-            <input name="category" class="form-control" columns="7" id="category" placeholder="category" list="browsers"/>
-            <datalist id="categorys">
-            </datalist>
+            <input list="category" name="category" class="form-control">
+  <datalist id="category" name="category">
+    <?php
+    $sql = "SELECT category FROM product;";
+    $r_query = mysqli_query($con, $sql);
+    $category_array = array();
+    while ($row = mysqli_fetch_array($r_query)){
+      $category = $row['category'];
+      if (!(in_array($category, $category_array))) {
+        array_push($category_array, $category);
+      echo "<option value='$category'>";
+    }
+    }
+     ?>
+  </datalist>
           </div>
         </div>
 

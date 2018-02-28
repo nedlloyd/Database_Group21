@@ -35,7 +35,7 @@ session_start();
     ?>
 
     <?php
-    $sql = "SELECT endDateTime FROM product WHERE productID=30;";
+    $sql = "SELECT endDateTime FROM product WHERE productID=39;";
     $r_query_DT = mysqli_query($con, $sql);
     $time = '';
     if ($r_query_DT != null) {
