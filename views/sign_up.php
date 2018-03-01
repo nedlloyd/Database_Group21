@@ -7,16 +7,46 @@ echo $_SESSION['role'];
 
 <?php
 $_SESSION['message'] = "";
+$nameErr = $emailErr = $address_line_1Err = $address_line_2Err = $address_line_3Err = $roleErr = $passwordErr = "";
 if (isset($_POST['submit-user'])) {
-  $name = mysqli_escape_string($con, $_POST['first_name']);
-  $address_line_1 = mysqli_escape_string($con, $_POST['address_line_1']);
-  $address_line_2 = mysqli_escape_string($con, $_POST['address_line_2']);
-  $address_line_3 = mysqli_escape_string($con, $_POST['address_line_3']);
-  $role = mysqli_escape_string($con, $_POST['role']);
-  $email = mysqli_escape_string($con, $_POST['email']);
-  $password = mysqli_escape_string($con, (password_hash($_POST['password'], PASSWORD_BCRYPT)));
-  $hash = mysqli_escape_string($con, ( md5( rand(0,1000))));
-  echo $role;
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = mysqli_escape_string($con, $_POST['first_name']);
+  }
+  if (empty($_POST["address_line_1"])) {
+    $address_line_1Err = "First Line of address is required";
+  } else {
+    $address_line_1 = mysqli_escape_string($con, $_POST['address_line_1']);
+  }
+  if (empty($_POST["address_line_2"])) {
+    $address_line_2Err = "Second Line of address is required";
+  } else {
+    $address_line_2 = mysqli_escape_string($con, $_POST['address_line_2']);
+  }
+  if (empty($_POST["address_line_3"])) {
+    $address_line_3Err = "Third Line of address is required";
+  } else {
+    $address_line_3 = mysqli_escape_string($con, $_POST['address_line_3']);
+  }
+  if (empty($_POST["role"])) {
+    $roleErr = "Role is required";
+  } else {
+    $role = mysqli_escape_string($con, $_POST['role']);
+  }
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+  } else {
+    $email = mysqli_escape_string($con, $_POST['email']);
+  }
+  if (empty($_POST["password"])) {
+    $passwordErr = "Role is required";
+  } else {
+    $password = mysqli_escape_string($con, (password_hash($_POST['password'], PASSWORD_BCRYPT)));
+    $hash = mysqli_escape_string($con, ( md5( rand(0,1000))));
+  }
+
+
 
   $sql = "SELECT * FROM users WHERE email='$email'";
   $result = mysqli_query($con, $sql) or die ($mysqli->error());
@@ -86,6 +116,7 @@ if ($_SESSION['role'] != 'admin') {
           <label for="name" class="col-sm-4 control-label">Name</label>
           <div class="col-sm-4">
             <input name="first_name" type="text" class="form-control" columns="7" id="name" placeholder="Name">
+            <span class="error"><?php echo $nameErr;?></span>
           </div>
         </div>
 
@@ -95,6 +126,7 @@ if ($_SESSION['role'] != 'admin') {
           <label for="email" class="col-sm-4 control-label">Email</label>
           <div class="col-sm-4">
             <input name="email" type="text" class="form-control" id="email" placeholder="Email">
+            <span class="error"><?php echo $emailErr;?></span>
           </div>
         </div>
 
@@ -102,6 +134,7 @@ if ($_SESSION['role'] != 'admin') {
           <label for="address_line_1" class="col-sm-4 control-label">Address Line 1</label>
           <div class="col-sm-4">
             <input name="address_line_1" type="text-area" class="form-control" columns="7" id="address_line_1" placeholder="Line 1">
+            <span class="error"><?php echo $address_line_1Err;?></span>
           </div>
         </div>
 
@@ -109,6 +142,7 @@ if ($_SESSION['role'] != 'admin') {
           <label for="address_line_2" class="col-sm-4 control-label">Address Line 2</label>
           <div class="col-sm-4">
             <input name="address_line_2" type="text-area" class="form-control" columns="7" id="address_line_2" placeholder="Line 2">
+            <span class="error"><?php echo $address_line_2Err;?></span>
           </div>
         </div>
 
@@ -116,18 +150,9 @@ if ($_SESSION['role'] != 'admin') {
           <label for="address_line_3" class="col-sm-4 control-label">Address Line 3</label>
           <div class="col-sm-4">
             <input name="address_line_3" type="text-area" class="form-control" columns="7" id="address_line_3" placeholder="Line 3">
+            <span class="error"><?php echo $address_line_3Err;?></span>
           </div>
         </div>
-
-        <!-- <div class="form-group">
-          <label for="admin_role" class="col-sm-4 control-label">Role</label>
-          <div class="col-sm-1">
-            <input class="radio-inline" type="checkbox" name="admin" value="">Yes<br>
-            </div>
-            <div class="col-sm-1">
-            <input class="radio-inline" type="checkbox" name="admin" value=0>No<br>
-          </div>
-        </div> -->
 
         <div class="form-group">
       <label for="role" class="col-sm-4 control-label">Account Type</label>
@@ -143,6 +168,7 @@ if ($_SESSION['role'] != 'admin') {
         }
           ?>
         </select>
+        <span class="error"><?php echo $roleErr;?></span>
       </div>
     </div>
 
@@ -150,14 +176,15 @@ if ($_SESSION['role'] != 'admin') {
         <div class="form-group">
           <label for="password" class="col-sm-4 control-label">Password</label>
           <div class="col-sm-4">
-            <input type="text" name="password" class="form-control" id="password" placeholder="password">
+            <input type="password" name="password" class="form-control" id="password" placeholder="password">
+            <span class="error"><?php echo $passwordErr;?></span>
           </div>
         </div>
 
         <div class="form-group">
           <label for="confirm_password" class="col-sm-4 control-label">Confirm Password</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="password" placeholder="password">
+            <input type="password" class="form-control" id="password" placeholder="password">
           </div>
         </div>
 
@@ -166,8 +193,6 @@ if ($_SESSION['role'] != 'admin') {
             <button type="submit" name="submit-user" value="submit-user" class="btn btn-primary">Submit</button>
           </div>
         </div>
-
-        <!-- <input id="admin" type="hidden" name="admin" value=0> -->
 
       </fieldset>
     </form>
