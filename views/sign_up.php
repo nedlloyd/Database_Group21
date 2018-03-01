@@ -1,6 +1,8 @@
 <?php
 session_start();
 require '../assets/php/connect.php';
+echo $_SESSION['userID'];
+echo $_SESSION['role'];
 ?>
 
 <?php
@@ -30,6 +32,10 @@ if (isset($_POST['submit-user'])) {
   } else {
     $_SESSION['message'] = "I'm afraid that email address has already been taken, please try another one";
   }
+
+if ($_SESSION['role'] != 'admin') {
+    $_SESSION['role'] = $role;
+}
 
   $con->close();
 }
@@ -130,6 +136,12 @@ if (isset($_POST['submit-user'])) {
           <option value="both">Seller and Buyer</option>
           <option value="seller">Seller</option>
           <option value="buyer">Buyer</option>
+          <?php if ($_SESSION['role'] === 'admin') {
+            ?>
+          <option value="admin">Admin</option>
+          <?php
+        }
+          ?>
         </select>
       </div>
     </div>

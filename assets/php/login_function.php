@@ -14,6 +14,7 @@ if (isset($_POST['submit-login'])) {
     $user = $result->fetch_assoc();
     if ( password_verify($_POST['password'], $user['password'])) {
         $_SESSION['userID'] = $user['id'];
+        $_SESSION['role'] = $user['role'];
         header("location: search_product.php");
     } else {
       $_SESSION['message'] = "You have entered the wrong password";
