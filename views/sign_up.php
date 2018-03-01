@@ -6,14 +6,15 @@ require '../assets/php/connect.php';
 <?php
 $_SESSION['message'] = "";
 if (isset($_POST['submit-user'])) {
-  $first_name = mysqli_escape_string($con, $_POST['first_name']);
+  $name = mysqli_escape_string($con, $_POST['first_name']);
   $address_line_1 = mysqli_escape_string($con, $_POST['address_line_1']);
   $address_line_2 = mysqli_escape_string($con, $_POST['address_line_2']);
   $address_line_3 = mysqli_escape_string($con, $_POST['address_line_3']);
-  $admin = mysqli_escape_string($con, $_POST['admin']);
+  $role = mysqli_escape_string($con, $_POST['role']);
   $email = mysqli_escape_string($con, $_POST['email']);
   $password = mysqli_escape_string($con, (password_hash($_POST['password'], PASSWORD_BCRYPT)));
   $hash = mysqli_escape_string($con, ( md5( rand(0,1000))));
+  echo $role;
 
   $sql = "SELECT * FROM users WHERE email='$email'";
   $result = mysqli_query($con, $sql) or die ($mysqli->error());
@@ -21,9 +22,9 @@ if (isset($_POST['submit-user'])) {
 
     $_SESSION['message'] = "Your account has been created!";
 
-    $stmt = $con->prepare("INSERT INTO users (first_name, address_line_1, address_line_2, address_line_3, admin, email, password, hash)
+    $stmt = $con->prepare("INSERT INTO users (name, address_line_1, address_line_2, address_line_3, email, password, hash, role)
     VALUES (?,?,?,?,?,?,?,?)");
-    $stmt->bind_param("ssssssss", $first_name, $address_line_1, $address_line_2, $address_line_3, $admin, $email, $password, $hash);
+    $stmt->bind_param("ssssssss", $name, $address_line_1, $address_line_2, $address_line_3, $email, $password, $hash, $role);
     $stmt->execute();
 
   } else {
@@ -112,15 +113,26 @@ if (isset($_POST['submit-user'])) {
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="admin_role" class="col-sm-4 control-label">Admin Role</label>
+        <!-- <div class="form-group">
+          <label for="admin_role" class="col-sm-4 control-label">Role</label>
           <div class="col-sm-1">
-            <input class="radio-inline" type="checkbox" name="admin" value=1>Yes<br>
+            <input class="radio-inline" type="checkbox" name="admin" value="">Yes<br>
             </div>
             <div class="col-sm-1">
             <input class="radio-inline" type="checkbox" name="admin" value=0>No<br>
           </div>
-        </div>
+        </div> -->
+
+        <div class="form-group">
+      <label for="role" class="col-sm-4 control-label">Account Type</label>
+      <div class="col-sm-4">
+        <select name="role" class="form-control" id="role">
+          <option value="both">Seller and Buyer</option>
+          <option value="seller">Seller</option>
+          <option value="buyer">Buyer</option>
+        </select>
+      </div>
+    </div>
 
 
         <div class="form-group">
@@ -143,6 +155,8 @@ if (isset($_POST['submit-user'])) {
           </div>
         </div>
 
+        <!-- <input id="admin" type="hidden" name="admin" value=0> -->
+
       </fieldset>
     </form>
 
@@ -156,6 +170,9 @@ if (isset($_POST['submit-user'])) {
 
   <footer>
   </footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
