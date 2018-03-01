@@ -86,22 +86,14 @@ while ($row = mysqli_fetch_array($r_query)) {
       <tbody>
         <?php if ($products != null) {
           $i = 0;
+          $endDateArray = [];
         while ($i < count($products)) { ?>
         <tr>
-          <?php $currentEndDate = $products[$i]['endDateTime'];
-          echo $currentEndDate;
-          ?>
-          <script>
-          function dateToString(date) {
-              return date.substring(0, 10);
-          }
-          document.getElementById("demo").innerHTML = dateToString('<?php echo $currentEndDate ?>');
-          </script>
           <td><?php echo $products[$i]['productName'];?></td>
           <td><?php echo $products[$i]['description'];?></td>
           <td><?php echo $products[$i]['category'];?></td>
           <td><?php echo $products[$i]['startPrice'];?></td>
-          <td><p id="demo"></p></td>
+          <td><?php echo substr($products[$i]['endDateTime'], 0, 10);?></td>
           <td></td>
           <td><form method="post">
             <input id="productID" type="hidden" name="productID" value="<?php echo $products[$i]['productID'];?>">
@@ -111,6 +103,7 @@ while ($row = mysqli_fetch_array($r_query)) {
 <?php
 $i += 1;
 }
+// print_r($endDateArray);
 }
 ?>
       </tbody>
