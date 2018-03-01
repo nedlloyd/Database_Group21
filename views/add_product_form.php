@@ -2,6 +2,7 @@
 session_start();
 require '../assets/php/connect.php';
 
+
 $sql = "SELECT userID FROM product WHERE productID=49;";
 $r_query = mysqli_query($con, $sql);
 $productUserID = '';
@@ -15,6 +16,53 @@ if ($_SESSION['userID'] != $productUserID){
 $sql = "UPDATE product SET views= views + 1 WHERE productID=49";
 $con->query($sql);
 }
+?>
+
+<?php
+$descriptionErr = $startPriceErr = $reservePriceErr = $productNameErr = $endDateTimeErr = $categoryErr = "";
+
+if (isset($_POST['submit-product'])) {
+  if (empty($_POST["description"])) {
+    $descriptionErr = "Description is required";
+  } else {
+    $description = mysqli_escape_string($con, $_POST['description']);
+  }
+  if (empty($_POST["startPrice"])) {
+    $startPriceErr = "Start price is required";
+  } else {
+    $startPrice = mysqli_escape_string($con, $_POST['startPrice']);
+  }
+  if (empty($_POST["reservePrice"])) {
+    $reservePriceErr = "reservePrice is required";
+  } else {
+    $reservePrice = mysqli_escape_string($con, $_POST['reservePrice']);
+  }
+  if (empty($_POST["productName"])) {
+    $productNameErr = "Product Name is required";
+  } else {
+    $productName = mysqli_escape_string($con, $_POST['productName']);
+  }
+  if (empty($_POST["endDateTime"])) {
+    $endDateTimeErr = "End Date and Time is required";
+  } else {
+    $endDateTime = mysqli_escape_string($con, $_POST['endDateTime']);
+  }
+  if (empty($_POST["category"])) {
+    $categoryErr = "Category is required";
+  } else {
+    $category = mysqli_escape_string($con, $_POST['category']);
+  }
+
+
+  $stmt = $con->prepare("INSERT INTO product (description, startPrice, reservePrice, productName, endDateTime, category, userID)
+  VALUES (?,?,?,?,?,?,?)");
+  $stmt->bind_param("sssssss", $description, $startPrice, $reservePrice, $productName, $endDateTime, $category, $_SESSION['userID']);
+  $stmt->execute();
+
+  echo "New records created successfully";
+
+}
+
 ?>
 
 
@@ -61,6 +109,7 @@ $con->query($sql);
           <label for="productName" class="col-sm-4 control-label">Product Title</label>
           <div class="col-sm-4">
             <input name="productName" type="text" class="form-control" columns="7" id="productName" placeholder="Title">
+            <span class="error"><?php echo $productNameErr;?></span>
           </div>
         </div>
 
@@ -68,6 +117,7 @@ $con->query($sql);
           <label for="description" class="col-sm-4 control-label">Description</label>
           <div class="col-sm-4">
             <input name="description" type="text" class="form-control" id="description" placeholder="description">
+            <span class="error"><?php echo $descriptionErr;?></span>
           </div>
         </div>
 
@@ -75,6 +125,7 @@ $con->query($sql);
           <label for="startPrice" class="col-sm-4 control-label">Start Price</label>
           <div class="col-sm-4">
             <input name="startPrice" type="text-area" class="form-control" columns="7" id="startPrice" placeholder="Reserve Price">
+            <span class="error"><?php echo $startPriceErr;?></span>
           </div>
         </div>
 
@@ -82,6 +133,7 @@ $con->query($sql);
           <label for="reservePrice" class="col-sm-4 control-label">Reserve Price</label>
           <div class="col-sm-4">
             <input name="reservePrice" type="text-area" class="form-control" columns="7" id="reservePrice" placeholder="Reserve Price">
+            <span class="error"><?php echo $reservePriceErr;?></span>
           </div>
         </div>
 
@@ -89,6 +141,7 @@ $con->query($sql);
           <label for="endDateTime" class="col-sm-4 control-label">End Date and Time</label>
           <div class="col-sm-4">
             <input class="form-control" name="endDateTime" id="endDateTime" type="datetime-local" name="bdaytime">
+            <span class="error"><?php echo $endDateTimeErr;?></span>
           </div>
         </div>
 
@@ -108,6 +161,7 @@ $con->query($sql);
       echo "<option value='$category'>";
     }
     }
+    $con->close();
      ?>
   </datalist>
           </div>
@@ -121,26 +175,6 @@ $con->query($sql);
 
       </fieldset>
     </form>
-
-<?php
-if (isset($_POST['submit-product'])) {
-  $description = mysqli_escape_string($con, $_POST['description']);
-  $startPrice = mysqli_escape_string($con, $_POST['startPrice']);
-  $reservePrice = mysqli_escape_string($con, $_POST['reservePrice']);
-  $productName = mysqli_escape_string($con, $_POST['productName']);
-  $endDateTime = mysqli_escape_string($con, $_POST['endDateTime']);
-  $category = mysqli_escape_string($con, $_POST['category']);
-
-  $stmt = $con->prepare("INSERT INTO product (description, startPrice, reservePrice, productName, endDateTime, category, userID)
-  VALUES (?,?,?,?,?,?,?)");
-  $stmt->bind_param("sssssss", $description, $startPrice, $reservePrice, $productName, $endDateTime, $category, $_SESSION['userID']);
-  $stmt->execute();
-
-  echo "New records created successfully";
-
-}
-$con->close();
-?>
 
 
 
