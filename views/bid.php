@@ -1,40 +1,104 @@
 <?php
+session_start();
 require '../assets/php/connect.php';
+echo $_SESSION['userID'];
+echo $_SESSION['productID']
 ?>
+
+<?php
+$_SESSION['message'] = "";
+$amountErr = "";
+if (isset($_POST['amount'])) {
+  if (empty($_POST["amount"])) {
+    $amountErr = "Bid amount is required";
+  } else {
+    $amount = mysqli_escape_string($con, $_POST['amount']);
+  }
+}
+?>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
+
+  <header role="banner" class="header-reports">
+    <div class="content-wrap">
+      <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
+      <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
+            <span class="glyphicon glyphicon-envelope"></span> Contact Us
+          </button>
+        </div>
+      </div>
+      <h1 class="loginTitle"> Esway </h1>
+    </div>
+  </header>
+</form>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-<p> Buyer </p>
+<h1> Bid page </h1>
 </head>
-<body>
 
-  <form method="post" action="bid.php">
+  <body>
+    <form method="post" action="bid.php">
 
-    <label for="userID">userID</label>
-    <input type="text" id="userID" name="userID">
+    <div class="wrapperforstickyfooter">
+    <div class="content-wrap">
+      <div class="container">
+      <form class="form-horizontal" method="post">
+        <fieldset>
 
-    <label for="productID">productID</label>
-    <input type="text" id="productID" name="productID">
 
-    <label for="amount">amount</label>
-    <input type="float" id="amount" name="amount">
+          <div class="form-group">
+            <label for="userID" class="col-sm-4 control-label">userID</label>
+            <div class="col-sm-4">
+              <input name="userID" type="text" class="form-control" columns="7" id="userID" placeholder="userID">
+            </div>
+          </div>
+<p>
 
-    <div class="input-group">
-        <input type="submit" value="Submit">
-    </div>
+</p>
+          <div class="form-group">
+            <label for="productID" class="col-sm-4 control-label">productID</label>
+            <div class="col-sm-4">
+              <input name="productID" type="text" class="form-control" columns="7" id="productID" placeholder="productID">
+            </div>
+          </div>
+<p>
 
-</form>
-</body>
-</html>
+</p>
+            <div class="form-group">
+              <label for="amount" class="col-sm-4 control-label">bid amount (£)</label>
+              <div class="col-sm-4">
+              <input name="amount" type="text" class="form-control" id="amount" placeholder="bid amount (£)">
+              <span class="error"><?php echo $amounterr?></span>
+            </div>
+          </div>
+<p>
+
+</p>
+          <div class="input-group">
+              <input type="submit" value="Submit">
+          </div>
+        </form>
+      </body>
 
 <?php
 if (isset($_POST['submit-buyer'])) {
-$stmt = $con->prepare("INSERT INTO bid (amount)
-VALUES (?)");
-$stmt->bind_param("ss", $_POST['amount']);
+$stmt = $con->prepare("INSERT INTO bid (amount, productID, userID)
+VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $_POST['amount'], $_SESSION['productID'], $_SESSION['userID']);
 $stmt->execute();
-echo "done";
+echo "New bid submitted.";
 $con->close();
 }
 ?>
