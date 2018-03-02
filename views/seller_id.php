@@ -4,10 +4,33 @@ session_start();
 
 ?>
 
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
+
+  <header role="banner" class="header-reports">
+    <div class="content-wrap">
+      <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
+      <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
+            <span class="glyphicon glyphicon-envelope"></span> Contact Us
+          </button>
+        </div>
+      </div>
+      <h1 class="loginTitle"> Esway </h1>
+    </div>
+  </header>
+</form>
+
 <!DOCTYPE html>
 <html>
 <head>
-<p> Seller </p>
 </head>
 <body>
   <div>
@@ -23,13 +46,11 @@ session_start();
 //* $starttime and similar needs cleaning before database querying, etc.
       $countdown = $result_starttime->diff($result_endtime);
 
+      $sql = "SELECT MAX(amount) AS Current Bid FROM bid;";
+      $r_query_max = mysqli_query($con, $sql);
 
-
-    $sql = "SELECT MAX(amount) AS Current Bid FROM bid;";
-    $r_query_max = mysqli_query($con, $sql);
-
-    $sql = "SELECT * FROM product;";
-    $r_query = mysqli_query($con, $sql);
+      $sql = "SELECT * FROM product;";
+      $r_query = mysqli_query($con, $sql);
 
     }
     ?>
@@ -42,10 +63,9 @@ session_start();
     while ($row = mysqli_fetch_array($r_query_DT)) {
       $time = $row['endDateTime'];
       echo $time;
-    }
+    }   /*$_POST['varname'] = $var_name;?>*/
   }
      ?>
-
 
     <p id="timer"></p>
 
@@ -69,16 +89,22 @@ session_start();
 
     <div class="container">
         <p><?php echo $_SESSION['userID'];?><p>
-      <h2>Current Status</h2>
-      <a class="btn btn-lg btn-primary btn-block" href="bid.php">Current Status</a>
+      <h2>Current Product Bidding Status</h2>
+      <button onclick="myFunction()">Refresh page</button>
+      <script>
+      function myFunction() {
+          location.reload();
+      }
+
+      </script>
       <table class="table table-striped">
         <thead>
           <tr>
             <th>Product Name</th>
+            <th>ProductID</th>
             <th>Start Price</th>
             <th>Amount</th>
             <th>Time Remaining</th>
-            <th>ProductID</th>
           </tr>
         </thead>
         <tbody>
@@ -86,24 +112,25 @@ session_start();
           while ($row = mysqli_fetch_array($r_query)) { ?>
           <tr>
             <td><?php echo $row['productName'];?></td>
+            <td><?php echo $row['productID'];?></td>
             <td><?php echo $row['startPrice'];?></td>
             <td><?php echo $row['amount'];?></td>
             <td><p id="timer"></p></td>
-            <td><?php echo $row['productID'];?></td>
             <form method="post">
             <input type="hidden" name="productID" value="<?php echo $row['productID']; ?>">
             </form>
           </tr>
-        <?php }
+          <?php }
       } ?>
 
 </form>
 </body>
+
 <?php
 if (isset($_POST['submit-seller'])) {
-$stmt = $con->prepare("INSERT INTO feedback (minprice, starttime, endtime)
+$stmt = $con->prepare("INSERT INTO bid (amount, timer)
 VALUES (?,?,?)");
-$stmt->bind_param("ss", $_POST['minprice'], $_POST['starttime'], $_POST['endtime']);
+$stmt->bind_param("ss", $_POST['amount'], $_POST['timer']);
 $stmt->execute();
 echo "done";
 $con->close();
