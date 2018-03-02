@@ -4,6 +4,6 @@ require '../assets/php/connect.php';
 
 $_SESSION = array();
 session_destroy();
-header("location: .php");
+header("location: login.php");
 exit;
 ?>
