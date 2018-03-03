@@ -39,20 +39,55 @@ $r_query = null;
 
 <form method="get">
 <p>
-  <label for="searchterm"> Find Stuff: </label>
-  <input type="search" name="searchterm" id="searchterm">
-  <input type="submit" name="search" id="search" value="search">
+  <p>
+    <label for="searchterm"> Find: </label>
+    <input type="search" name="searchname" id="searchname">
+  </p>
+
 </p>
+
+<label for="searchterm"> Find Category: </label>
+  <div class="form-group">
+  <label for="category" class="col-sm-12 control-label">category</label>
+  <div class="col-sm-12">
+    <input list="category" name="searchcategory" id="search" class="form-control">
+<datalist id="category" name="category">
+<?php
+$sql = "SELECT category FROM product;";
+$r_query_cat = mysqli_query($con, $sql);
+$category_array = array();
+while ($row_cat = mysqli_fetch_array($r_query_cat)){
+$category = $row_cat['category'];
+if (!(in_array($category, $category_array))) {
+array_push($category_array, $category);
+echo "<option value='$category'>";
+}
+}
+?>
+</datalist>
+  </div>
+</div>
+
+<p>
+  <div class="form-group">
+    <label for="endDateTime" class="col-sm-12 control-label">End Date and Time</label>
+    <div class="col-sm-12">
+      <input class="form-control" name="endDateTime" id="endDateTime" type="datetime-local" name="bdaytime">
+    </div>
+  </div>
+</p>
+
+<input type="submit" name="search" id="search" value="search">
 </form>
 
-<?php if (isset($_GET['searchterm'])) { ?>
-  <p>You searched for <?php echo $_GET['searchterm'];?>.<p>
-
 <?php
-$term = mysqli_real_escape_string($con, $_GET['searchterm']);
-echo $term;
+if (isset($_GET['search'])) {
+$term_name = mysqli_real_escape_string($con, $_GET['searchname']);
+$term_cat = mysqli_real_escape_string($con, $_GET['searchcategory']);
+$term_endDate = mysqli_real_escape_string($con, substr($_GET['endDateTime'], 0, 10));
+echo substr($_GET['endDateTime'], 0, 10);
 
-$sql = "SELECT * FROM product WHERE productName LIKE '%".$term."%'";
+$sql = "SELECT * FROM product WHERE category LIKE '%".$term_cat."%' AND productName LIKE '%".$term_name."%' AND endDateTime LIKE '%".$term_endDate."%'";
 $r_query = mysqli_query($con, $sql);
 }
 ?>
@@ -69,7 +104,8 @@ $r_query = mysqli_query($con, $sql);
         <th onclick="sortTable(2)">Category</th>
         <th onclick="sortTable(3)">Start Price</th>
         <th onclick="sortTable(4)">Reserve Price</th>
-        <th onclick="sortTable(5)">ProductID</th>
+        <th onclick="sortTable(5)">End Date</th>
+        <th onclick="sortTable(5)">End Time</th>
         <th onclick="sortTable(6)"> Watchlist</th>
       </tr>
     </thead>
@@ -82,7 +118,8 @@ $r_query = mysqli_query($con, $sql);
         <td><?php echo $row['category'];?></td>
         <td><?php echo $row['startPrice'];?></td>
         <td><?php echo $row['reservePrice'];?></td>
-        <td><?php echo $row['productID'];?></td>
+        <td><?php echo substr($row['endDateTime'], 0, 10);?></td>
+        <td><?php echo substr($row['endDateTime'], 11, 16);?></td>
         <form method="post">
         <input type="hidden" name="productID" value="<?php echo $row['productID']; ?>">
         <input id="productName" type="hidden" name="productName" value="<?php echo $row['productName']; ?>">
