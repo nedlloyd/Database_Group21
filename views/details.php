@@ -5,38 +5,21 @@ require '../assets/php/connect.php';
 
 
 <?php
-#$message = '';
-#$db = new MySQLi('localhost', 'phpwebdes', 'lynda', 'product');
-#if ($db->connect_error) {
-#	$message = $db->connect_error;
-#} else {
-#	$sql = "SELECT * FROM arrangements";
-#	$result = $db -> query($sql);
-#	if ($db -> error) {
-#		$message = $db -> error;
-#	}
-#}
-?>
-
-
-<?php
-
 $message = '';
+
 if ($con->connect_error) {
 	$message = $con->connect_error;
 } else {
-	$sql = "SELECT * FROM product";
+	$sql = "SELECT * FROM product WHERE productID=" . $con->real_escape_string($_GET['id']);
 	$result = $con -> query($sql);
 	if ($con -> error) {
 		$message = $con -> error;
+	} else {
+		$row = $result -> fetch_assoc();
+		
 	}
 }
-
-
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,43 +59,54 @@ if ($con->connect_error) {
 
 
 </head>
-<body>
-<div id="site">
-	<div id="content">
-		<div id="col_1" role="main">
-			
-			
-		<?php if ($message) {
-		echo "<h2>$message</h2>";
-		} else { ?>
-
-		<div class="page open">
-			<?php 
-				$i = 0;
-				while ($row = $result -> fetch_assoc()) { 
-					if ($i % 4 === 0 ) {
-					?>
-					<div class="section">
-						<ul class="reset tiles">
-						<?php } ?>
-							<li> <a href="details.php?id=<?php echo $row['productID'] ?>"> <img src="../images/images/<?php echo $row['image']; // need to change  ?>" alt="<?php echo $row['category']; ?> " height="200" width="200">  
-								<h3 class="h4"><?php echo $row['productName']; ?></h3>
-								<p class="reset">From $<?php echo $row['startPrice']; ?></p>
-								</a> </li>
-
-						<?php $i++;
-						if ($i % 4 === 0 ) { ?>
-						</ul>
-					</div> 
-			<?php } // end of if
-			} // end of loop ?>
-		</div>
 	
-		<?php }  // end of page ?>
+	
+<body>
+	<div id="site">
+		<div id="content">
+			
+			
+			<div id="col_1" role="main">
+				
+				<?php if ($message) {
+				echo "<h2>$message</h2>";
+				} else { ?>
+				
+				<form action="basket.php" method="post" id="bab_form" class="basket_add clearfix">
+				<h1 class="inline_block"><?php echo $row['productName']; ?></h1>          
+            	<p class="figure"><img src="../images/images/<?php echo $row['image']; ?>" alt="<?php echo $row['category']; ?>" width="200" height="200">Price from $<?php echo $row['startPrice']; ?></p>
+            	<?php echo $row['description']; ?>
+				
+				<div class="qty">
+                       <label for="qty">Quantity</label>
+                       <input value="0" name="qty_<?php echo $row['productID'] ?>" id="qty" class="text" type="number" min="0">
+                </div>
+					
+				<input type="hidden" name="price_<?php echo $row['productID'] ?>" value="<?php echo $row['startPrice'] ?>">
+				
+				<input type="hidden" name="image_<?php echo $row['productID'] ?>" value="<?php echo $row['image'] ?>">	
+					
+				
+				<div id="addtobask">
+					<!-- if not login, jump into login page -->
+					
+					<input class="btn checkout" value="Add to Basket" type="submit" name="addtobasket">
+				</div>
+					
+					
+				</form>
+				<?php 
+				if (isset($_POST['addtobasket'])){
+					print_r($_POST);
+				}
+				?>
+				
+				<?php }  // end of page ?>
+			</div>
+			
+			
 		</div>
 	</div>
-</div>
-
 </body>
 	
   <footer>
