@@ -1,31 +1,130 @@
 <?php
 session_start();
 require '../assets/php/connect.php';
+echo $_SESSION['userID'];
+echo $_SESSION['role'];
 ?>
 
-<!doctype html>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>purchase</title>
+  <meta charset="utf-8">
+  <!-- Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- IE Edge Meta Tag// edge means the browser should use the best and newest machine -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
+
+  <header role="banner" class="header-reports">
+    <div class="content-wrap">
+      <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
+      <div class='btn-toolbar pull-right'>
+        <div class='btn-group'>
+          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
+            <span class="glyphicon glyphicon-envelope"></span> Contact Us
+          </button>
+        </div>
+      </div>
+
+      <h1 class="loginTitle"> Esway </h1>
+
+    </div>
+  </header>
+
+
 </head>
 <body>
-<h1>purchase</h1>
-    <form  action="do.php" method="POST" enctype="multipart/form-data">
-        *purchase_orderID: <input name="purchase_orderID" type="text" value="" size="30"  required /><br />
-        *productID: <input name="productID" type="text" value="" size="30"  required /><br />
-        *purchase comfirmation :
-            Yes <input type="radio" name="Yes" value="1">
-            No<input type="radio" name=" No" value="2" checked> <br>
-        *payment:
-            credit card<input type="radio" name="cride card" value="1">
-            paypal<input type="radio" name=" paypal" value="2">
-            other<input type="radio" name=" other" value="3" checked> <br>
+    <div class="wrapperforstickyfooter">
+  <div class="content-wrap">
+    <div class="container">
 
-        <input name="productID" type="hidden" value="1"/>
-        <input name="userID" type="hidden" value="$_SESSION['userID']"/>
-        <input name="doing" type="hidden" value="feedback"/>
-        <input type="submit" value="submit" name="submit-purchase"/>
+    <form class="form-horizontal" method="post" action="do.php">
+      <fieldset>
+        <legend>Purchase</legend>
+              <p></p>
+
+        <div class="form-group">
+          <label for="orderID" class="col-sm-4 control-label">orderID</label>
+          <div class="col-sm-4">
+            <input name="productID" type="text" class="form-control" columns="7" id="productID" placeholder="productID">
+            <span class="error"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+      <label for="role" class="col-sm-4 control-label">purchase comfirmation</label>
+      <div class="col-sm-4">
+        <select name="role" class="form-control" id="role">
+          <option value="1">Yes</option>
+          <option value="2">No</option>
+        
+          <?php if ($_SESSION['role'] === 'admin') {
+            ?>
+          <option value="admin">Admin</option>
+
+
+          <?php
+        }
+          ?>
+        </select>
+        <span class="error"></span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="role" class="col-sm-4 control-label">payment</label>
+      <div class="col-sm-4">
+        <select name="role" class="form-control" id="role">
+           <option value="1">credit card</option>
+           <option value="2">paypal</option>
+           <option value="2">other</option>
+
+        
+          <?php if ($_SESSION['role'] === 'admin') {
+            ?>
+          <option value="admin">Admin</option>
+
+
+          <?php
+        }
+          ?>
+        </select>
+        <span class="error"></span>
+      </div>
+    </div>
+
+
+        <div class="form-group submit-sign-up">
+          <div class="col-sm-8 col-sm-offset-4">
+            <button type="submit" name="submit-user" value="submit-user" class="btn btn-primary">Submit</button>
+            <input type="hidden" name="doing" value="feedback">
+          </div>
+        </div>
+
+      </fieldset>
     </form>
+
+
+    </div>
+
+
+  </div>
+</div>
 </body>
+
+  <footer>
+  </footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 </html>
