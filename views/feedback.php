@@ -83,13 +83,6 @@ echo $_SESSION['role'];
             ?>
           <option value="admin">Admin</option>
 
-          <div class="form-group">
-          <label for="feedback comment" class="col-sm-4 control-label">feedback comment</label>
-          <div class="col-sm-4">
-            <input name="feedback comment" type="text" class="form-control" id="feedback comment" placeholder="feedback comment">
-            <span class="error"></span>
-          </div>
-        </div>
 
           <?php
         }
@@ -100,18 +93,11 @@ echo $_SESSION['role'];
     </div>
 
 
-        <div class="form-group">
-          <label for="password" class="col-sm-4 control-label">Password</label>
+          <div class="form-group">
+          <label for="feedback comment" class="col-sm-4 control-label">feedback comment</label>
           <div class="col-sm-4">
-            <input type="password" name="password" class="form-control" id="password" placeholder="password">
-            <span class="error"></span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="confirm_password" class="col-sm-4 control-label">Confirm Password</label>
-          <div class="col-sm-4">
-            <input type="password" class="form-control" id="password" placeholder="password">
+           <input name="feedback comment" type="text" class="form-control" id="feedback comment" placeholder="feedback comment">
+           <span class="error"></span>
           </div>
         </div>
 
