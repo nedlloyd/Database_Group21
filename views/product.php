@@ -80,22 +80,22 @@ if ($con->connect_error) {
 <div id="site">
 	<div id="content">
 		<div id="col_1" role="main">
-			
-			
+
+
 		<?php if ($message) {
 		echo "<h2>$message</h2>";
 		} else { ?>
 
 		<div class="page open">
-			<?php 
+			<?php
 				$i = 0;
-				while ($row = $result -> fetch_assoc()) { 
+				while ($row = $result -> fetch_assoc()) {
 					if ($i % 4 === 0 ) {
 					?>
 					<div class="section">
 						<ul class="reset tiles">
 						<?php } ?>
-							<li> <a href="details.php?id=<?php echo $row['productID'] ?>"> <img src="../images/images/<?php echo $row['image']; // need to change  ?>" alt="<?php echo $row['category']; ?> " height="200" width="200">  
+							<li> <a href="details.php?id=<?php echo $row['productID'] ?>"> <img src="../images/images/<?php echo $row['image']; // need to change  ?>" alt="<?php echo $row['category']; ?> " height="200" width="200">
 								<h3 class="h4"><?php echo $row['productName']; ?></h3>
 								<p class="reset">From $<?php echo $row['startPrice']; ?></p>
 								</a> </li>
@@ -103,20 +103,20 @@ if ($con->connect_error) {
 						<?php $i++;
 						if ($i % 4 === 0 ) { ?>
 						</ul>
-					</div> 
+					</div>
 			<?php } // end of if
 			} // end of loop ?>
 		</div>
-	
+
 		<?php }  // end of page ?>
 		</div>
 	</div>
 </div>
 
 </body>
-	
+
   <footer>
-  
+
   </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

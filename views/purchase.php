@@ -60,7 +60,7 @@ echo $_SESSION['role'];
         <select name="role" class="form-control" id="role">
           <option value="1">Yes</option>
           <option value="2">No</option>
-        
+
           <?php if ($_SESSION['role'] === 'admin') {
             ?>
           <option value="admin">Admin</option>
@@ -82,7 +82,7 @@ echo $_SESSION['role'];
            <option value="2">paypal</option>
            <option value="2">other</option>
 
-        
+
           <?php if ($_SESSION['role'] === 'admin') {
             ?>
           <option value="admin">Admin</option>

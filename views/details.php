@@ -7,6 +7,23 @@ require '../assets/php/connect.php';
 <?php
 $message = '';
 
+$productID = mysqli_escape_string($con, $_GET['id']);
+echo $_GET['id'];
+
+$sql = "SELECT userID FROM product WHERE productID=$productID;";
+$r_query = mysqli_query($con, $sql);
+$productUserID = '';
+if ($r_query != null) {
+while ($row = mysqli_fetch_array($r_query)) {
+  $productUserID = $row['userID'];
+}
+}
+echo $_SESSION['userID'];
+if ($_SESSION['userID'] != $productUserID){
+$sql = "UPDATE product SET views= views + 1 WHERE productID=$productID";
+$con->query($sql);
+}
+
 if ($con->connect_error) {
 	$message = $con->connect_error;
 } else {
@@ -16,7 +33,7 @@ if ($con->connect_error) {
 		$message = $con -> error;
 	} else {
 		$row = $result -> fetch_assoc();
-		
+
 	}
 }
 ?>
@@ -59,58 +76,58 @@ if ($con->connect_error) {
 
 
 </head>
-	
-	
+
+
 <body>
 	<div id="site">
 		<div id="content">
-			
-			
+
+
 			<div id="col_1" role="main">
-				
+
 				<?php if ($message) {
 				echo "<h2>$message</h2>";
 				} else { ?>
-				
+
 				<form action="basket.php" method="post" id="bab_form" class="basket_add clearfix">
-				<h1 class="inline_block"><?php echo $row['productName']; ?></h1>          
+				<h1 class="inline_block"><?php echo $row['productName']; ?></h1>
             	<p class="figure"><img src="../images/images/<?php echo $row['image']; ?>" alt="<?php echo $row['category']; ?>" width="200" height="200">Price from $<?php echo $row['startPrice']; ?></p>
             	<?php echo $row['description']; ?>
-				
+
 				<div class="qty">
                        <label for="qty">Quantity</label>
                        <input value="0" name="qty_<?php echo $row['productID'] ?>" id="qty" class="text" type="number" min="0">
                 </div>
-					
+
 				<input type="hidden" name="price_<?php echo $row['productID'] ?>" value="<?php echo $row['startPrice'] ?>">
-				
-				<input type="hidden" name="image_<?php echo $row['productID'] ?>" value="<?php echo $row['image'] ?>">	
-					
-				
+
+				<input type="hidden" name="image_<?php echo $row['productID'] ?>" value="<?php echo $row['image'] ?>">
+
+
 				<div id="addtobask">
 					<!-- if not login, jump into login page -->
-					
+
 					<input class="btn checkout" value="Add to Basket" type="submit" name="addtobasket">
 				</div>
-					
-					
+
+
 				</form>
-				<?php 
+				<?php
 				if (isset($_POST['addtobasket'])){
 					print_r($_POST);
 				}
 				?>
-				
+
 				<?php }  // end of page ?>
 			</div>
-			
-			
+
+
 		</div>
 	</div>
 </body>
-	
+
   <footer>
-  
+
   </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
