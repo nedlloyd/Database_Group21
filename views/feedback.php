@@ -61,7 +61,7 @@ echo $_SESSION['role'];
             <span class="error"></span>
           </div>
         </div>
-        
+
         <div class="form-group">
           <label for="productID" class="col-sm-4 control-label">productID</label>
           <div class="col-sm-4">

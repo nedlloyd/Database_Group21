@@ -87,7 +87,7 @@ if (isset($_POST['amount'])) {
 
 </p>
           <div class="input-group">
-              <input type="submit" value="Submit">
+              <input type="submit" value="Submit" name="submit-buyer">
           </div>
         </form>
       </body>
