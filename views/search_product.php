@@ -155,7 +155,9 @@ $r_query = mysqli_query($con, $sql);
     </thead>
     <tbody>
       <?php if ($r_query != null) {
-      while ($row = mysqli_fetch_array($r_query)) { ?>
+      while ($row = mysqli_fetch_array($r_query)) {
+          if((time() - strtotime($row['endDateTime']) <= 0)) {
+        ?>
       <tr>
         <td><a href="details.php?id=<?php echo $row['productID'] ?>"><?php echo $row['productName'];?></a></td>
         <td><?php echo $row['description'];?></td>
@@ -170,7 +172,9 @@ $r_query = mysqli_query($con, $sql);
         <td><button type="submit" name="add-watchlist" value="add-watchlist" class="btn btn-primary">Add To Watchlist</button></td>
         </form>
       </tr>
-    <?php }
+    <?php
+  }
+  }
   } ?>
     </tbody>
   </table>
