@@ -47,63 +47,79 @@ $r_query = null;
     </div>
   </div>
 
-  <div class="form-group">
-  <label for="description" class="col-sm-4 control-label"> Search also in Description</label>
-  <div class="col-sm-1">
-  <input class="form-control" type="radio" name="description" value='1'> Yes
-  </div>
-    <div class="col-sm-1">
-  <input class="form-control" type="radio" name="description" value='0' checked> No
-  </div>
-  </div>
+  <div class="panel-group col-sm-10 col-sm-offset-1">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">Advanced Search</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <div class="panel-body">
 
-  <div class="form-group">
-  <label for="category" class="col-sm-4 control-label">category</label>
-  <div class="col-sm-4">
-    <input class="form-control" list="category" name="searchcategory" id="search">
-<datalist id="category" name="category">
-<?php
-$sql = "SELECT category FROM product;";
-$r_query_cat = mysqli_query($con, $sql);
-$category_array = array();
-while ($row_cat = mysqli_fetch_array($r_query_cat)){
-$category = $row_cat['category'];
-if (!(in_array($category, $category_array))) {
-array_push($category_array, $category);
-echo "<option value='$category'>";
-}
-}
-?>
-</datalist>
-  </div>
-</div>
+        <div class="form-group">
+        <label for="description" class="col-sm-4 control-label"> Search also in Description</label>
+        <div class="col-sm-1">
+        <input class="form-control" type="radio" name="description" value='1'> Yes
+        </div>
+          <div class="col-sm-1">
+        <input class="form-control" type="radio" name="description" value='0' checked> No
+        </div>
+        </div>
 
-  <div class="form-group">
-    <label for="endDateTime" class="col-sm-4 control-label">End Date and Time</label>
-    <div class="col-sm-4">
-      <input class="form-control" name="endDateTime" id="endDateTime" type="date">
+        <div class="form-group">
+        <label for="category" class="col-sm-4 control-label">category</label>
+        <div class="col-sm-4">
+          <input class="form-control" list="category" name="searchcategory" id="search">
+        <datalist id="category" name="category">
+        <?php
+        $sql = "SELECT category FROM product;";
+        $r_query_cat = mysqli_query($con, $sql);
+        $category_array = array();
+        while ($row_cat = mysqli_fetch_array($r_query_cat)){
+        $category = $row_cat['category'];
+        if (!(in_array($category, $category_array))) {
+        array_push($category_array, $category);
+        echo "<option value='$category'>";
+        }
+        }
+        ?>
+        </datalist>
+        </div>
+        </div>
+
+        <div class="form-group">
+          <label for="endDateTime" class="col-sm-4 control-label">End Date and Time</label>
+          <div class="col-sm-4">
+            <input class="form-control" name="endDateTime" id="endDateTime" type="date">
+          </div>
+        </div>
+
+        <div class="form-group">
+        <label for="lowprice" class="col-sm-4 control-label">Starting Price: more than</label>
+        <div class="col-sm-1">
+        <input class="form-control" type="number" id="lowprice" name="lowprice">
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label for="highprice" class="col-sm-4 control-label">Starting Price: less than</label>
+        <div class="col-sm-1">
+        <input class="form-control" type="number" id="highprice" name="highprice">
+        </div>
+
+      </div>
     </div>
   </div>
-
-<div class="form-group">
-  <label for="lowprice" class="col-sm-4 control-label">Starting Price: more than</label>
-  <div class="col-sm-1">
-  <input class="form-control" type="number" id="lowprice" name="lowprice">
-  </div>
 </div>
-
-<div class="form-group">
-  <label for="highprice" class="col-sm-4 control-label">Starting Price: less than</label>
-  <div class="col-sm-1">
-  <input class="form-control" type="number" id="highprice" name="highprice">
 </div>
-
 
 <div class="form-group col-sm-12">
-  <div class="col-sm-6 col-sm-offset-4">
-        <input type="submit" name="search" id="search" value="search" class="btn btn-primary search-product">
-  </div>
+<div class="">
+      <input type="submit" name="search" id="search" value="Search" class="btn btn-primary search-product">
 </div>
+</div>
+
 </form>
 
 <?php
