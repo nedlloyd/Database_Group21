@@ -136,14 +136,14 @@ $r_query = mysqli_query($con, $sql);
         <th onclick="sortTable(4)">Reserve Price</th>
         <th onclick="sortTable(5)">End Date</th>
         <th onclick="sortTable(5)">End Time</th>
-        <th onclick="sortTable(6)"> Watchlist</th>
+        <th> Watchlist</th>
       </tr>
     </thead>
     <tbody>
       <?php if ($r_query != null) {
       while ($row = mysqli_fetch_array($r_query)) { ?>
       <tr>
-        <td><?php echo $row['productName'];?></td>
+        <td><a href="details.php?id=<?php echo $row['productID'] ?>"><?php echo $row['productName'];?></a></td>
         <td><?php echo $row['description'];?></td>
         <td><?php echo $row['category'];?></td>
         <td><?php echo $row['startPrice'];?></td>
