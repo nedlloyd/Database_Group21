@@ -87,20 +87,26 @@ while ($row = mysqli_fetch_array($r_query)) {
         <?php if ($products != null) {
           $i = 0;
           $endDateArray = [];
-        while ($i < count($products)) { ?>
+        while ($i < count($products)) {
+           if(((time() - (60*60*120)) <= strtotime($products[$i]['endDateTime']))) {
+            ?>
         <tr>
-          <td><?php echo $products[$i]['productName'];?></td>
+          <td><a href="details.php?id=<?php echo $products[$i]['productID']?>"><?php echo $products[$i]['productName'];?></a></td>
           <td><?php echo $products[$i]['description'];?></td>
           <td><?php echo $products[$i]['category'];?></td>
           <td><?php echo $products[$i]['startPrice'];?></td>
-          <td><?php echo substr($products[$i]['endDateTime'], 0, 10);?></td>
-          <td></td>
+          <td><?php if ((time() - strtotime($products[$i]['endDateTime']) <= 0)) {
+          echo substr($products[$i]['endDateTime'], 0, 10);
+        } else {
+          echo "Bid Ended";
+        }?></td>
           <td><form method="post">
             <input id="productID" type="hidden" name="productID" value="<?php echo $products[$i]['productID'];?>">
           <td><button type="submit" name="remove-watchlist" value="remove-watchlist" class="btn btn-primary"><rb>Remove</rb>
           </form>
         </tr>
 <?php
+ }
 $i += 1;
 }
 // print_r($endDateArray);

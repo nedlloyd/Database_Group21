@@ -184,9 +184,10 @@ $r_query = mysqli_query($con, $sql);
 
 <?php
 if (isset($_POST['add-watchlist'])) {
+  $userID = $_SESSION['userID'];
   $productName = mysqli_escape_string($con, $_POST['productName']);
   $productID = mysqli_escape_string($con, $_POST['productID']);
-  $sql = "SELECT * FROM watchlist WHERE productID=$productID";
+  $sql = "SELECT * FROM watchlist WHERE productID=$productID AND userID=$userID";
   $result = mysqli_query($con, $sql) or die ($mysqli->error());
   if ($result->num_rows == 0) {
 $stmt = $con->prepare("INSERT INTO watchlist (userID, productID)
