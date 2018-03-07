@@ -13,6 +13,7 @@ $r_query = null;
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
+  <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/search_product.css">
 
 
 
@@ -37,24 +38,29 @@ $r_query = null;
 <body>
 <h1 class="find_stuff">Find Stuff</h1>
 
-<form method="get">
+<form class="form-horizontal" method="get">
 
   <div class="form-group">
-    <label for="searchterm"> Find: </label>
-    <input type="search" name="searchname" id="searchname">
-</div>
+    <label for="searchterm" class="col-sm-4 control-label"> Find: </label>
+      <div class="col-sm-4">
+    <input class="form-control" type="search" name="searchname" id="searchname">
+    </div>
+  </div>
 
-<div class="form-group">
-  <label for="description"> Search also in Description</label>
-<input type="radio" name="description" value='1' checked> Yes
-  <input type="radio" name="description" value='0'> No
-</div>
-
-<label for="searchterm"> Find Category: </label>
   <div class="form-group">
-  <label for="category" class="col-sm-12 control-label">category</label>
-  <div class="col-sm-12">
-    <input list="category" name="searchcategory" id="search" class="form-control">
+  <label for="description" class="col-sm-4 control-label"> Search also in Description</label>
+  <div class="col-sm-1">
+  <input class="form-control" type="radio" name="description" value='1'> Yes
+  </div>
+    <div class="col-sm-1">
+  <input class="form-control" type="radio" name="description" value='0' checked> No
+  </div>
+  </div>
+
+  <div class="form-group">
+  <label for="category" class="col-sm-4 control-label">category</label>
+  <div class="col-sm-4">
+    <input class="form-control" list="category" name="searchcategory" id="search">
 <datalist id="category" name="category">
 <?php
 $sql = "SELECT category FROM product;";
@@ -73,23 +79,31 @@ echo "<option value='$category'>";
 </div>
 
   <div class="form-group">
-    <label for="endDateTime" class="col-sm-12 control-label">End Date and Time</label>
-    <div class="col-sm-12">
+    <label for="endDateTime" class="col-sm-4 control-label">End Date and Time</label>
+    <div class="col-sm-4">
       <input class="form-control" name="endDateTime" id="endDateTime" type="date">
     </div>
   </div>
 
 <div class="form-group">
-  <label for="lowprice" class="col-sm-12 control-label">Starting Price: more than</label>
+  <label for="lowprice" class="col-sm-4 control-label">Starting Price: more than</label>
+  <div class="col-sm-1">
   <input class="form-control" type="number" id="lowprice" name="lowprice">
+  </div>
 </div>
 
 <div class="form-group">
-  <label for="highprice" class="col-sm-12 control-label">Starting Price: less than</label>
+  <label for="highprice" class="col-sm-4 control-label">Starting Price: less than</label>
+  <div class="col-sm-1">
   <input class="form-control" type="number" id="highprice" name="highprice">
 </div>
 
-<input type="submit" name="search" id="search" value="search">
+
+<div class="form-group col-sm-12">
+  <div class="col-sm-6 col-sm-offset-4">
+        <input type="submit" name="search" id="search" value="search" class="btn btn-primary search-product">
+  </div>
+</div>
 </form>
 
 <?php
@@ -111,10 +125,10 @@ if ($low_price != '' && $high_price != '') {
 
 $searchwhat = '';
 $description = mysqli_real_escape_string($con, $_GET['description']);
-if ($description == 1) {
+if ($description == '0') {
   $searchwhat = " AND productName LIKE '%".$term_name."%' ";
 } else {
-  $searchwhat = "AND productName LIKE '%".$term_name."%' AND description LIKE '%".$term_name."%'";
+  $searchwhat = "AND (productName LIKE '%".$term_name."%' OR description LIKE '%".$term_name."%')";
 }
 
 $sql = "SELECT * FROM product WHERE category LIKE '%".$term_cat."%' $searchwhat AND endDateTime LIKE '%".$term_endDate."%' $highlow";
