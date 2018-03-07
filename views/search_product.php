@@ -38,13 +38,17 @@ $r_query = null;
 <h1 class="find_stuff">Find Stuff</h1>
 
 <form method="get">
-<p>
-  <p>
+
+  <div class="form-group">
     <label for="searchterm"> Find: </label>
     <input type="search" name="searchname" id="searchname">
-  </p>
+</div>
 
-</p>
+<div class="form-group">
+  <label for="description"> Search also in Description</label>
+<input type="radio" name="description" value='1' checked> Yes
+  <input type="radio" name="description" value='0'> No
+</div>
 
 <label for="searchterm"> Find Category: </label>
   <div class="form-group">
@@ -68,14 +72,22 @@ echo "<option value='$category'>";
   </div>
 </div>
 
-<p>
   <div class="form-group">
     <label for="endDateTime" class="col-sm-12 control-label">End Date and Time</label>
     <div class="col-sm-12">
-      <input class="form-control" name="endDateTime" id="endDateTime" type="datetime-local" name="bdaytime">
+      <input class="form-control" name="endDateTime" id="endDateTime" type="date">
     </div>
   </div>
-</p>
+
+<div class="form-group">
+  <label for="lowprice" class="col-sm-12 control-label">Starting Price: more than</label>
+  <input class="form-control" type="number" id="lowprice" name="lowprice">
+</div>
+
+<div class="form-group">
+  <label for="highprice" class="col-sm-12 control-label">Starting Price: less than</label>
+  <input class="form-control" type="number" id="highprice" name="highprice">
+</div>
 
 <input type="submit" name="search" id="search" value="search">
 </form>
@@ -84,10 +96,28 @@ echo "<option value='$category'>";
 if (isset($_GET['search'])) {
 $term_name = mysqli_real_escape_string($con, $_GET['searchname']);
 $term_cat = mysqli_real_escape_string($con, $_GET['searchcategory']);
-$term_endDate = mysqli_real_escape_string($con, substr($_GET['endDateTime'], 0, 10));
-echo substr($_GET['endDateTime'], 0, 10);
+$term_endDate = mysqli_real_escape_string($con, $_GET['endDateTime']);
+$low_price = mysqli_real_escape_string($con, $_GET['lowprice']);
+$high_price = mysqli_real_escape_string($con, $_GET['highprice']);
+$highlow = '';
+if ($low_price != '' && $high_price != '') {
+  $highlow = " AND startPrice > $low_price AND startPrice < $high_price";
+} else if ($low_price != '') {
+  $highlow = " AND startPrice > $low_price";
+} else if ($high_price != '') {
+  $highlow = " AND startPrice < $high_price";
+}
 
-$sql = "SELECT * FROM product WHERE category LIKE '%".$term_cat."%' AND productName LIKE '%".$term_name."%' AND endDateTime LIKE '%".$term_endDate."%'";
+
+$searchwhat = '';
+$description = mysqli_real_escape_string($con, $_GET['description']);
+if ($description == 1) {
+  $searchwhat = " AND productName LIKE '%".$term_name."%' ";
+} else {
+  $searchwhat = "AND productName LIKE '%".$term_name."%' AND description LIKE '%".$term_name."%'";
+}
+
+$sql = "SELECT * FROM product WHERE category LIKE '%".$term_cat."%' $searchwhat AND endDateTime LIKE '%".$term_endDate."%' $highlow";
 $r_query = mysqli_query($con, $sql);
 }
 ?>
