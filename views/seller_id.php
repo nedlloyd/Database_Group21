@@ -22,6 +22,24 @@ session_start();
             <span class="glyphicon glyphicon-envelope"></span> Contact Us
           </button>
         </div>
+        <script>
+        function goForward() {
+            window.history.forward();
+        }
+        </script>
+
+        <script>
+          function goBack() {
+              window.history.back()
+          }
+          </script>
+
+        <body>
+
+          <a button onclick="goBack()">&laquo; Previous</a>
+          <a button onclick="goForward()">Next &raquo;</a>
+
+        </body>
       </div>
       <h1 class="loginTitle"> Esway </h1>
     </div>
