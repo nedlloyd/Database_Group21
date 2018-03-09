@@ -93,7 +93,7 @@ if ($con->connect_error) {
 					if ($i % 4 === 0 ) {
 					?>
 					<div class="section">
-						<ul class="reset tiles">
+						<ul class="product">
 						<?php } ?>
 							<li> <a href="details.php?id=<?php echo $row['productID'] ?>"> <img src="../images/images/<?php echo $row['image']; // need to change  ?>" alt="<?php echo $row['category']; ?> " height="200" width="200">
 								<h3 class="h4"><?php echo $row['productName']; ?></h3>
