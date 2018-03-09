@@ -22,7 +22,7 @@ require '../assets/php/connect.php';
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
           <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
-            <span class="glyphicon glyphicon-envelope"></span> Contact Us
+            <a class="active" href="contactemail.php"></span> Contact Us</a>
           </button>
         </div>
 
@@ -46,7 +46,7 @@ require '../assets/php/connect.php';
 
     <div class="top-container">
       <div class="header" id="header">
-        <a class="active" href="product.php">Home</a>
+        <a class="active" href="search_product.php">Home</a>
         <a class="active" href="logout.php">Logout</a>
         </div>
       </div>

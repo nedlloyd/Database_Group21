@@ -85,7 +85,7 @@ if (isset($_POST['submit-product'])) {
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
           <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
-            <span class="glyphicon glyphicon-envelope"></span> Contact Us
+            <a class="active" href="contactemail.php"></span> Contact Us</a>
           </button>
         </div>
 
@@ -114,7 +114,7 @@ if (isset($_POST['submit-product'])) {
 
     <div class="top-container">
       <div class="header" id="header">
-        <a class="active" href="product.php">Home</a>
+        <a class="active" href="search_product.php">Home</a>
         <a class="active" href="buyer_dashboard.php">Dashboard</a>
         <a class="active" href="logout.php">Logout</a>
         </div>

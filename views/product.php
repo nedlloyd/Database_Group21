@@ -64,7 +64,7 @@ if ($con->connect_error) {
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
           <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
-            <span class="glyphicon glyphicon-envelope"></span> Contact Us
+            <a class="active" href="contactemail.php"></span> Contact Us</a>
           </button>
         </div>
 				function goForward() {
@@ -90,6 +90,7 @@ if ($con->connect_error) {
 
 	<div class="top-container">
 	  <div class="header" id="header">
+			<a class="active" href="search_product.php">Home</a>
 	    <a class="active" href="login.php">Login</a>
 	    <a class="active" href="sign_up.php">Signup</a>
 	  </div>
