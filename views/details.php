@@ -20,7 +20,7 @@ while ($row = mysqli_fetch_array($r_query)) {
 }
 echo $_SESSION['userID'];
 if ($_SESSION['userID'] != $productUserID){
-$sql = "UPDATE product SET views= views + 1 WHERE productID=$productID";
+$sql = "UPDATE product SET views = views + 1 WHERE productID=$productID";
 $con->query($sql);
 }
 
@@ -29,17 +29,20 @@ if ($con->connect_error) {
 } else {
 	$sql = "SELECT * FROM product WHERE productID=" . $con->real_escape_string($_GET['id']);
 	$sql2 = "SELECT * FROM users, product WHERE users.id = product.userID AND product.productID=" . $con->real_escape_string($_GET['id']);
-	$sql3 = "SELECT AVG(purchase.ratingSeller) FROM purchase, product
-			WHERE purchase.productID = product.productID AND product.productID=" . $con->real_escape_string($_GET['id']);
+	$sql3 = "SELECT product.userID, ROUND(AVG(purchase.ratingSeller),2)AS rateSeller FROM purchase, product
+			WHERE purchase.productID = product.productID AND product.userID=$productUserID;";
+	
+	
 	$result = $con -> query($sql);
 	$result2 = $con -> query($sql2);
 	$result3 = $con -> query($sql3);
+	
 	if ($con -> error) {
 		$message = $con -> error;
 	} else {
 		$row = $result -> fetch_assoc();
 		$row2 = $result2 -> fetch_assoc();
-		$row3 = $result3;
+		$row3 = $result3 -> fetch_assoc();
 	}
 }
 ?>
@@ -130,7 +133,7 @@ if ($con->connect_error) {
 
 				<div id="col_2">
 				<h1 class="inline_block"><?php echo $row2['name']; ?></h1>
-				<h1 class="inline_block"><?php echo $row3; ?></h1>
+				<h1 class="inline_block"><?php echo $row3['rateSeller']; ?></h1>
 				</div>
 
 				<?php }   //end of if
