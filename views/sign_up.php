@@ -12,7 +12,7 @@ if (isset($_POST['submit-user'])) {
   if (empty($_POST["name"])) {
     $nameErr = "Name is required";
   } else {
-    $name = mysqli_escape_string($con, $_POST['first_name']);
+    $name = mysqli_escape_string($con, $_POST['name']);
   }
   if (empty($_POST["address_line_1"])) {
     $address_line_1Err = "First Line of address is required";
@@ -115,7 +115,7 @@ if ($_SESSION['role'] != 'admin') {
         <div class="form-group">
           <label for="name" class="col-sm-4 control-label">Name</label>
           <div class="col-sm-4">
-            <input name="first_name" type="text" class="form-control" columns="7" id="name" placeholder="Name">
+            <input name="name" type="text" class="form-control" columns="7" id="name" placeholder="Name">
             <span class="error"><?php echo $nameErr;?></span>
           </div>
         </div>

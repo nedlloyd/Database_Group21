@@ -109,7 +109,6 @@ while ($row = mysqli_fetch_array($r_query)) {
  }
 $i += 1;
 }
-// print_r($endDateArray);
 }
 ?>
       </tbody>
