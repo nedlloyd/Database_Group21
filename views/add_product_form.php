@@ -93,6 +93,15 @@ if (isset($_POST['submit-product'])) {
       <h1 class="loginTitle"> Esway </h1>
 
     </div>
+
+    <div class="top-container">
+      <div class="header" id="header">
+        <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
+        <a class="active" href="http://localhost/Database_Group21/views/buyer_dashboard.php">Dashboard</a>
+        <a class="active" href="http://localhost/Database_Group21/views/logout.php">Logout</a>
+        </div>
+      </div>
+
   </header>
 
 

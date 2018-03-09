@@ -98,6 +98,14 @@ if ($_SESSION['role'] != 'admin') {
       <h1 class="loginTitle"> Esway </h1>
 
     </div>
+
+    <div class="top-container">
+      <div class="header" id="header">
+        <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
+        <a class="active" href="http://localhost/Database_Group21/views/login.php">Login</a>
+      </div>
+    </div>
+
   </header>
 
 

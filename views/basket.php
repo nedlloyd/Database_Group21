@@ -82,6 +82,16 @@ $total = 0;
       <h1 class="loginTitle"> Esway </h1>
 
     </div>
+
+		<div class="top-container">
+	    <div class="header" id="header">
+	      <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
+				<a class="active" href="http://localhost/Database_Group21/views/buyer_dashboard.php">Dashboard</a>
+				<a class="active" href="http://localhost/Database_Group21/views/logout.php">Logout</a>
+	      </div>
+	    </div>
+	  </div>
+
   </header>
 
 
@@ -89,11 +99,11 @@ $total = 0;
 <body>
 	<div id="content">
 		<div id="col_1" role="main">
-			
+
 			<?php if ($message) {
 			echo "<h2>$message</h2>";
 			} else { ?>
-			
+
             <h1 class="inline_block">Your Order</h1>
             <?php if (!isset($_SESSION['quantity']) || array_sum($_SESSION['quantity']) === 0) { ?>
             <p>Your basket is empty.</p>
@@ -110,14 +120,14 @@ $total = 0;
 					if ($amount > 0) :
 					?>
 				    <tr>
-				        <td><img src="../images/images/<?php echo $_SESSION['image'][$productid]; ?>" 
+				        <td><img src="../images/images/<?php echo $_SESSION['image'][$productid]; ?>"
 								 alt="" width="80" height="80"/></td>
 
 				        <td><?php echo $amount; ?></td>
 				        <td>$<?php echo $cost = $amount * intval($_SESSION['price'][$productid]);
 						$total += $cost; ?></td>
 			        </tr>
-                    <?php 
+                    <?php
 					endif;
 					endforeach; ?>
                     <tr>
@@ -143,7 +153,7 @@ $total = 0;
             </form>
             </div>
             <?php } ?>
-			
+
 			<?php }  // end of page ?>
         </div>
 	</div>
