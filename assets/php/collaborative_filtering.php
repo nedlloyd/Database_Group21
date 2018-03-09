@@ -91,7 +91,7 @@ $popularProducts = array_slice(array_keys($valuesProducts), 0, 4, true);
 
 print_r($popularProducts);
 
-$_SESSION('popularProducts') = $popularProducts;
+$_SESSION['popularProducts'] = $popularProducts;
 
 
 $con->close();
