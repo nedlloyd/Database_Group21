@@ -29,9 +29,25 @@ require '../assets/php/login_function.php';
         <div class='btn-toolbar pull-right'>
           <div class='btn-group'>
             <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
-              <span class="glyphicon glyphicon-envelope"></span> Contact Us
+              <a class="active" href="contactemail.php"></span> Contact Us</a>
             </button>
           </div>
+          <script>
+          function goForward() {
+              window.history.forward();
+          }
+          </script>
+          <script>
+            function goBack() {
+                window.history.back()
+            }
+            </script>
+          <body>
+
+            <a button onclick="goBack()">&laquo; Previous</a>
+            <a button onclick="goForward()">Next &raquo;</a>
+
+          </body>
         </div>
 
         <h1 class="loginTitle"> Esway </h1>
@@ -40,8 +56,8 @@ require '../assets/php/login_function.php';
 
       <div class="top-container">
         <div class="header" id="header">
-          <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
-          <a class="active" href="http://localhost/Database_Group21/views/sign_up.php">Signup</a>
+          <a class="active" href="search_product.php">Home</a>
+          <a class="active" href="sign_up.php">Signup</a>
         </div>
       </div>
 
