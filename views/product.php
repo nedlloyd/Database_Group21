@@ -72,8 +72,15 @@ if ($con->connect_error) {
       <h1 class="loginTitle"> Esway </h1>
 
     </div>
-  </header>
 
+	<div class="top-container">
+	  <div class="header" id="header">
+	    <a class="active" href="http://localhost/Database_Group21/views/login.php">Login</a>
+	    <a class="active" href="http://localhost/Database_Group21/views/sign_up.php">Signup</a>
+	  </div>
+	</div>
+
+	</header>
 
 </head>
 <body>

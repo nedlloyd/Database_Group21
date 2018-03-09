@@ -29,7 +29,7 @@ if ($con->connect_error) {
 } else {
 	$sql = "SELECT * FROM product WHERE productID=" . $con->real_escape_string($_GET['id']);
 	$sql2 = "SELECT * FROM users, product WHERE users.id = product.userID AND product.productID=" . $con->real_escape_string($_GET['id']);
-	$sql3 = "SELECT AVG(purchase.ratingSeller) FROM purchase, product 
+	$sql3 = "SELECT AVG(purchase.ratingSeller) FROM purchase, product
 			WHERE purchase.productID = product.productID AND product.productID=" . $con->real_escape_string($_GET['id']);
 	$result = $con -> query($sql);
 	$result2 = $con -> query($sql2);
@@ -94,12 +94,12 @@ if ($con->connect_error) {
 				<?php if ($message) {
 				echo "<h2>$message</h2>";
 				} else { ?>
-				
+
 				<?php if ($_SESSION['userID'] == null) { ?>
 					<h2 class="inline_block">Sorry, you must login first.</h2>
 				<?php echo "<a href='login.php'>Back to the login page </a>" ?>
-				<?php } else { ?> 
-				
+				<?php } else { ?>
+
 				<form action="basket.php" method="post" id="bab_form" class="basket_add clearfix">
 				<h1 class="inline_block"><?php echo $row['productName']; ?></h1>
             	<p class="figure"><img src="../images/images/<?php echo $row['image']; ?>" alt="<?php echo $row['category']; ?>" width="200" height="200">Price from $<?php echo $row['startPrice']; ?></p>
@@ -127,9 +127,9 @@ if ($con->connect_error) {
 					print_r($_POST);
 				}
 				?>
-				
+
 				<div id="col_2">
-				<h1 class="inline_block"><?php echo $row2['name']; ?></h1>  
+				<h1 class="inline_block"><?php echo $row2['name']; ?></h1>
 				<h1 class="inline_block"><?php echo $row3; ?></h1>
 				</div>
 

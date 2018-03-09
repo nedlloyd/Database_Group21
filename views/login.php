@@ -15,9 +15,12 @@ require '../assets/php/login_function.php';
   <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </div>
 
   <title>Esway </title>
+
 </head>
+
 <body>
   <div class="wrapperforstickyfooter">
     <header role="banner" class="header-reports">
@@ -34,6 +37,14 @@ require '../assets/php/login_function.php';
         <h1 class="loginTitle"> Esway </h1>
 
       </div>
+
+      <div class="top-container">
+        <div class="header" id="header">
+          <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
+          <a class="active" href="http://localhost/Database_Group21/views/sign_up.php">Signup</a>
+        </div>
+      </div>
+
     </header>
 
 

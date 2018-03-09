@@ -30,6 +30,15 @@ require '../assets/php/connect.php';
       <h1 class="loginTitle"> Esway </h1>
 
     </div>
+
+    <div class="top-container">
+      <div class="header" id="header">
+        <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
+        <a class="active" href="http://localhost/Database_Group21/views/logout.php">Logout</a>
+        </div>
+      </div>
+    </div>
+
   </header>
 
 
@@ -38,8 +47,8 @@ require '../assets/php/connect.php';
 <title>Feedback</title>
 </head>
 <body>
-    <form method="POST" enctype="multipart/form-data">       <!-- form delect action="do.php", add method-->                             
-        
+    <form method="POST" enctype="multipart/form-data">       <!-- form delect action="do.php", add method-->
+
         <div class="form-group">
           <label for="userID" class="col-sm-3 control-label"></label>
         <div class="col-sm-3">
@@ -55,7 +64,7 @@ require '../assets/php/connect.php';
         <div class="form-group">
           <label for="feedback comment" class="col-sm-3 control-label"></label>
         <div class="col-sm-3">
-        
+
         <p>*userID: <input name="userID" type="text" value="" size="30"  required /><br /><p>
         *email: <input name="email" type="email" value="" size="30"  required /><br />
         *purchaseID: <input name="purchaseID" type="text" value="" size="30" required /><br />
@@ -67,7 +76,7 @@ require '../assets/php/connect.php';
             5 <input type="radio" name="rating" value="5" checked> <br>
         feedback comment:<br>
         <input name="comments" rows="7" cols="30"><br>
-        
+
         <input name="userID" type="hidden" value="$_SESSION['userID']"/>
         <input name="doing" type="hidden" value="feedback"/>
         <input type="submit" value="submit" name="submit-feedback"/>

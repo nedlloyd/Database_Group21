@@ -29,8 +29,15 @@ require '../assets/php/connect.php';
       <h1 class="loginTitle"> Esway </h1>
 
     </div>
-  </header>
 
+    <div class="top-container">
+      <div class="header" id="header">
+        <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
+        <a class="active" href="http://localhost/Database_Group21/views/logout.php">Logout</a>
+      </div>
+    </div>
+
+  </header>
 
 </head>
 <body>
@@ -109,7 +116,6 @@ while ($row = mysqli_fetch_array($r_query)) {
  }
 $i += 1;
 }
-// print_r($endDateArray);
 }
 ?>
       </tbody>
