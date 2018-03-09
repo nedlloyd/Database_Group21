@@ -3,6 +3,17 @@ session_start();
 require '../assets/php/connect.php';
 
 $r_query = null;
+//mail('nedparrylloyd@hotmail.co.uk', 'hi!', 'please work');
+?>
+<?php
+// the message
+// $msg = "hello\n2ndattempt";
+//
+// // use wordwrap() if lines are longer than 70 characters
+// $msg = wordwrap($msg,70);
+//
+// // send email
+// mail("nedparrylloyd@hotmail.co.uk","My subject",$msg);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +57,12 @@ $r_query = null;
 </head>
 <body>
 <h1 class="find_stuff">Find Stuff</h1>
+
+<form method="POST" action="../assets/php/email-script.php">
+    <label for="email">Email:</label>
+    <input type="text" name="email" id="email" />
+    <input type="submit" value="Ok" />
+</form>
 
 <form class="form-horizontal" method="get">
 

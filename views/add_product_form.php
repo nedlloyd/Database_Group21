@@ -146,13 +146,19 @@ if (isset($_POST['submit-product'])) {
           </div>
         </div>
 
+
+
         <div class="form-group">
           <label for="endDateTime" class="col-sm-4 control-label">End Date and Time</label>
           <div class="col-sm-4">
-            <input class="form-control" name="endDateTime" id="endDateTime" type="datetime-local" name="bdaytime">
+            <input class="form-control" name="endDateTime" id="endDateTime" type="datetime-local" min="<?php echo date('Y-m-d\Th:m'); ?>">
             <span class="error"><?php echo $endDateTimeErr;?></span>
           </div>
         </div>
+
+        <?php echo date('Y-m-d\Th:m'); ?>
+        <br>
+        <?php echo date("h:m"); ?>
 
         <div class="form-group">
           <label for="category" class="col-sm-4 control-label">category</label>
@@ -185,13 +191,15 @@ if (isset($_POST['submit-product'])) {
       </fieldset>
     </form>
 
-
+<input name="setTodaysDate" type="date">
 
     </div>
   </div>
 </div>
 </body>
 
+  <script> var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);</script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
