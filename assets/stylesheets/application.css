@@ -68,3 +68,20 @@ header, footer {
   font: 300% "Ariel", Verdana, sans-serif;
   margin-top: -10px;
 }
+
+#col_2{
+  color: blue;
+  text-align: right;
+  font: 100% "Ariel", Verdana, sans-serif;
+  margin-top: -10px;
+	
+}
+
+
+ul.product li {
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+    *display: inline;
+    *zoom: 1;
+}
