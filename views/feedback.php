@@ -25,6 +25,19 @@ require '../assets/php/connect.php';
             <span class="glyphicon glyphicon-envelope"></span> Contact Us
           </button>
         </div>
+
+      </div>
+      <script>
+      function goForward() {
+          window.history.forward();
+      }
+      </script>
+      <script>
+        function goBack() {
+            window.history.back()
+        }
+        </script>
+
       </div>
 
       <h1 class="loginTitle"> Esway </h1>
@@ -33,8 +46,8 @@ require '../assets/php/connect.php';
 
     <div class="top-container">
       <div class="header" id="header">
-        <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
-        <a class="active" href="http://localhost/Database_Group21/views/logout.php">Logout</a>
+        <a class="active" href="product.php">Home</a>
+        <a class="active" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

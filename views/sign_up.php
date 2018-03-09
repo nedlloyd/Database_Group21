@@ -98,13 +98,11 @@ if ($_SESSION['role'] != 'admin') {
             window.history.forward();
         }
         </script>
-
         <script>
           function goBack() {
               window.history.back()
           }
           </script>
-
         <body>
 
           <a button onclick="goBack()">&laquo; Previous</a>
@@ -119,8 +117,8 @@ if ($_SESSION['role'] != 'admin') {
 
     <div class="top-container">
       <div class="header" id="header">
-        <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
-        <a class="active" href="http://localhost/Database_Group21/views/login.php">Login</a>
+        <a class="active" href="product.php">Home</a>
+        <a class="active" href="login.php">Login</a>
       </div>
     </div>
 

@@ -32,13 +32,11 @@ echo $_SESSION['role'];
             window.history.forward();
         }
         </script>
-
         <script>
           function goBack() {
               window.history.back()
           }
           </script>
-
         <body>
 
           <a button onclick="goBack()">&laquo; Previous</a>
@@ -53,8 +51,8 @@ echo $_SESSION['role'];
 
     <div class="top-container">
       <div class="header" id="header">
-        <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
-        <a class="active" href="http://localhost/Database_Group21/views/logout.php">Logout</a>
+        <a class="active" href="product.php">Home</a>
+        <a class="active" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

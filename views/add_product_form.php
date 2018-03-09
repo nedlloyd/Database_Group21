@@ -94,13 +94,11 @@ if (isset($_POST['submit-product'])) {
 						window.history.forward();
 				}
 				</script>
-
 				<script>
 					function goBack() {
 							window.history.back()
 					}
 					</script>
-
 				<body>
 
 					<a button onclick="goBack()">&laquo; Previous</a>
@@ -116,9 +114,9 @@ if (isset($_POST['submit-product'])) {
 
     <div class="top-container">
       <div class="header" id="header">
-        <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
-        <a class="active" href="http://localhost/Database_Group21/views/buyer_dashboard.php">Dashboard</a>
-        <a class="active" href="http://localhost/Database_Group21/views/logout.php">Logout</a>
+        <a class="active" href="product.php">Home</a>
+        <a class="active" href="buyer_dashboard.php">Dashboard</a>
+        <a class="active" href="logout.php">Logout</a>
         </div>
       </div>
 

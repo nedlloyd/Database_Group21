@@ -36,6 +36,17 @@ $r_query = null;
           </button>
         </div>
       </div>
+      <script>
+      function goForward() {
+          window.history.forward();
+      }
+      </script>
+      <script>
+        function goBack() {
+            window.history.back()
+        }
+        </script>
+      </div>
 
       <h1 class="loginTitle"> Esway </h1>
 
@@ -43,9 +54,9 @@ $r_query = null;
 
     <div class="top-container">
       <div class="header" id="header">
-        <a class="active" href="http://localhost/Database_Group21/views/product.php">Home</a>
-        <a class="active" href="http://localhost/Database_Group21/views/buyer_dashboard.php">Dashboard</a>
-        <a class="active" href="http://localhost/Database_Group21/views/logout.php">Logout</a>
+        <a class="active" href="product.php">Home</a>
+        <a class="active" href="buyer_dashboard.php">Dashboard</a>
+        <a class="active" href="logout.php">Logout</a>
         </div>
       </div>
 
