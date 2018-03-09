@@ -27,19 +27,6 @@ while ($row = mysqli_fetch_array($r_query)) {
   }
 }
 
-// sql to create table
-// $sql = "CREATE TABLE filtering
-// (
-//  userID VARCHAR(50) NOT NULL,
-//  similarItems int(3) NOT NULL,
-// )
-// ENGINE = InnoDB;";
-//
-// if ($con->query($sql) === TRUE) {
-//     echo "Table filtering created successfully";
-// } else {
-//     echo "Error creating table: " . $con->error;
-// }
 
 $otherBuyers = [];
 
@@ -48,14 +35,9 @@ $r_query = mysqli_query($con, $sql);
 
 while ($row = mysqli_fetch_array($r_query)) {
   if (in_array($row['productID'], $userProducts) && $row['userID'] != $userID) {
-      //$buyer = (object) ['userID' => $row['userID'], 'productID' => $row['productID']];
       $buyer = $row['userID'];
       array_push($otherBuyers, $buyer);
 
-      // $stmt = $con->prepare("INSERT INTO filtering (description, startPrice, reservePrice, productName, endDateTime, category, userID)
-      // VALUES (?,?,?,?,?,?,?)");
-      // $stmt->bind_param("sssssss", $description, $startPrice, $reservePrice, $productName, $endDateTime, $category, $_SESSION['userID']);
-      // $stmt->execute();
   }
 
 }
@@ -64,13 +46,6 @@ $values = array_count_values($otherBuyers);
 arsort($values);
 $popular = array_slice(array_keys($values), 0, 2, true);
 
-// $userID
-//
-// while ($i = 0; $i < sizeof($otherBuyers); $i++) {
-//     if (in_array($otherBuyers[i]['productID']) {
-//
-//     }
-// }
 
 print_r($userProducts);
 echo "<br>";
