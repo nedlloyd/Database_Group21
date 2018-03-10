@@ -72,12 +72,6 @@ $r_query = null;
 <body>
 <h1 class="find_stuff">Find Stuff</h1>
 
-<form method="POST" action="../assets/php/email-script.php">
-    <label for="email">Email:</label>
-    <input type="text" name="email" id="email" />
-    <input type="submit" value="Ok" />
-</form>
-
 <form class="form-horizontal" method="get">
 
   <div class="form-group">
