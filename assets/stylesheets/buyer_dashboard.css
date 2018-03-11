@@ -1,0 +1,17 @@
+.colab-filtering {
+  width: 90%;
+  margin-left: 5%;
+}
+
+.colab-filtering-table {
+  height: 40px;
+}
+
+.colab-filtering-head {
+  font-size: 20px;
+  text-align: center;
+}
+
+.watchlist-collapse {
+  margin-top: 10px;
+}

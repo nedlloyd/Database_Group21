@@ -105,9 +105,7 @@ if ($con->connect_error) {
 		<div id="col_1" role="main">
 
 
-		<?php if ($message) {
-		echo "<h2>$message</h2>";
-		} else { ?>
+
 
 		<div class="page open">
 			<?php
@@ -131,7 +129,7 @@ if ($con->connect_error) {
 			} // end of loop ?>
 		</div>
 
-		<?php }  // end of page ?>
+
 		</div>
 	</div>
 </div>

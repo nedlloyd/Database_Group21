@@ -14,7 +14,7 @@ if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }
 $userID = $_SESSION['userID'];
-echo $userID;
+
 
 $sql = "SELECT * FROM bid";
 $r_query = mysqli_query($con, $sql);
@@ -47,25 +47,8 @@ arsort($values);
 $popular = array_slice(array_keys($values), 0, 2, true);
 
 
-print_r($userProducts);
-echo "<br>";
-echo "<br>";
-print_r($otherBuyers);
-echo "<br>";
-echo "<br>";
-print_r($values);
-echo "<br>";
-echo "<br>";
-print_r($popular);
-echo "<br>";
-echo "<br>";
-
 $id1 = $popular[0];
 $id2 = $popular[1];
-echo $id1;
-echo $id2;
-echo "<br>";
-echo "<br>";
 
 $sql = "SELECT * FROM bid";
 $r_query = mysqli_query($con, $sql);
@@ -81,15 +64,9 @@ while ($row = mysqli_fetch_array($r_query)) {
   }
 }
 
-print_r($filteredProducts);
-echo "<br>";
-echo "<br>";
-
 $valuesProducts = array_count_values($filteredProducts);
 arsort($valuesProducts);
 $popularProducts = array_slice(array_keys($valuesProducts), 0, 4, true);
-
-print_r($popularProducts);
 
 $_SESSION['popularProducts'] = $popularProducts;
 
