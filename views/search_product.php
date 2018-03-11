@@ -59,6 +59,7 @@ $r_query = null;
 
     <div class="top-container">
       <div class="header" id="header">
+        <a class="active" href="product.php">Products </a>
         <a class="active" href="login.php">Login</a>
   	    <a class="active" href="sign_up.php">Signup</a>
         </div>
