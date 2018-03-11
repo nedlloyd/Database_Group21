@@ -20,7 +20,9 @@ if (isset($_POST['amount'])) {
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <!-- Viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- IE Edge Meta Tag// edge means the browser should use the best and newest machine -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -75,16 +77,13 @@ if (isset($_POST['amount'])) {
 <head>
 <h1> Bid page </h1>
 </head>
-
-  <body>
-    <form method="post" action="bid.php">
-
-    <div class="wrapperforstickyfooter">
-    <div class="content-wrap">
-      <div class="container">
-      <form class="form-horizontal" method="post">
-        <fieldset>
-
+<body>
+ <div class="wrapperforstickyfooter">
+  <div class="content-wrap">
+    <div class="container">
+    <form class="form-horizontal" method="post" action="bid.php">
+      <fieldset>
+        <legend>Add New Bid</legend>
 
           <div class="form-group">
             <label for="userID" class="col-sm-4 control-label">userID</label>
@@ -92,39 +91,35 @@ if (isset($_POST['amount'])) {
               <input name="userID" type="text" class="form-control" columns="7" id="userID" placeholder="userID">
             </div>
           </div>
-<p>
 
-</p>
           <div class="form-group">
             <label for="productID" class="col-sm-4 control-label">productID</label>
             <div class="col-sm-4">
               <input name="productID" type="text" class="form-control" columns="7" id="productID" placeholder="productID">
             </div>
           </div>
-<p>
 
-</p>
             <div class="form-group">
-              <label for="amount" class="col-sm-4 control-label">bid amount (£)</label>
+              <label for="amount" class="col-sm-4 control-label">bid amount</label>
               <div class="col-sm-4">
-              <input name="amount" type="text" class="form-control" id="amount" placeholder="bid amount (£)">
+              <input name="amount" type="text" class="form-control" id="amount" placeholder="bid amount">
               <span class="error"><?php echo $amounterr?></span>
             </div>
           </div>
-<p>
 
-</p>
-          <div class="input-group">
-              <input type="submit" value="Submit" name="submit-buyer">
+          <div class="form-group submit-sign-up">
+            <div class="col-sm-8 col-sm-offset-4">
+              <button type="submit" name="submit-user" value="submit-user" class="btn btn-primary">Submit</button>
+            </div>
           </div>
         </form>
       </body>
 
 <?php
-if (isset($_POST['submit-buyer'])) {
-$stmt = $con->prepare("INSERT INTO bid (amount, productID, userID)
-VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $_POST['amount'], $_SESSION['productID'], $_SESSION['userID']);
+if (isset($_POST['submit-bid'])) {
+$stmt = $con->prepare("INSERT INTO bid (amount)
+VALUES (?)");
+$stmt->bind_param("s", $_POST['amount']);
 $stmt->execute();
 echo "New bid submitted.";
 $con->close();
