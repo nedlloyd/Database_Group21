@@ -83,8 +83,7 @@ $productsWatch = findProdcuts('watchlist', $userID, $con);
 $productsBid = findProdcuts('bid', $userID, $con);
 $allFeedback = allFeedback($userID, $con);
 print_r($allFeedback);
-echo $allFeedback[0]['commentsBuyer'];
-echo $allFeedback[0]['ratingBuyer'];
+
 //$highestbid = highestBid(62, $con);
 
 
@@ -300,6 +299,7 @@ echo $allFeedback[0]['ratingBuyer'];
               <?php if ($allFeedback != null) {
                 $i = 0;
               while ($i < count($allFeedback)) {
+                  if (($allFeedback[$i]['commentsBuyer'] != NULL) && ($allFeedback[$i]['ratingBuyer'] != NULL)) {
                 ?>
               <tr>
                 <td><?php echo $allFeedback[$i]['commentsBuyer']?></td>
@@ -307,6 +307,7 @@ echo $allFeedback[0]['ratingBuyer'];
                 <td><?php echo findSellerEmail($allFeedback[$i]['productID'], $con)?></td>
               </tr>
       <?php
+      }
             $i += 1;
        }
       }
