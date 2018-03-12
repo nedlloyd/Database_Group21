@@ -1,5 +1,6 @@
 <?php
 session_start();
+require '../assets/php/collaborative_filtering.php';
 include '../assets/php/buyer_dashboardphp.php';
 require '../assets/php/connect.php';
 echo $_SESSION['userID'];
@@ -325,10 +326,25 @@ print_r($allFeedback);
   <?php
   $cfPorducts = $_SESSION['popularProducts'];
 
+  $recomendation1 = '';
+  $recomendation2 = '';
+  $recomendation3 = '';
+  $sql = "";
+  $items = sizeof($cfPorducts);
+
+  if ($items < 1) {
+    echo "<h2 class='colab-filtering-head'>Place Some Bids to get recommendations</h2>";
+} else {
   $recomendation1 = $cfPorducts[0];
+  $sql = "SELECT * FROM product WHERE productID=$recomendation1";
+  if ($items > 1) {
   $recomendation2 = $cfPorducts[1];
+  $sql = "SELECT * FROM product WHERE productID=$recomendation1 OR productID=$recomendation2";
+  }
+  if ($items > 2) {
   $recomendation3 = $cfPorducts[2];
   $sql = "SELECT * FROM product WHERE productID=$recomendation1 OR productID=$recomendation2 OR productID=$recomendation3";
+  }
   $r_query = mysqli_query($con, $sql);
   ?>
 
@@ -345,7 +361,9 @@ print_r($allFeedback);
       <td><a href="details.php?id=<?php echo $row['productID'] ?>"><?php echo $row['productName'];?></a></td>
       <td><?php echo substr($row['endDateTime'], 0, 10) ?></td>
     </tr>
-    <?php }
+    <?php
+  }
+}
     $con->close();?>
     </table>
   </div>

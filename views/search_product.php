@@ -3,17 +3,6 @@ session_start();
 require '../assets/php/connect.php';
 
 $r_query = null;
-//mail('nedparrylloyd@hotmail.co.uk', 'hi!', 'please work');
-?>
-<?php
-// the message
-// $msg = "hello\n2ndattempt";
-//
-// // use wordwrap() if lines are longer than 70 characters
-// $msg = wordwrap($msg,70);
-//
-// // send email
-// mail("nedparrylloyd@hotmail.co.uk","My subject",$msg);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -186,8 +175,14 @@ $r_query = mysqli_query($con, $sql);
 <div class="container">
     <p><?php echo $_SESSION['userID'];?><p>
   <h2>What we've got</h2>
-  <a class="btn btn-lg btn-primary btn-block" href="add_product_form.php">Add a new item</a>
-  <a class="btn btn-lg btn-primary btn-block" href="buyer_dashboard.php">View Dashboard</a>
+  <?php
+  if ($_SESSION['role'] == "admin") {
+    echo "<a class='btn btn-lg btn-primary btn-block' href='admin_dashboard.php'>View Dashboard</a>";
+  } else {
+    echo "<a class='btn btn-lg btn-primary btn-block' href='add_product_form.php'>Add a new item</a>";
+    echo "<a class='btn btn-lg btn-primary btn-block' href='buyer_dashboard.php'>Buyer Dashboard</a>";
+    echo "<a class='btn btn-lg btn-primary btn-block' href='seller_dashboard.php'>Seller Dashboard</a>";
+  } ?>
   <table class="table table-striped" id="myTable2">
     <thead>
       <tr>
