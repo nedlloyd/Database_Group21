@@ -71,7 +71,7 @@ require '../assets/php/login_function.php';
       </section>
       <div class="container">
         <div class="login-btns-input col-sm-12">
-          <p><?php echo $_SESSION['message']?></p>
+          <p><?php if(isset($text_error)) echo $text_error; ?></p>
 
           <div class="container login-fields-all">
 

@@ -60,54 +60,89 @@ require '../assets/php/connect.php';
 <title>Feedback</title>
 </head>
 <body>
-    <form method="POST" enctype="multipart/form-data">       <!-- form delect action="do.php", add method-->
+  <div class="wrapperforstickyfooter">
+  <div class="content-wrap">
+
+  <fieldset>
+        <legend>Feedback</legend>
+  </fieldset>
+
+    <form method="POST"  class="form-horizontal">       <!-- form delect action="do.php", add method-->
+    <div class="container">
+      
+
+      
+      
+      <!-- <div class="form-group">
+          <label for="feedbackFor" class="col-sm-4 control-label">identify</label>
+          <div class="col-sm-4">
+            <select name="feedbackFor" class="form-control" id="feedbackFor">
+              <option value="1">seller</option>
+              <option value="2">buyer</option>
+            </select>
+            <span class="error"></span>
+
+          </div>
+      </div> -->
+
+        <!-- <div class="form-group">
+          <label for="email" class="col-sm-4 control-label">email</label>
+          <div class="col-sm-4">
+            <input name="email" type="text" class="form-control" id="email" placeholder="Email">
+            <span class="error"></span>
+          </div>
+        </div> -->
 
         <div class="form-group">
-          <label for="userID" class="col-sm-3 control-label"></label>
-        <div class="col-sm-3">
-        <div class="form-group">
-          <label for="email" class="col-sm-3 control-label"></label>
-        <div class="col-sm-3">
-        <div class="form-group">
-          <label for="purchaseID" class="col-sm-3 control-label"></label>
-        <div class="col-sm-3">
-        <div class="form-group">
-          <label for="rating score" class="col-sm-3 control-label"></label>
-        <div class="col-sm-3">
-        <div class="form-group">
-          <label for="feedback comment" class="col-sm-3 control-label"></label>
-        <div class="col-sm-3">
+          <label for="rating score" class="col-sm-4 control-label">rating score</label>
+          <div class="col-sm-4">
+            <select name="rating" class="form-control" id="rating">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <span class="error"></span>
+          </div>
+        </div>
 
-        <p>*userID: <input name="userID" type="text" value="" size="30"  required /><br /><p>
-        *email: <input name="email" type="email" value="" size="30"  required /><br />
-        *purchaseID: <input name="purchaseID" type="text" value="" size="30" required /><br />
-        *rating score:
-            1 <input type="radio" name="rating" value="1">
-            2 <input type="radio" name="rating" value="2">
-            3 <input type="radio" name="rating" value="3">
-            4 <input type="radio" name="rating" value="4">
-            5 <input type="radio" name="rating" value="5" checked> <br>
-        feedback comment:<br>
-        <input name="comments" rows="7" cols="30"><br>
+        <div class="form-group">
+          <label for="comments" class="col-sm-4 control-label">comments</label>
+          <div class="col-sm-4">
+            <input name="comments" type="text" class="form-control" id="comments" placeholder="comments">
+            <span class="error"></span>
+          </div>
+        </div>
 
-        <input name="userID" type="hidden" value="$_SESSION['userID']"/>
-        <input name="doing" type="hidden" value="feedback"/>
-        <input type="submit" value="submit" name="submit-feedback"/>
-    </form>
-</body>
-</html>
+        <div class="form-group submit-sign-up">
+          <div class="col-sm-8 col-sm-offset-4">
+            <button type="submit" name="submit-feedback" value="submit-feedback" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+        <input name="userID" type="hidden" value="<?php echo $_SESSION['userID']; ?>"/>
+        <input name="purchaseID" type="hidden" value="<?php echo $_GET['purchaseID']; ?>"/>
+        <input name="feedbackFor" type="hidden" value="<?php echo $_GET['feedbackFor']; ?>"/>
+    </div>   
+  </form>
 
-<?php
+  </div>
+  </div>
+  <?php
+
+
+// $result = $link -> prepare("INSERT INTO feedback (rating,comments, purchaseID, reg_date, feedbackFor ) VALUES (:rating,:comments, :purchaseID, ".date("Y-M-d H:i:s").", :feedbackFor)");
+// $result -> execute(array("rating"=>$_POST['rating'],"comments"=>$_POST['comments'],"comments"=>$_POST['comments']));
+			
+
 if (isset($_POST['submit-feedback'])) {
-$stmt = $con->prepare("INSERT INTO feedback (rating, comments)
-VALUES (?,?)");
-$stmt->bind_param("ss", $_POST['rating'], $_POST['comments']);
+$stmt = $con->prepare("INSERT INTO feedback (rating, comments, reg_date, purchaseID, feedbackFor) VALUES (?,?,?,?,?)");
+@$stmt->bind_param("ssssd", $_POST['rating'], $_POST['comments'], date("Y-m-d H:s:i"), $_POST['purchaseID'], $_POST['feedbackFor']);
 $stmt->execute();
 echo "done";
 $con->close();
 }
 ?>
-
 
   <footer>
   </footer>
@@ -118,7 +153,7 @@ $con->close();
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+</body>
 </html>
