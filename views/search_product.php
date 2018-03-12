@@ -33,9 +33,6 @@ $r_query = null;
       <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
-            <a class="active" href="contactemail.php"></span> Contact Us</a>
-          </button>
         </div>
         <script>
         function goForward() {
@@ -190,7 +187,7 @@ $r_query = mysqli_query($con, $sql);
     <p><?php echo $_SESSION['userID'];?><p>
   <h2>What we've got</h2>
   <a class="btn btn-lg btn-primary btn-block" href="add_product_form.php">Add a new item</a>
-  <a class="btn btn-lg btn-primary btn-block" href="watchlist.php">View Watchlist</a>
+  <a class="btn btn-lg btn-primary btn-block" href="buyer_dashboard.php">View Dashboard</a>
   <table class="table table-striped" id="myTable2">
     <thead>
       <tr>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require '../assets/php/connect.php';
+include '../assets/php/buyer_dashboardphp.php';
 ?>
 
 
@@ -8,6 +9,7 @@ require '../assets/php/connect.php';
 $message = '';
 
 $productID = mysqli_escape_string($con, $_GET['id']);
+echo "product ID:";
 echo $_GET['id'];
 
 $sql = "SELECT userID FROM product WHERE productID=$productID;";
@@ -31,12 +33,12 @@ if ($con->connect_error) {
 	$sql2 = "SELECT * FROM users, product WHERE users.id = product.userID AND product.productID=" . $con->real_escape_string($_GET['id']);
 	$sql3 = "SELECT product.userID, ROUND(AVG(purchase.ratingSeller),2)AS rateSeller FROM purchase, product
 			WHERE purchase.productID = product.productID AND product.userID=$productUserID;";
-	
-	
+
+
 	$result = $con -> query($sql);
 	$result2 = $con -> query($sql2);
 	$result3 = $con -> query($sql3);
-	
+
 	if ($con -> error) {
 		$message = $con -> error;
 	} else {
@@ -58,6 +60,7 @@ if ($con->connect_error) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../assets/stylesheets/application.css">
+  <link rel="stylesheet" href="../assets/stylesheets/details.css">
 
   <!-- Optional IE8 Support -->
   <!--[if lt IE 9]>
@@ -92,9 +95,48 @@ if ($con->connect_error) {
 		<div id="content">
 
 
+
+
+
+<div class="container product-details">
+  <h1 class="header-details"><?php echo $row['productName']; ?></h1>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Starting Price</th>
+      <th>Current Bid</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>End Date</th>
+      <th>End Time</th>
+      <th>Seller Name</th>
+      <th>Seller Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><?php echo $row['startPrice']; ?></td>
+      <td><?php
+      $productID = $row['productID'];
+      echo highestBid($productID, $con)['amount']; ?></td>
+      <td><?php echo $row['description']; ?></td>
+      <td><?php echo $row['category']; ?></td>
+      <td><?php echo substr($row['endDateTime'], 0, 10);?></td>
+      <td><?php echo substr($row['endDateTime'], 11, 16);?></td>
+      <td><?php echo $row2['name']; ?></td>
+      <td><?php echo $row3['rateSeller']; ?></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
 			<div id="col_1" role="main">
 
-				<?php if ($message) {
+				<!-- <?php if ($message) {
 				echo "<h2>$message</h2>";
 				} else { ?>
 
@@ -105,8 +147,11 @@ if ($con->connect_error) {
 
 				<form action="basket.php" method="post" id="bab_form" class="basket_add clearfix">
 				<h1 class="inline_block"><?php echo $row['productName']; ?></h1>
-            	<p class="figure"><img src="../images/images/<?php echo $row['image']; ?>" alt="<?php echo $row['category']; ?>" width="200" height="200">Price from $<?php echo $row['startPrice']; ?></p>
-            	<?php echo $row['description']; ?>
+            	<p class="figure"><img src="../images/images/<?php echo $row['image']; ?>" alt="<?php echo $row['category']; ?>" width="200" height="200">Price from $</p>
+
+              <?php echo $row['startPrice']; ?>
+              <?php echo $row['description']; ?>
+
 
 				<div class="qty">
                        <label for="qty">Quantity</label>
@@ -131,13 +176,10 @@ if ($con->connect_error) {
 				}
 				?>
 
-				<div id="col_2">
-				<h1 class="inline_block"><?php echo $row2['name']; ?></h1>
-				<h1 class="inline_block"><?php echo $row3['rateSeller']; ?></h1>
-				</div>
+
 
 				<?php }   //end of if
-					  }  // end of page ?>
+					  }  // end of page ?> -->
 			</div>
 
 
