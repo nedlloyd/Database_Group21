@@ -180,8 +180,7 @@ $r_query = mysqli_query($con, $sql);
     echo "<a class='btn btn-lg btn-primary btn-block' href='admin_dashboard.php'>View Dashboard</a>";
   } else {
     echo "<a class='btn btn-lg btn-primary btn-block' href='add_product_form.php'>Add a new item</a>";
-    echo "<a class='btn btn-lg btn-primary btn-block' href='buyer_dashboard.php'>Buyer Dashboard</a>";
-    echo "<a class='btn btn-lg btn-primary btn-block' href='seller_dashboard.php'>Seller Dashboard</a>";
+    echo "<a class='btn btn-lg btn-primary btn-block' href='buyer_dashboard.php'>View Dashboard</a>";
   } ?>
   <table class="table table-striped" id="myTable2">
     <thead>

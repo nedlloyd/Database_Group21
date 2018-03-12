@@ -43,7 +43,7 @@ function yourCurrentItemAuctioned($userID, $con) {
 	while ($row = mysqli_fetch_array($r_query)) {
 	   array_push($productIDs, $row['productID']);
 	}
-	
+
 	$sql = "SELECT * FROM product";
 	$r_query = mysqli_query($con, $sql);
 	$products = array();
@@ -52,21 +52,11 @@ function yourCurrentItemAuctioned($userID, $con) {
 		  array_push($products, $row);
 	   }
 	}
-	
+
 	return $products;
 }
 
 
-function highestBid($productID, $con) {
-  $sql = "SELECT * from bid WHERE productID=$productID ORDER BY amount DESC LIMIT 1";
-
-  $r_query = mysqli_query($con, $sql);
-  while ($row = mysqli_fetch_array($r_query)) {
-      $products=array('productID'=>$row['productID'],'amount'=>$row['amount'], 'bidID'=>$row['bidID'], 'userID'=>$row['userID']);
-  }
-
-  return $products;
-}
 
 
 function allBid($productID, $con) {
@@ -81,7 +71,7 @@ function allBid($productID, $con) {
 }
 
 
-function yourfeebackAverage($userID, $con) {
+function yourfeebackAverageSeller($userID, $con) {
   $sql = "SELECT ROUND(AVG(purchase.ratingSeller),2)AS rateSeller FROM purchase, product
 			WHERE purchase.productID = product.productID AND product.userID=$userID";
   $r_query = mysqli_query($con, $sql);
@@ -97,7 +87,7 @@ function yourfeebackAverage($userID, $con) {
   return $av;
 }
 
-function allFeedback($userID, $con) {
+function allFeedbackSeller($userID, $con) {
   $sql = "SELECT * FROM purchase, product
 			WHERE purchase.productID = product.productID AND product.userID=$userID";
   $r_query = mysqli_query($con, $sql);

@@ -133,7 +133,7 @@ $allFeedback = allFeedback($userID, $con);
               echo $numbid['numbid'];
               } else {
               echo "No one has bid on this product yet";
-              }	      
+              }
 			  ?></td>
               </tr>
       <?php
