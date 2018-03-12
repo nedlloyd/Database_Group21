@@ -68,12 +68,12 @@ function allFeedback($userID, $con) {
   $sql = "SELECT commentsBuyer, ratingBuyer, productID from purchase WHERE userID=$userID";
   $r_query = mysqli_query($con, $sql);
 
-  $products = "";
+  $products = [];
 
   if ($r_query != null) {
 
   while ($row = mysqli_fetch_array($r_query)) {
-  $products=array($row);
+    array_push($products, $row);
   }
 
 
