@@ -293,7 +293,7 @@ echo $allFeedback[0]['ratingBuyer'];
               <tr>
                 <th>Rating</th>
                 <th>Comments</th>
-
+                <th>Feedback From</th>
               </tr>
             </thead>
             <tbody>
@@ -302,8 +302,9 @@ echo $allFeedback[0]['ratingBuyer'];
               while ($i < count($allFeedback)) {
                 ?>
               <tr>
-                <td><?php echo $allFeedback[$i]['commentsBuyer']?>></td>
+                <td><?php echo $allFeedback[$i]['commentsBuyer']?></td>
                 <td><?php echo $allFeedback[$i]['ratingBuyer']?></td>
+                <td><?php echo findSellerEmail($allFeedback[$i]['productID'], $con)?></td>
               </tr>
       <?php
             $i += 1;

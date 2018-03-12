@@ -65,23 +65,35 @@ function yourfeebackAverage($userID, $con) {
 }
 
 function allFeedback($userID, $con) {
-  $sql = "SELECT commentsBuyer, ratingBuyer from purchase WHERE userID=$userID";
+  $sql = "SELECT commentsBuyer, ratingBuyer, productID from purchase WHERE userID=$userID";
   $r_query = mysqli_query($con, $sql);
 
-    $products = "";
+  $products = "";
 
   if ($r_query != null) {
 
   while ($row = mysqli_fetch_array($r_query)) {
-  $products=array('commentsBuyer'=>$row['commentsBuyer'],'ratingBuyer'=>$row['ratingBuyer']);
-  print_r($products);
-  echo "got here";
+  $products=array($row);
   }
 
 
 } else {
     $products = "empty";
 }
+return $products;
+}
+
+function findSellerEmail($productID, $con) {
+  $sql = "SELECT userID, email FROM purchase AS p JOIN users AS u ON p.userID=u.ID WHERE productID=$productID";
+  $r_query = mysqli_query($con, $sql);
+
+  $products = "";
+
+  while ($row = mysqli_fetch_array($r_query)) {
+  $products=$row['email'];
+  }
+
+
 return $products;
 }
 
