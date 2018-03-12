@@ -67,6 +67,7 @@ require '../assets/php/login_function.php';
     <div class="content-wrap"><section class="description">
       <div class="container col-sm-12">
         <p class="loginDescription">Welcome to Esway, the orginal online auction company.  If you need more information send a message to this link: <a class="loginContact" href="j.leblanc@amrc.org.uk">j.leblanc@amrc.org.uk!</a></p>
+        <p><?php echo $_SESSION['message'] ?></p>
         </div>
       </section>
       <div class="container">

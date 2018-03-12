@@ -97,4 +97,48 @@ function findSellerEmail($productID, $con) {
 return $products;
 }
 
+function findTotalUsers($con) {
+  $sql = "SELECT COUNT(id) FROM users";
+  $r_query = mysqli_query($con, $sql);
+
+  $totalUsers = 0;
+
+  while ($row = mysqli_fetch_array($r_query)) {
+  $totalUsers=$row['COUNT(id)'];
+  }
+
+
+  return $totalUsers;
+
+}
+
+function findTotalActiveProducts($con) {
+  $sql = "SELECT endDateTime, productID FROM product";
+  $r_query = mysqli_query($con, $sql);
+
+  $totalProductsCurrent = 0;
+  $totalProductsFinished = 0;
+
+  while ($row = mysqli_fetch_array($r_query)) {
+    if ((time() <= strtotime($row['endDateTime']))) {
+      $totalProductsCurrent++;
+    } else {
+      $totalProductsFinished++;
+    }
+  }
+
+  $totalProducts = array("totalProductsCurrent"=>$totalProductsCurrent, "totalProductsFinished"=>$totalProductsFinished);
+
+
+  return $totalProducts;
+
+}
+
+function viewAllUsers($con) {
+  $sql = "SELECT * FROM users";
+  $r_query = mysqli_query($con, $sql);
+
+
+  return $r_query;
+}
 ?>

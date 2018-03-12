@@ -13,9 +13,13 @@ if (isset($_POST['submit-login'])) {
   } else {
     $user = $result->fetch_assoc();
     if ( password_verify($_POST['password'], $user['password'])) {
-        $_SESSION['userID'] = $user['id'];
-        $_SESSION['role'] = $user['role'];
-        header("location: search_product.php");
+        if ($user['active'] == TRUE) {
+          $_SESSION['userID'] = $user['id'];
+          $_SESSION['role'] = $user['role'];
+          header("location: search_product.php");
+        } else {
+          $_SESSION['message'] = "Your account had been deactivated";
+        }
     } else {
       $_SESSION['message'] = "You have entered the wrong password";
     }
