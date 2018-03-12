@@ -100,6 +100,9 @@ if ($con->connect_error) {
 
 <div class="container product-details">
   <h1 class="header-details"><?php echo $row['productName']; ?></h1>
+
+<a class="btn btn-lg btn-primary btn-block" href="search_product.php">Back to Search Products</a>
+
   <table class="table table-striped">
   <thead>
     <tr>
