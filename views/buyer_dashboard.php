@@ -25,9 +25,6 @@ echo $_SESSION['userID'];
       <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
-            <a class="active" href="contactemail.php"></span> Contact Us</a>
-          </button>
         </div>
         <script>
         function goForward() {
@@ -63,7 +60,7 @@ echo $_SESSION['userID'];
 </head>
 <body>
 
-<div class="tabs-dashboard">
+<div class="tabs-dashboard col-sm-offset-1">
   <ul class="nav nav-pills" role="tablist">
   <li class="active col-sm-5"><a href="#buyer" role="tab" data-toggle="tab">Buyer Dashboard</a></li>
   <li class="col-sm-5"><a href="#seller" role="tab" data-toggle="tab">Seller Dashboard</a></li>
@@ -73,6 +70,11 @@ echo $_SESSION['userID'];
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane active" id="buyer">
+    <?php
+    if ($_SESSION['role'] != 'seller') {
+      echo "<h1> I'm Afriad you only have a Seller Account </h1>";
+    } else {
+     ?>
     <?php
     if (isset($_POST['remove-watchlist'])) {
     $id = $_POST['productID'];
@@ -386,11 +388,17 @@ echo $_SESSION['userID'];
     </div>
 
   </div>
+  <?php } ?>
 </div>
 
 
-
   <div class="tab-pane" id="seller">
+    <?php
+    echo strpos($_SESSION['role'], 'buyer');
+    if ($_SESSION['role'] === 'buyer') {
+      echo "<h1> I'm Afriad you only have a Buyer Account </h1>";
+    } else {
+     ?>
 
     <?php
     $userID = mysqli_real_escape_string($con, $_SESSION['userID']);
@@ -577,6 +585,7 @@ echo $_SESSION['userID'];
 
 
   </div>
+    <?php } ?>
 </div>
 </div>
 
