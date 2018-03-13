@@ -1,8 +1,6 @@
 <?php
 session_start();
 require '../assets/php/connect.php';
-echo $_SESSION['userID'];
-echo $_SESSION['role'];
 ?>
 
 
@@ -27,22 +25,19 @@ echo $_SESSION['role'];
             <a class="active" href="contactemail.php"></span> Contact Us</a>
           </button>
         </div>
-        <script>
-        function goForward() {
-            window.history.forward();
+
+      </div>
+      <script>
+      function goForward() {
+          window.history.forward();
+      }
+      </script>
+      <script>
+        function goBack() {
+            window.history.back()
         }
         </script>
-        <script>
-          function goBack() {
-              window.history.back()
-          }
-          </script>
-        <body>
 
-          <a button onclick="goBack()">&laquo; Previous</a>
-          <a button onclick="goForward()">Next &raquo;</a>
-
-        </body>
       </div>
 
       <h1 class="loginTitle"> Esway </h1>
@@ -61,84 +56,115 @@ echo $_SESSION['role'];
 
 
 </head>
+<meta charset="utf-8">
+<title>Purchase</title>
+</head>
 <body>
-    <div class="wrapperforstickyfooter">
+  <div class="wrapperforstickyfooter">
   <div class="content-wrap">
-    <div class="container">
 
-    <form class="form-horizontal" method="post" action="do.php">
-      <fieldset>
+  <fieldset>
         <legend>Purchase</legend>
-              <p></p>
+  </fieldset>
 
+    <form method="POST"  class="form-horizontal">
+    <div class="container">
+     <?php
+     $sql = "SELECT * FROM purchase WHERE purchaseID='".$_GET['purchaseID']."'";
+     $result = $con -> query($sql);
+     $row = $result -> fetch_assoc();
+     if($row){
+      if($row['userID'] == $_SESSION['userID']){
+      ?> 
         <div class="form-group">
-          <label for="orderID" class="col-sm-4 control-label">orderID</label>
-          <div class="col-sm-4">
-            <input name="productID" type="text" class="form-control" columns="7" id="productID" placeholder="productID">
-            <span class="error"></span>
-          </div>
+            <label for="payementComplete" class="col-sm-4 control-label">payementComplete</label>
+            <div class="col-sm-4">
+              <select name="payementComplete" class="form-control" id="payementComplete">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+              </select>
+              <span class="error"></span>
+
+            </div>
         </div>
 
         <div class="form-group">
-      <label for="role" class="col-sm-4 control-label">purchase comfirmation</label>
-      <div class="col-sm-4">
-        <select name="role" class="form-control" id="role">
-          <option value="1">Yes</option>
-          <option value="2">No</option>
+            <label for="dateAndTimeCompletion" class="col-sm-4 control-label">dateAndTimeCompletion</label>
+            <div class="col-sm-4">
+            <input name="dateAndTimeCompletion" type="text" class="form-control" id="dateAndTimeCompletion" value="<?php echo date("Y-m-d H:i:s");?>">
+              <span class="error"></span>
 
-          <?php if ($_SESSION['role'] === 'admin') {
-            ?>
-          <option value="admin">Admin</option>
-
-
-          <?php
-        }
-          ?>
-        </select>
-        <span class="error"></span>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="role" class="col-sm-4 control-label">payment</label>
-      <div class="col-sm-4">
-        <select name="role" class="form-control" id="role">
-           <option value="1">credit card</option>
-           <option value="2">paypal</option>
-           <option value="2">other</option>
-
-
-          <?php if ($_SESSION['role'] === 'admin') {
-            ?>
-          <option value="admin">Admin</option>
-
-
-          <?php
-        }
-          ?>
-        </select>
-        <span class="error"></span>
-      </div>
-    </div>
-
-
-        <div class="form-group submit-sign-up">
-          <div class="col-sm-8 col-sm-offset-4">
-            <button type="submit" name="submit-user" value="submit-user" class="btn btn-primary">Submit</button>
-            <input type="hidden" name="doing" value="feedback">
-          </div>
+            </div>
         </div>
+        <?php
+        }
+        ?>
+          <div class="form-group">
+            <label for="rating" class="col-sm-4 control-label">rating score<br>(10=very satisfied; 1=very poor)</label>
+            <div class="col-sm-4">
+              <select name="rating" class="form-control" id="rating">
+                <option value="10">10</option>
+                <option value="9">9</option>
+                <option value="8">8</option>
+                <option value="7">7</option>
+                <option value="6">6</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
+              <span class="error"></span>
+            </div>
+          </div>       
 
-      </fieldset>
+          <div class="form-group">
+            <label for="comments" class="col-sm-4 control-label">comments</label>
+            <div class="col-sm-4">
+              <input name="comments" type="text" class="form-control" id="comments" placeholder="comments">
+              <span class="error"></span>
+            </div>
+          </div>
+
+          <div class="form-group submit-sign-up">
+            <div class="col-sm-8 col-sm-offset-4">
+              <button type="submit" name="submit-purchase" value="submit-purchase" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+          
+          <!-- <input name="userID" type="hidden" value="69"/> -->
+          <!-- <input name="productID" type="hidden" value="49"/>
+          <input name="purchaseID" type="hidden" value="25"/> -->
+          <input name="userID" type="hidden" value="<?php echo $row['userID']; ?>"/>
+          <input name="productID" type="hidden" value="<?php echo $row['productID']; ?>"/>
+          <input name="purchaseID" type="hidden" value="<?php echo $row['purchaseID']; ?>"/> 
+      </div>   
     </form>
-
-
     </div>
-
-
+      <?php
+      }else{
+        echo "Error";
+      }
+      ?>
   </div>
-</div>
-</body>
+
+<?php
+if (isset($_POST['submit-purchase'])) {
+  if($_POST['userID'] == $_SESSION['userID']){
+    $sqlCode = "payementComplete='".$_POST['payementComplete']."', dateAndTimeCompletion='".$_POST['dateAndTimeCompletion']."', commentsBuyer='".$_POST['comments']."', ratingBuyer='".$_POST['rating']."'";
+  }else{
+   $sqlCode = "commentsSeller='".$_POST['comments']."', ratingSeller='".$_POST['rating']."'";
+  }
+
+  
+  $stmt = $con->query("UPDATE purchase SET ".$sqlCode.", reg_date='".date("Y-m-d H:i:s")."' WHERE purchaseID='".$_POST["purchaseID"]."'");
+  // $stmt = $con->prepare("INSERT INTO purchase (purchaseID, userID, productID, payementComplete, dateAndTimeCompletion, reg_date, commentsSeller, commentsBuyer, ratingSeller, ratingBuyer ) VALUES (?,?,?,?,?,?,?,?,?,?)");
+  // @$stmt->bind_param("iiibbdssii", $_POST['(purchaseID'], $_POST['userID'], $_POST['productID'], $_POST['payementComplete'], $_POST['dateAndTimeCompletion'], date("Y-m-d H:s:i"), $_POST['commentsSeller'], $_POST['commentsBuyer'], $_POST['ratingSeller'], $_POST['ratingBuyer']);
+  // $stmt->execute();
+  echo "done";
+  $con->close();
+}
+?>
 
   <footer>
   </footer>
@@ -149,7 +175,24 @@ echo $_SESSION['role'];
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+</body>
 </html>
+
+
+
+<?php 
+//(“isdb", $id,$name,$score,$image) 代表$id为int型，$name为字符串型，$score为double型，$image为二进制型。 
+
+
+//if the userID matchs the userID in the purchase table, it is buyerID;  else it is sellerID
+//if the rating matchs the buyerID, it is commentBuyer; else it is commentSeller
+//if the comment matchs the buyerID, it is ratingBuyer; else it is ratingSeller
+
+
+
+//$result = $link->query("UPDATE table SET password='".$password_new."', salt='".$salt_new."' WHERE userId='".$_SESSION["purchase_userID"]."'");
+// if($result && $result -> rowCount() > 0){
+//     unset($_SESSION['purchase_userID']);
+?>

@@ -72,7 +72,8 @@ require '../assets/php/connect.php';
                 <h3>Product Order</h3>
                 <ul>
                     <li><a href="details.php?id=<?php echo $row['productID'] ?>">AAAA</a> / loss the bid / --</li>
-                    <li><a href="details.php?id=<?php echo $row['productID'] ?>">BBBB</a> / win the bid / payment / <a href="feedback.php?purchaseID=22&feedbackFor=1">Feedback</a></li>
+                    <li><a href="details.php?id=<?php echo $row['productID'] ?>">BBBB</a> / win the bid / <a href="purchase.php?purchaseID=22&feedbackFor=1">purchase</a></li>
+                    <li><a href="details.php?id=<?php echo $row['productID'] ?>">ZZZZ</a> / <a href="purchase.php?purchaseID=22&feedbackFor=1">purchase</a></li>
                 </ul>       
             </div>
 
@@ -80,7 +81,7 @@ require '../assets/php/connect.php';
                 <h3>Product List</h3>
                 <ul>
                     <li><a href="details.php?id=<?php echo $row['productID'] ?>">CCCC</a> / bidding /</li>
-                    <li><a href="details.php?id=<?php echo $row['productID'] ?>">DDDD</a> / auction closed / details / <a href="feedback.php?purchaseID=33&feedbackFor=2">Feedback</a></li>
+                    <li><a href="details.php?id=<?php echo $row['productID'] ?>">DDDD</a> / auction closed / details /
                 </ul>
             </div>
         </div>
