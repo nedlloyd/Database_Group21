@@ -4,6 +4,7 @@ require '../assets/php/collaborative_filtering.php';
 include '../assets/php/buyer_dashboardphp.php';
 include '../assets/php/seller_dashboardphp.php';
 require '../assets/php/connect.php';
+require '../assets/php/purchase.php';
 echo $_SESSION['userID'];
 ?>
 
@@ -17,7 +18,7 @@ echo $_SESSION['userID'];
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
-  <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/buyer_dashboard.css">
+  <!-- <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/buyer_dashboard.css"> -->
 
 
   <header role="banner" class="header-reports">

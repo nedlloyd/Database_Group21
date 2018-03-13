@@ -138,58 +138,6 @@ if ($con->connect_error) {
 </div>
 
 
-
-
-
-			<div id="col_1" role="main">
-
-				<!-- <?php if ($message) {
-				echo "<h2>$message</h2>";
-				} else { ?>
-
-				<?php if ($_SESSION['userID'] == null) { ?>
-					<h2 class="inline_block">Sorry, you must login first.</h2>
-				<?php echo "<a href='login.php'>Back to the login page </a>" ?>
-				<?php } else { ?>
-
-				<form action="basket.php" method="post" id="bab_form" class="basket_add clearfix">
-				<h1 class="inline_block"><?php echo $row['productName']; ?></h1>
-            	<p class="figure"><img src="../images/images/<?php echo $row['image']; ?>" alt="<?php echo $row['category']; ?>" width="200" height="200">Price from $</p>
-
-              <?php echo $row['startPrice']; ?>
-              <?php echo $row['description']; ?>
-
-
-				<div class="qty">
-                       <label for="qty">Quantity</label>
-                       <input value="0" name="qty_<?php echo $row['productID'] ?>" id="qty" class="text" type="number" min="0">
-                </div>
-
-				<input type="hidden" name="price_<?php echo $row['productID'] ?>" value="<?php echo $row['startPrice'] ?>">
-
-				<input type="hidden" name="image_<?php echo $row['productID'] ?>" value="<?php echo $row['image'] ?>">
-
-
-				<div id="addtobask">
-
-					<input class="btn checkout" value="Add to Basket" type="submit" name="addtobasket">
-				</div>
-
-
-				</form>
-				<?php
-				if (isset($_POST['addtobasket'])){
-					print_r($_POST);
-				}
-				?>
-
-
-
-				<?php }   //end of if
-					  }  // end of page ?> -->
-			</div>
-
-
 		</div>
 	</div>
   <form method="post">
@@ -216,7 +164,7 @@ if ($con->connect_error) {
   </form>
 
   <?php
-  
+
   if (isset($_POST['submit-bid'])) {
     $userID = $_SESSION['userID'];
     $productID = mysqli_escape_string($con, $_GET['id']);
