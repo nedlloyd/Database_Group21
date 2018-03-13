@@ -192,7 +192,7 @@ if ($con->connect_error) {
 
 		</div>
 	</div>
-  <form>
+  <form method="post">
   <div class="form-group">
       <label for="amount" class="col-sm-4 control-label"></label>
       <div class="col-sm-4">
@@ -210,18 +210,21 @@ if ($con->connect_error) {
         location.reload();
     }
     </script>
-      <input name="userID" type="hidden" value="<?php echo $_SESSION['userID']; ?>"/>
-      <input name="productID" type="hidden" value="<?php echo $_GET['productID']; ?>"/>
-    </div>
+    <input name="userID" type="hidden" value="<?php echo $_SESSION['userID']; ?>"/>
+    <input name="productID" type="hidden" value="<?php echo $_GET['productID']; ?>"/>
+  </div>
   </form>
 
   <?php
-  $userID = $_SESSION['userID'];
-  $productID = mysqli_escape_string($con, $_POST['productID']);
+  
   if (isset($_POST['submit-bid'])) {
-  $stmt = $con->prepare("INSERT INTO bid (userID, productID, bidDateAndTime, amount)
-  VALUES (?,?,?,?)");
-  $stmt->bind_param("sssd", $_POST['userID'], $_POST['productID'], date("Y-m-d H:s:i"), $_POST("amount")]);
+    $userID = $_SESSION['userID'];
+    $productID = mysqli_escape_string($con, $_GET['id']);
+    /*echo $_POST['amount'];
+    echo $_GET['id'];*/
+  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
+  VALUES (?,?,?)");
+  $stmt->bind_param("sss", $userID, $productID, $_POST['amount']);
   $stmt->execute();
   echo "New bid submitted.";
   $con->close();
