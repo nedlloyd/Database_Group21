@@ -221,7 +221,7 @@ if ($con->connect_error) {
   if (isset($_POST['submit-bid'])) {
   $stmt = $con->prepare("INSERT INTO bid (userID, productID, bidDateAndTime, amount)
   VALUES (?,?,?,?)");
-  $stmt->bind_param("sssd", $_POST['userID'], $_POST['productID'], date("Y-m-d H:s:i"), $_POST['amount']);
+  $stmt->bind_param("sssd", $_POST['userID'], $_POST['productID'], date("Y-m-d H:s:i"), $amount]);
   $stmt->execute();
   echo "New bid submitted.";
   $con->close();
