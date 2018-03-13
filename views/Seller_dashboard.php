@@ -68,9 +68,9 @@ $userID = mysqli_real_escape_string($con, $_SESSION['userID']);
 $sellinghist = sellinghist($userID,$con);
 $productsAuction = yourCurrentItemAuctioned($userID, $con);
 $allFeedback = allFeedback($userID, $con);
-print_r($allFeedback);
-echo $allFeedback[0]['commentsSeller'];
-echo $allFeedback[0]['ratingSeller'];
+//print_r($allFeedback);
+//echo $allFeedback[0]['commentsSeller'];
+//echo $allFeedback[0]['ratingSeller'];
 //$highestbid = highestBid(62, $con);
 
 
@@ -99,7 +99,8 @@ echo $allFeedback[0]['ratingSeller'];
                 <th>Start Price</th>
                 <th>End Time and Date</th>
                 <th>Current Highest Bid</th>
-                <th>Your Highest Bid</th>
+                <th>Viewing History</th>
+				<th>Numbers of Bids</th>
               </tr>
             </thead>
             <tbody>
@@ -120,13 +121,20 @@ echo $allFeedback[0]['ratingSeller'];
                 echo "Bid Ended";
               }?></td>
               <td><?php echo highestBid($productsAuction[$i]['productID'], $con)['amount'] ?></td>
-              <td><?php $allb = allBid($productsAuction[$i]['productID'], $con);
-              if ($allb != NULL) {
-              echo allBid($productsAuction[$i]['productID'], $con)['amount'];
-            } else {
-              echo "No one bid on this product";
-            }
+              <td><?php $view = viewtraffic($productsAuction[$i]['productID'], $con);
+              if ($view != NULL) {
+              echo $view['view'];
+              } else {
+              echo "No one has view this product yet";
+              }
               ?></td>
+			  <td><?php $numbid = numberofbid($productsAuction[$i]['productID'], $con);
+			  if ($numbid != NULL) {
+              echo $numbid['numbid'];
+              } else {
+              echo "No one has bid on this product yet";
+              }
+			  ?></td>
               </tr>
       <?php
        }
@@ -158,7 +166,6 @@ echo $allFeedback[0]['ratingSeller'];
                 <th>Start Price</th>
                 <th>End Time and Date</th>
                 <th>Winning Bid</th>
-                <th>Your Highest Bid</th>
               </tr>
             </thead>
             <tbody>
@@ -205,6 +212,7 @@ echo $allFeedback[0]['ratingSeller'];
           <table class="table table-striped">
             <thead>
               <tr>
+				<th>Product Name</th>
                 <th>Rating</th>
                 <th>Comments</th>
 
@@ -216,12 +224,13 @@ echo $allFeedback[0]['ratingSeller'];
               while ($i < count($allFeedback)) {
                 ?>
               <tr>
-                <td><?php echo $allFeedback[$i]['commentsSeller']?></td>
+				<td><?php echo $allFeedback[$i]['productName']?></td>
                 <td><?php echo $allFeedback[$i]['ratingSeller']?></td>
+                <td><?php echo $allFeedback[$i]['commentsSeller']?></td>
               </tr>
       <?php
             $i += 1;
-       }
+       	}
       }
       ?>
             </tbody>
