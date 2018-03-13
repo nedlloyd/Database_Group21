@@ -62,18 +62,31 @@ echo $_SESSION['userID'];
 
 <div class="tabs-dashboard col-sm-offset-1">
   <ul class="nav nav-pills" role="tablist">
-  <li class="active col-sm-5"><a href="#buyer" role="tab" data-toggle="tab">Buyer Dashboard</a></li>
-  <li class="col-sm-5"><a href="#seller" role="tab" data-toggle="tab">Seller Dashboard</a></li>
+
+    <?php
+   if ($_SESSION['role'] === 'seller') {
+     echo "<li class='active col-sm-5'><a href=''#seller' role='tab' data-toggle='tab'>Seller Dashboard</a></li>";
+   } else if ($_SESSION['role'] === 'buyer') {
+     echo "<li class='active col-sm-5'><a href='#buyer' role='tab' data-toggle='tab'>Buyer Dashboard</a></li>";
+  } else {
+    echo "<li class='active col-sm-5'><a href='#buyer' role='tab' data-toggle='tab'>Buyer Dashboard</a></li>";
+    echo "<li class='col-sm-5'><a href='#seller' role='tab' data-toggle='tab'>Seller Dashboard</a></li>";
+  }
+     ?>
+
+     <!-- <li class='active col-sm-5'><a href='#buyer' role='tab' data-toggle='tab'>Buyer Dashboard</a></li>
+     <li class='col-sm-5'><a href='#seller' role='tab' data-toggle='tab'>Seller Dashboard</a></li> -->
 </ul>
 </div>
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" id="buyer">
+
     <?php
-    if ($_SESSION['role'] != 'seller') {
-      echo "<h1> I'm Afriad you only have a Seller Account </h1>";
+    if ($_SESSION['role'] == 'seller') {
+      echo "<div>";
     } else {
+      echo "<div class='tab-pane active' id='buyer'>";
      ?>
     <?php
     if (isset($_POST['remove-watchlist'])) {
@@ -388,16 +401,19 @@ echo $_SESSION['userID'];
     </div>
 
   </div>
-  <?php } ?>
+
 </div>
+  <?php } ?>
 
 
-  <div class="tab-pane" id="seller">
+
     <?php
-    echo strpos($_SESSION['role'], 'buyer');
-    if ($_SESSION['role'] === 'buyer') {
-      echo "<h1> I'm Afriad you only have a Buyer Account </h1>";
-    } else {
+    $role = $_SESSION['role'];
+
+    if ($role == 'buyer') {
+        echo "<div>";
+      }else {
+        echo " <div class='tab-pane' id='seller'>";
      ?>
 
     <?php
@@ -585,8 +601,8 @@ echo $_SESSION['userID'];
 
 
   </div>
-    <?php } ?>
 </div>
+    <?php } ?>
 </div>
 
 

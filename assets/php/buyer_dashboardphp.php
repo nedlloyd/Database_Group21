@@ -29,7 +29,7 @@ function highestBid($productID, $con) {
   while ($row = mysqli_fetch_array($r_query)) {
     if ($row['amount'] != NULL) {
       $products['amount']= $row['amount'];
-    } 
+    }
   }
 
   return $products;
