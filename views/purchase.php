@@ -70,7 +70,7 @@ require '../assets/php/connect.php';
     <form method="POST"  class="form-horizontal">
     <div class="container">
      <?php
-     $sql = "SELECT * FROM purchase WHERE productID='".$_GET['productID']."'";
+     $sql = "SELECT * FROM purchase WHERE productID='".$_GET['id']."'";
      $result = $con -> query($sql);
      $row = $result -> fetch_assoc();
      if($row){
@@ -157,7 +157,7 @@ if (isset($_POST['submit-purchase'])) {
   }
 
   
-  $stmt = $con->query("UPDATE purchase SET ".$sqlCode.", reg_date='".date("Y-m-d H:i:s")."' WHERE productID='".$_POST["productID"]."'");
+  $stmt = $con->query("UPDATE purchase SET ".$sqlCode.", reg_date='".date("Y-m-d H:i:s")."' WHERE productID='".$_GET["id"]."'");
   // $stmt = $con->prepare("INSERT INTO purchase (purchaseID, userID, productID, payementComplete, dateAndTimeCompletion, reg_date, commentsSeller, commentsBuyer, ratingSeller, ratingBuyer ) VALUES (?,?,?,?,?,?,?,?,?,?)");
   // @$stmt->bind_param("iiibbdssii", $_POST['(purchaseID'], $_POST['userID'], $_POST['productID'], $_POST['payementComplete'], $_POST['dateAndTimeCompletion'], date("Y-m-d H:s:i"), $_POST['commentsSeller'], $_POST['commentsBuyer'], $_POST['ratingSeller'], $_POST['ratingBuyer']);
   // $stmt->execute();
