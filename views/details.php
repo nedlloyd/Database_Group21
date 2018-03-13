@@ -178,6 +178,53 @@ if ($con->connect_error) {
   $con->close();
   }
   ?>
+
+  <?php
+  $productID = mysqli_escape_string($con, $_GET['id']);
+  echo $productID;
+  $sql = "SELECT endDateTime FROM product WHERE productID=$productID";
+  /*echo $productID;*/
+  $r_query_DT = mysqli_query($con, $sql);
+  $time = '';
+  if ($r_query_DT != null) {
+  while ($row = mysqli_fetch_array($r_query_DT)) {
+    $time = $row['endDateTime'];
+    /*echo $time;*/
+    }
+  }
+   ?>
+
+   <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  p {
+    text-align: center;
+    font-size: 60px;
+    margin-top:0px;
+  }
+  </style>
+  </head>
+
+ <p id="timer"></p>
+ <p id="timer"></p>
+ <script>
+ var countdownDate = new Date("<?php echo $time ?>").getTime();
+ var x = setInterval(function() {
+     var now = new Date().getTime();
+     var distance = countdownDate - now;
+     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+     document.getElementById("timer").innerHTML = days + "d " + hours + "h "
+     + minutes + "m " + seconds + "s ";
+     if (distance < 0) {
+         clearInterval(x);
+         document.getElementById("timer").innerHTML = "EXPIRED";
+     }
+ }, 1000);
+ </script>
+
 </body>
 
   <footer>
