@@ -192,6 +192,41 @@ if ($con->connect_error) {
 
 		</div>
 	</div>
+  <form>
+  <div class="form-group">
+      <label for="amount" class="col-sm-4 control-label"></label>
+      <div class="col-sm-4">
+      <input name="amount" type="text" class="form-control" id="amount" placeholder="bid amount">
+    </div>
+  </div>
+
+  <div class="form-group submit-sign-up">
+    <div class="col-sm-8 col-sm-offset-4">
+      <button type="submit" name="submit-bid" value="submit-bid" id="btnsubmit" class="btn btn-primary">Submit Bid</button>
+      <button onclick="myFunction()" class="btn btn-primary">Refresh</button>
+    </div>
+    <script>
+    function myFunction() {
+        location.reload();
+    }
+    </script>
+      <input name="userID" type="hidden" value="<?php echo $_SESSION['userID']; ?>"/>
+      <input name="productID" type="hidden" value="<?php echo $_GET['productID']; ?>"/>
+    </div>
+  </form>
+
+  <?php
+  $userID = $_SESSION['userID'];
+  $productID = mysqli_escape_string($con, $_POST['productID']);
+  if (isset($_POST['submit-bid'])) {
+  $stmt = $con->prepare("INSERT INTO bid (userID, productID, bidDateAndTime, amount)
+  VALUES (?,?,?,?)");
+  $stmt->bind_param("sssd", $_POST['userID'], $_POST['productID'], date("Y-m-d H:s:i"), $_POST['amount']);
+  $stmt->execute();
+  echo "New bid submitted.";
+  $con->close();
+  }
+  ?>
 </body>
 
   <footer>
