@@ -144,7 +144,7 @@ if ($con->connect_error) {
   <div class="form-group">
       <label for="amount" class="col-sm-4 control-label"></label>
       <div class="col-sm-4">
-      <input name="amount" type="text" class="form-control" id="amount" placeholder="bid amount">
+      <input name="amount" type="number" min="0" class="form-control" id="amount" placeholder="bid amount">
     </div>
   </div>
 
@@ -166,22 +166,26 @@ if ($con->connect_error) {
   <?php
 
   if (isset($_POST['submit-bid'])) {
-    $userID = $_SESSION['userID'];
-    $productID = mysqli_escape_string($con, $_GET['id']);
-    /*echo $_POST['amount'];
-    echo $_GET['id'];*/
-  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
-  VALUES (?,?,?)");
-  $stmt->bind_param("sss", $userID, $productID, $_POST['amount']);
-  $stmt->execute();
-  echo "New bid submitted.";
-  $con->close();
+	  if($_POST['amount'] <= $highestBid){
+		  echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
+	  } else {
+		  $userID = $_SESSION['userID'];
+		  $productID = mysqli_escape_string($con, $_GET['id']);
+			/*echo $_POST['amount'];
+			echo $_GET['id'];*/
+		  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
+		  VALUES (?,?,?)");
+		  $stmt->bind_param("sss", $userID, $productID, $_POST['amount']);
+		  $stmt->execute();
+		  echo "New bid submitted.";
+		  $con->close();
+	  }
   }
   ?>
 
   <?php
   $productID = mysqli_escape_string($con, $_GET['id']);
-  echo $productID;
+  //echo $productID;
   $sql = "SELECT endDateTime FROM product WHERE productID=$productID";
   /*echo $productID;*/
   $r_query_DT = mysqli_query($con, $sql);
