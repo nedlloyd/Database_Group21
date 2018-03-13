@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $connectstr_dbhost = "group21-mysql-server.mysql.database.azure.com";
 $connectstr_dbusername = "group21@group21-mysql-server";

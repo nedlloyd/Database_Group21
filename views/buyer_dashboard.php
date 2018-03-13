@@ -25,9 +25,6 @@ echo $_SESSION['userID'];
       <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
-          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
-            <a class="active" href="contactemail.php"></span> Contact Us</a>
-          </button>
         </div>
         <script>
         function goForward() {
@@ -63,14 +60,34 @@ echo $_SESSION['userID'];
 </head>
 <body>
 
-  <ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#buyer" role="tab" data-toggle="tab">Buyer</a></li>
-  <li><a href="#seller" role="tab" data-toggle="tab">Seller</a></li>
+<div class="tabs-dashboard col-sm-offset-1">
+  <ul class="nav nav-pills" role="tablist">
+
+    <?php
+   if ($_SESSION['role'] === 'seller') {
+     echo "<li class='active col-sm-5'><a href=''#seller' role='tab' data-toggle='tab'>Seller Dashboard</a></li>";
+   } else if ($_SESSION['role'] === 'buyer') {
+     echo "<li class='active col-sm-5'><a href='#buyer' role='tab' data-toggle='tab'>Buyer Dashboard</a></li>";
+  } else {
+    echo "<li class='active col-sm-5'><a href='#buyer' role='tab' data-toggle='tab'>Buyer Dashboard</a></li>";
+    echo "<li class='col-sm-5'><a href='#seller' role='tab' data-toggle='tab'>Seller Dashboard</a></li>";
+  }
+     ?>
+
+     <!-- <li class='active col-sm-5'><a href='#buyer' role='tab' data-toggle='tab'>Buyer Dashboard</a></li>
+     <li class='col-sm-5'><a href='#seller' role='tab' data-toggle='tab'>Seller Dashboard</a></li> -->
 </ul>
+</div>
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" id="buyer">
+
+    <?php
+    if ($_SESSION['role'] == 'seller') {
+      echo "<div>";
+    } else {
+      echo "<div class='tab-pane active' id='buyer'>";
+     ?>
     <?php
     if (isset($_POST['remove-watchlist'])) {
     $id = $_POST['productID'];
@@ -92,7 +109,6 @@ echo $_SESSION['userID'];
   $productsWatch = findProdcuts('watchlist', $userID, $con);
   $productsBid = findProdcuts('bid', $userID, $con);
   $allFeedback = allFeedback($userID, $con);
-  print_r($allFeedback);
 
   //$highestbid = highestBid(62, $con);
 
@@ -143,7 +159,14 @@ echo $_SESSION['userID'];
                 } else {
                   echo "Bid Ended";
                 }?></td>
-                <td><?php echo highestBid($productsWatch[$i]['productID'], $con)['amount'] ?></td>
+                 <td><?php
+                 $productID = $row['productID'];
+                 $highestBid = highestBid($productsWatch[$i]['productID'], $con)['amount'];
+                 if ($highestBid == NULL){
+                   $highestBid = 'No Bids Yet';
+                 }
+                 echo $highestBid;?></td>
+
                 <td><?php $yhb = YourHighestBid($_SESSION['userID'], $productsWatch[$i]['productID'], $con);
                 if ($yhb != NULL) {
                 echo YourHighestBid($_SESSION['userID'], $productsWatch[$i]['productID'], $con)['amount'];
@@ -378,11 +401,20 @@ echo $_SESSION['userID'];
     </div>
 
   </div>
+
 </div>
+  <?php } ?>
 
 
 
-  <div class="tab-pane" id="seller">
+    <?php
+    $role = $_SESSION['role'];
+
+    if ($role == 'buyer') {
+        echo "<div>";
+      }else {
+        echo " <div class='tab-pane' id='seller'>";
+     ?>
 
     <?php
     $userID = mysqli_real_escape_string($con, $_SESSION['userID']);
@@ -570,6 +602,7 @@ echo $_SESSION['userID'];
 
   </div>
 </div>
+    <?php } ?>
 </div>
 
 
