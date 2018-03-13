@@ -23,9 +23,13 @@ return $products;
 function highestBid($productID, $con) {
   $sql = "SELECT * from bid WHERE productID=$productID ORDER BY amount DESC LIMIT 1";
 
+  $products=array('amount'=>'');
+
   $r_query = mysqli_query($con, $sql);
   while ($row = mysqli_fetch_array($r_query)) {
-      $products=array('productID'=>$row['productID'],'amount'=>$row['amount'], 'bidID'=>$row['bidID'], 'userID'=>$row['userID']);
+    if ($row['amount'] != NULL) {
+      $products['amount']= $row['amount'];
+    } 
   }
 
   return $products;

@@ -121,7 +121,11 @@ if ($con->connect_error) {
       <td><?php echo $row['startPrice']; ?></td>
       <td><?php
       $productID = $row['productID'];
-      echo highestBid($productID, $con)['amount']; ?></td>
+      $highestBid = highestBid($productID, $con)['amount'];
+      if ($highestBid == NULL){
+        $highestBid = 'No Bids Yet';
+      }
+      echo $highestBid;?></td>
       <td><?php echo $row['description']; ?></td>
       <td><?php echo $row['category']; ?></td>
       <td><?php echo substr($row['endDateTime'], 0, 10);?></td>

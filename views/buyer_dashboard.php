@@ -63,10 +63,12 @@ echo $_SESSION['userID'];
 </head>
 <body>
 
-  <ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#buyer" role="tab" data-toggle="tab">Buyer</a></li>
-  <li><a href="#seller" role="tab" data-toggle="tab">Seller</a></li>
+<div class="tabs-dashboard">
+  <ul class="nav nav-pills" role="tablist">
+  <li class="active col-sm-5"><a href="#buyer" role="tab" data-toggle="tab">Buyer Dashboard</a></li>
+  <li class="col-sm-5"><a href="#seller" role="tab" data-toggle="tab">Seller Dashboard</a></li>
 </ul>
+</div>
 
 <!-- Tab panes -->
 <div class="tab-content">
@@ -92,7 +94,6 @@ echo $_SESSION['userID'];
   $productsWatch = findProdcuts('watchlist', $userID, $con);
   $productsBid = findProdcuts('bid', $userID, $con);
   $allFeedback = allFeedback($userID, $con);
-  print_r($allFeedback);
 
   //$highestbid = highestBid(62, $con);
 
@@ -143,7 +144,14 @@ echo $_SESSION['userID'];
                 } else {
                   echo "Bid Ended";
                 }?></td>
-                <td><?php echo highestBid($productsWatch[$i]['productID'], $con)['amount'] ?></td>
+                 <td><?php
+                 $productID = $row['productID'];
+                 $highestBid = highestBid($productsWatch[$i]['productID'], $con)['amount'];
+                 if ($highestBid == NULL){
+                   $highestBid = 'No Bids Yet';
+                 }
+                 echo $highestBid;?></td>
+
                 <td><?php $yhb = YourHighestBid($_SESSION['userID'], $productsWatch[$i]['productID'], $con);
                 if ($yhb != NULL) {
                 echo YourHighestBid($_SESSION['userID'], $productsWatch[$i]['productID'], $con)['amount'];
