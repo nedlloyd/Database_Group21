@@ -80,10 +80,39 @@ if ($con->connect_error) {
             <span class="glyphicon glyphicon-envelope"></span> Contact Us
           </button>
         </div>
+
+        <div>
+
+        </div>
+
+      <script>
+      function goForward() {
+          window.history.forward();
+      }
+      </script>
+      <script>
+        function goBack() {
+            window.history.back()
+        }
+        </script>
+      <body>
+
+        <a button onclick="goBack()">&laquo; Previous</a>
+        <a button onclick="goForward()">Next &raquo;</a>
+
+      </body>
+
+      </div>
+      <h1 class="loginTitle"> Esway </h1>
       </div>
 
-      <h1 class="loginTitle"> Esway </h1>
-
+      <div class="top-container">
+      <div class="header" id="header">
+      <a class="active" href="search_product.php">Home</a>
+      <a class="active" href="buyer_dashboard.php">Dashboard</a>
+      <a class="active" href="logout.php">Logout</a>
+      </div>
+      </div>
     </div>
   </header>
 
@@ -94,10 +123,14 @@ if ($con->connect_error) {
 <body>
 	<div id="site">
 		<div id="content">
-
-
-
-
+			<div id="breadcrumbs" class="reset menu">
+            <ul>
+                <li><a href="../search_product.php">Home</a></li>
+                <li><?php
+				echo "Bid Page";
+				?></li>
+            </ul>
+            </div>
 
 <div class="container product-details">
   <h1 class="header-details"><?php $nameOfProduct = $row['productName'];
@@ -146,7 +179,7 @@ if ($con->connect_error) {
   <div class="form-group">
       <label for="amount" class="col-sm-4 control-label"></label>
       <div class="col-sm-4">
-      <input name="amount" type="text" class="form-control" id="amount" placeholder="bid amount">
+      <input name="amount" type="number" min="0" class="form-control" id="amount" placeholder="bid amount">
     </div>
   </div>
 
@@ -168,36 +201,26 @@ if ($con->connect_error) {
   <?php
 
   if (isset($_POST['submit-bid'])) {
-    $amount = mysqli_escape_string($con, $_POST['amount']);
-
-    $highestBid = highestBid($productID, $con);
-    echo $highestBid;
-    if ($amount > $highestBid) {
-
-    $userID = $_SESSION['userID'];
-    $productID = mysqli_escape_string($con, $_GET['id']);
-    /*echo $_POST['amount'];
-    echo $_GET['id'];*/
-  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
-  VALUES (?,?,?)");
-  $stmt->bind_param("sss", $userID, $productID, $amount);
-  $stmt->execute();
-  echo "New highest bid submitted.";
-
-  $otherbidders = findOtherBidders($userID, $productID, $con);
-  foreach($otherbidders as $item) {
-    sendmail($item['email'], "You've been outbid!!", "You've been outbid on the $nameOfProduct")
-}
-
-} else {
-
-}
+	  if($_POST['amount'] <= $highestBid){
+		  echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
+	  } else {
+		  $userID = $_SESSION['userID'];
+		  $productID = mysqli_escape_string($con, $_GET['id']);
+			/*echo $_POST['amount'];
+			echo $_GET['id'];*/
+		  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
+		  VALUES (?,?,?)");
+		  $stmt->bind_param("sss", $userID, $productID, $_POST['amount']);
+		  $stmt->execute();
+		  echo "New bid submitted.";
+		  $con->close();
+	  }
   }
   ?>
 
   <?php
   $productID = mysqli_escape_string($con, $_GET['id']);
-  echo $productID;
+  //echo $productID;
   $sql = "SELECT endDateTime FROM product WHERE productID=$productID";
   /*echo $productID;*/
   $r_query_DT = mysqli_query($con, $sql);
@@ -216,7 +239,7 @@ if ($con->connect_error) {
   p {
     text-align: center;
     font-size: 60px;
-    margin-top:0px;
+    margin-top:30px;
   }
   </style>
   </head>
@@ -236,7 +259,7 @@ if ($con->connect_error) {
      + minutes + "m " + seconds + "s ";
      if (distance < 0) {
          clearInterval(x);
-         document.getElementById("timer").innerHTML = "EXPIRED";
+         document.getElementById("timer").innerHTML = "Bidding ended";
      }
  }, 1000);
  </script>

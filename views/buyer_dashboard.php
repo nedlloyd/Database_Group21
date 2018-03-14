@@ -26,13 +26,23 @@ echo $_SESSION['userID'];
       <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
+          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
+            <a class="active" href="contactemail.php"></span> Contact Us</a>
+          </button>
         </div>
-        <script>
-        function goForward() {
-            window.history.forward();
-        }
-        </script>
-        <script>
+        <div class='btn-group'>
+          </div>
+
+          <div>
+
+          </div>
+
+          <script>
+          function goForward() {
+              window.history.forward();
+          }
+          </script>
+          <script>
           function goBack() {
               window.history.back()
           }
@@ -43,16 +53,16 @@ echo $_SESSION['userID'];
           <a button onclick="goForward()">Next &raquo;</a>
 
         </body>
-      </div>
 
-      <h1 class="loginTitle"> Esway </h1>
+        </div>
+        <h1 class="loginTitle"> Esway </h1>
+        </div>
 
-    </div>
-
-    <div class="top-container">
-      <div class="header" id="header">
+        <div class="top-container">
+        <div class="header" id="header">
         <a class="active" href="search_product.php">Home</a>
         <a class="active" href="logout.php">Logout</a>
+        </div>
       </div>
     </div>
 
@@ -315,12 +325,12 @@ echo $_SESSION['userID'];
           <div class="panel-heading">
             <h4 class="panel-title">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-              Feeback</a>
+              Feedback</a>
             </h4>
           </div>
           <div id="collapse4" class="panel-collapse collapse">
             <div class="panel-body">
-            <h2>Average Feedback: <?php echo yourfeebackAverage($_SESSION['userID'], $con);?></h2>
+            <h2>Average Feedback: <?php echo yourfeedbackAverage($_SESSION['userID'], $con);?></h2>
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -559,12 +569,12 @@ echo $_SESSION['userID'];
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
-                Feeback</a>
+                Feedback</a>
               </h4>
             </div>
             <div id="collapse7" class="panel-collapse collapse">
               <div class="panel-body">
-              <h2>Average Feedback: <?php echo yourfeebackAverageSeller($_SESSION['userID'], $con);?></h2>
+              <h2>Average Feedback: <?php echo yourfeedbackAverageSeller($_SESSION['userID'], $con);?></h2>
               <table class="table table-striped">
                 <thead>
                   <tr>
