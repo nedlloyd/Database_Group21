@@ -124,7 +124,7 @@ if (isset($_POST['submit-product'])) {
         <a class="active" href="search_product.php">Home</a>
         <a class="active" href="buyer_dashboard.php">Dashboard</a>
         <a class="active" href="logout.php">Logout</a>
-        </div>
+      </div>
       </div>
 
   </header>
@@ -139,7 +139,6 @@ if (isset($_POST['submit-product'])) {
       <fieldset>
         <legend>Add New Product</legend>
 
-		  <?php echo date('m/d/Y H:i:s',time()) ?>
 
         <div class="form-group">
           <label for="productName" class="col-sm-4 control-label">Product Title</label>
