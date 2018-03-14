@@ -328,11 +328,14 @@ if ($con->connect_error) {
 }
 
 if (isset($_POST['submit-purchase'])) {
+  $comment = mysqli_escape_string($con, $_POST['comments']);
+  $rating = mysqli_escape_string($con, $_POST['rating']);
+
+
  if($_SESSION['userID'] == $buyer){
-   echo "buyer";
-   $sqlCode = "commentsBuyer='".$_POST['comments']."', ratingBuyer='".$_POST['rating']."'";
+   $sqlCode = "commentsBuyer='".$comment."', ratingBuyer='".$rating."'";
  }else{
-  $sqlCode = "commentsSeller='".$_POST['comments']."', ratingSeller='".$_POST['rating']."'";
+  $sqlCode = "commentsSeller='".$comment."', ratingSeller='".$rating."'";
  }
 
  $feedbackproductID = mysqli_escape_string($con, $_GET['id']);
