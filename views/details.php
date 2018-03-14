@@ -218,11 +218,7 @@ if ($con->connect_error) {
 
   <?php
   $productID = mysqli_escape_string($con, $_GET['id']);
-<<<<<<< HEAD
-  /*echo $productID;*/
-=======
   //echo $productID;
->>>>>>> caf6f3eae4c81d4ffcd9d4f23e7ffe2876fd1a2a
   $sql = "SELECT endDateTime FROM product WHERE productID=$productID";
   /*echo $productID;*/
   $r_query_DT = mysqli_query($con, $sql);
@@ -241,7 +237,7 @@ if ($con->connect_error) {
   p {
     text-align: center;
     font-size: 60px;
-    margin-top:0px;
+    margin-top:30px;
   }
   </style>
   </head>
