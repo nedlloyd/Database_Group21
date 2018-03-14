@@ -3,6 +3,7 @@ session_start();
 require '../assets/php/connect.php';
 include '../assets/php/buyer_dashboardphp.php';
 require '../assets/php/email-script.php';
+echo $_SESSION['userID'];
 ?>
 
 
@@ -201,22 +202,26 @@ if ($con->connect_error) {
   <?php
 
   if (isset($_POST['submit-bid'])) {
-	  if($_POST['amount'] <= $highestBid){
-		  echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
-	  } else {
-		  $userID = $_SESSION['userID'];
+	  if($_POST['amount'] >= $highestBid || $highestBid =! '') {
+      $userID = $_SESSION['userID'];
 		  $productID = mysqli_escape_string($con, $_GET['id']);
       $amount = mysqli_escape_string($con, $_POST['amount']);
-			/*echo $_POST['amount'];
-			echo $_GET['id'];*/
 		  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
 		  VALUES (?,?,?)");
 		  $stmt->bind_param("sss", $userID, $productID, $amount);
 		  $stmt->execute();
 		  echo "New bid submitted.";
 
+      $otherbidders = findOtherBidders($userID, $productID, $con);
+      foreach($otherbidders as $item) {
+        echo $item;
+
+      sendmail($item, "You've been outbid!!", "You've been outbid on the $nameOfProduct");
+      }
+      } else {
+      echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
+      }
 	  }
-  }
   ?>
 
   <?php
