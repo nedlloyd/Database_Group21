@@ -12,7 +12,7 @@ if (isset($_POST['submit-login'])) {
     header("location: ../views/login.php");
   } else {
     $user = $result->fetch_assoc();
-    if ( password_verify($_POST['password'], $user['password'])) {
+    if ( password_verify($password, $user['password'])) {
         if ($user['active'] == TRUE) {
           $_SESSION['userID'] = $user['id'];
           $_SESSION['role'] = $user['role'];

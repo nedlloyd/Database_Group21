@@ -161,8 +161,8 @@ if (isset($_POST['submit-purchase'])) {
    $sqlCode = "commentsSeller='".$_POST['comments']."', ratingSeller='".$_POST['rating']."'";
   }
 
-
-  $stmt = $con->query("UPDATE purchase SET ".$sqlCode.", reg_date='".date("Y-m-d H:i:s")."' WHERE productID='".$_GET["id"]."'");
+  $feedbackproductID = mysqli_escape_string($con, $_GET['id']);
+  $stmt = $con->query("UPDATE purchase SET ".$sqlCode.", reg_date='".date("Y-m-d H:i:s")."' WHERE productID='".$feedbackproductID."'");
   // $stmt = $con->prepare("INSERT INTO purchase (purchaseID, userID, productID, payementComplete, dateAndTimeCompletion, reg_date, commentsSeller, commentsBuyer, ratingSeller, ratingBuyer ) VALUES (?,?,?,?,?,?,?,?,?,?)");
   // @$stmt->bind_param("iiibbdssii", $_POST['(purchaseID'], $_POST['userID'], $_POST['productID'], $_POST['payementComplete'], $_POST['dateAndTimeCompletion'], date("Y-m-d H:s:i"), $_POST['commentsSeller'], $_POST['commentsBuyer'], $_POST['ratingSeller'], $_POST['ratingBuyer']);
   // $stmt->execute();
