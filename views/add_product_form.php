@@ -157,7 +157,7 @@ if (isset($_POST['submit-product'])) {
         <div class="form-group">
           <label for="startPrice" class="col-sm-4 control-label">Start Price</label>
           <div class="col-sm-4">
-            <input name="startPrice" type="text-area" class="form-control" columns="7" id="startPrice" placeholder="Reserve Price">
+            <input name="startPrice" type="number" min="0" class="form-control" columns="7" id="startPrice" placeholder="Reserve Price">
             <span class="error"><?php echo $startPriceErr;?></span>
           </div>
         </div>
@@ -165,7 +165,7 @@ if (isset($_POST['submit-product'])) {
         <div class="form-group">
           <label for="reservePrice" class="col-sm-4 control-label">Reserve Price</label>
           <div class="col-sm-4">
-            <input name="reservePrice" type="text-area" class="form-control" columns="7" id="reservePrice" placeholder="Reserve Price">
+            <input name="reservePrice" type="number" min="0" class="form-control" columns="7" id="reservePrice" placeholder="Reserve Price">
             <span class="error"><?php echo $reservePriceErr;?></span>
           </div>
         </div>
