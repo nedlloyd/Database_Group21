@@ -252,6 +252,100 @@ if ($con->connect_error) {
 
  <p id="timer"></p>
  <p id="timer"></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <?php
+ $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
+ $result = $con -> query($sql);
+ $buyer = '';
+ $seller = '';
+ while ($row = mysqli_fetch_array($result)) {
+   $buyer = $row['buyerID'];
+   $seller = $row['sellerID'];
+ }
+ if ($buyer == $_SESSION['userID'] || $seller == $_SESSION['userID']) {
+
+    ?>
+
+   <form method="POST"  class="form-horizontal">
+   <div class="container">
+
+         <div class="form-group">
+           <label for="rating" class="col-sm-4 control-label">rating score<br>(10=very satisfied; 1=very poor)</label>
+           <div class="col-sm-4">
+             <select name="rating" class="form-control" id="rating">
+               <option value="10">10</option>
+               <option value="9">9</option>
+               <option value="8">8</option>
+               <option value="7">7</option>
+               <option value="6">6</option>
+               <option value="5">5</option>
+               <option value="4">4</option>
+               <option value="3">3</option>
+               <option value="2">2</option>
+               <option value="1">1</option>
+             </select>
+             <span class="error"></span>
+           </div>
+         </div>
+
+         <div class="form-group">
+           <label for="comments" class="col-sm-4 control-label">comments</label>
+           <div class="col-sm-4">
+             <input name="comments" type="text" class="form-control" id="comments" placeholder="comments">
+             <span class="error"></span>
+           </div>
+         </div>
+
+         <div class="form-group submit-sign-up">
+           <div class="col-sm-8 col-sm-offset-4">
+             <button type="submit" name="submit-purchase" value="submit-purchase" class="btn btn-primary">Submit</button>
+           </div>
+         </div>
+
+         <!-- <input name="userID" type="hidden" value="69"/> -->
+         <!-- <input name="productID" type="hidden" value="49"/>
+         <input name="purchaseID" type="hidden" value="25"/> -->
+         <input name="userID" type="hidden" value="<?php echo $row['userID']; ?>"/>
+         <input name="productID" type="hidden" value="<?php echo $row['productID']; ?>"/>
+         <input name="purchaseID" type="hidden" value="<?php echo $row['purchaseID']; ?>"/>
+     </div>
+   </form>
+
+<?php
+}
+
+if (isset($_POST['submit-purchase'])) {
+ if($_POST['userID'] == $_SESSION['userID']){
+   $sqlCode = "payementComplete='".$_POST['payementComplete']."', dateAndTimeCompletion='".$_POST['dateAndTimeCompletion']."', commentsBuyer='".$_POST['comments']."', ratingBuyer='".$_POST['rating']."'";
+ }else{
+  $sqlCode = "commentsSeller='".$_POST['comments']."', ratingSeller='".$_POST['rating']."'";
+ }
+
+ $feedbackproductID = mysqli_escape_string($con, $_GET['id']);
+ $stmt = $con->query("UPDATE purchase SET ".$sqlCode.", reg_date='".date("Y-m-d H:i:s")."' WHERE productID='".$feedbackproductID."'");
+
+ echo "done";
+ $con->close();
+}
+?>
+
+
+
+
+
  <script>
  var countdownDate = new Date("<?php echo $time ?>").getTime();
  var x = setInterval(function() {
