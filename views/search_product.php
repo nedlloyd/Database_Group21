@@ -1,7 +1,6 @@
 <?php
 session_start();
 require '../assets/php/connect.php';
-
 $r_query = null;
 ?>
 <!DOCTYPE html>
