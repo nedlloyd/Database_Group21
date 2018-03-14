@@ -4,7 +4,7 @@ require '../assets/php/collaborative_filtering.php';
 include '../assets/php/buyer_dashboardphp.php';
 include '../assets/php/seller_dashboardphp.php';
 require '../assets/php/connect.php';
-require '../assets/php/purchase.php';
+//require '../assets/php/purchase.php';
 echo $_SESSION['userID'];
 ?>
 
@@ -30,12 +30,7 @@ echo $_SESSION['userID'];
             <a class="active" href="contactemail.php"></span> Contact Us</a>
           </button>
         </div>
-        <div class='btn-group'>
-          </div>
-
-          <div>
-
-          </div>
+      </div>
 
           <script>
           function goForward() {
@@ -47,16 +42,13 @@ echo $_SESSION['userID'];
               window.history.back()
           }
           </script>
-        <body>
-
+        <div class='btn-group'>
           <a button onclick="goBack()">&laquo; Previous</a>
           <a button onclick="goForward()">Next &raquo;</a>
-
-        </body>
-
         </div>
+
+
         <h1 class="loginTitle"> Esway </h1>
-        </div>
 
         <div class="top-container">
         <div class="header" id="header">
