@@ -376,7 +376,7 @@ if (isset($_POST['submit-purchase'])) {
  }
 
  $feedbackproductID = mysqli_escape_string($con, $_GET['id']);
- $stmt = $con->query("UPDATE purchase SET ".$sqlCode.", reg_date='".date("Y-m-d H:i:s")."' WHERE productID='".$feedbackproductID."'");
+ $stmt = $con->query("UPDATE purchase SET ".$sqlCode." WHERE productID='".$feedbackproductID."'");
 
  echo "done";
  $con->close();
