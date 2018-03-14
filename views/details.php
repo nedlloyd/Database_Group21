@@ -2,7 +2,7 @@
 session_start();
 require '../assets/php/connect.php';
 include '../assets/php/buyer_dashboardphp.php';
-//require '../assets/php/email-script.php';
+require '../assets/php/email-script.php';
 echo $_SESSION['userID'];
 ?>
 
@@ -127,7 +127,7 @@ if ($con->connect_error) {
 		<div id="content">
 			<div id="breadcrumbs" class="reset menu">
             <ul>
-                <li><a href="../search_product.php">Home</a></li>
+                <li><a class="active" href="search_product.php">Home</a></li>
                 <li><?php
 				echo "Bid Page";
 				?></li>
@@ -288,7 +288,16 @@ if ($con->connect_error) {
 
    <form method="POST"  class="form-horizontal">
    <div class="container">
-
+         
+	   <?php
+	     if($_SESSION['userID'] == $buyer){ ?>
+            <h2> <?php echo "Feedback for your seller";?> </h2>
+	   <?php }else{ ?>
+		    <h2> <?php echo "Feedback for your buyer";?> </h2>
+	   <?php }
+	   
+	   ?>
+	   
          <div class="form-group">
            <label for="rating" class="col-sm-4 control-label">rating score<br>(10=very satisfied; 1=very poor)</label>
            <div class="col-sm-4">
@@ -337,7 +346,7 @@ if (isset($_POST['submit-purchase'])) {
   $rating = mysqli_escape_string($con, $_POST['rating']);
 
 
- if($_SESSION['userID'] == $buyer){
+ if($_SESSION['userID'] == $buyer){ 
    $sqlCode = "commentsSeller='".$comment."', ratingSeller='".$rating."'";
  }else{
   $sqlCode = "commentsBuyer='".$comment."', ratingBuyer='".$rating."'";
