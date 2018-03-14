@@ -45,8 +45,8 @@ if (isset($_POST['submit-product'])) {
   if (empty($_POST["endDateTime"])) {
     $endDateTimeErr = "End Date and Time is required";
   } else {
-    if (time() > $_POST["endDateTime"]) {
-      $endDateTimeErr = "Date and Time must be in the past";
+    if (time() > strtotime($_POST["endDateTime"])) {
+      $endDateTimeErr = "Date and Time must not be in the past";
     } else {
     $endDateTime = mysqli_escape_string($con, $_POST['endDateTime']);
   }
