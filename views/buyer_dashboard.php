@@ -18,7 +18,7 @@ echo $_SESSION['userID'];
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
-  <!-- <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/buyer_dashboard.css"> -->
+  <link rel="stylesheet" href="../assets/stylesheets/buyer_dashboard.css">
 
 
   <header role="banner" class="header-reports">
@@ -62,6 +62,9 @@ echo $_SESSION['userID'];
 
 </head>
 <body>
+
+
+<a class='btn btn-lg btn-primary btn-block btn-search-product' href='search_product.php'>Product Search</a>
 
 <div class="tabs-dashboard col-sm-offset-1">
   <ul class="nav nav-pills" role="tablist">
