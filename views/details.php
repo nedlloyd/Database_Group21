@@ -122,10 +122,14 @@ if ($con->connect_error) {
 <body>
 	<div id="site">
 		<div id="content">
-
-
-
-
+			<div id="breadcrumbs" class="reset menu">
+            <ul>
+                <li><a href="../search_product.php">Home</a></li>
+                <li><?php
+				echo "Bid Page";
+				?></li>
+            </ul>
+            </div>
 
 <div class="container product-details">
   <h1 class="header-details"><?php echo $row['productName']; ?></h1>
@@ -173,7 +177,7 @@ if ($con->connect_error) {
   <div class="form-group">
       <label for="amount" class="col-sm-4 control-label"></label>
       <div class="col-sm-4">
-      <input name="amount" type="text" class="form-control" id="amount" placeholder="bid amount">
+      <input name="amount" type="number" min="0" class="form-control" id="amount" placeholder="bid amount">
     </div>
   </div>
 
@@ -195,22 +199,30 @@ if ($con->connect_error) {
   <?php
 
   if (isset($_POST['submit-bid'])) {
-    $userID = $_SESSION['userID'];
-    $productID = mysqli_escape_string($con, $_GET['id']);
-    /*echo $_POST['amount'];
-    echo $_GET['id'];*/
-  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
-  VALUES (?,?,?)");
-  $stmt->bind_param("sss", $userID, $productID, $_POST['amount']);
-  $stmt->execute();
-  echo "New bid submitted.";
-  $con->close();
+	  if($_POST['amount'] <= $highestBid){
+		  echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
+	  } else {
+		  $userID = $_SESSION['userID'];
+		  $productID = mysqli_escape_string($con, $_GET['id']);
+			/*echo $_POST['amount'];
+			echo $_GET['id'];*/
+		  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
+		  VALUES (?,?,?)");
+		  $stmt->bind_param("sss", $userID, $productID, $_POST['amount']);
+		  $stmt->execute();
+		  echo "New bid submitted.";
+		  $con->close();
+	  }
   }
   ?>
 
   <?php
   $productID = mysqli_escape_string($con, $_GET['id']);
+<<<<<<< HEAD
   /*echo $productID;*/
+=======
+  //echo $productID;
+>>>>>>> caf6f3eae4c81d4ffcd9d4f23e7ffe2876fd1a2a
   $sql = "SELECT endDateTime FROM product WHERE productID=$productID";
   /*echo $productID;*/
   $r_query_DT = mysqli_query($con, $sql);
