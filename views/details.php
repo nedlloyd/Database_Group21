@@ -22,6 +22,7 @@ while ($row = mysqli_fetch_array($r_query)) {
   $productUserID = $row['userID'];
 }
 }
+
 echo $_SESSION['userID'];
 if ($_SESSION['userID'] != $productUserID){
 $sql = "UPDATE product SET views = views + 1 WHERE productID=$productID";
@@ -200,25 +201,31 @@ if ($con->connect_error) {
   </form>
 
   <?php
-
+  
+  
+	
+	
   if (isset($_POST['submit-bid'])) {
 	  if($_POST['amount'] >= $highestBid || $highestBid =! '') {
-      $userID = $_SESSION['userID'];
+		  $userID = $_SESSION['userID'];
 		  $productID = mysqli_escape_string($con, $_GET['id']);
-      $amount = mysqli_escape_string($con, $_POST['amount']);
-		  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
-		  VALUES (?,?,?)");
-		  $stmt->bind_param("sss", $userID, $productID, $amount);
-		  $stmt->execute();
-		  echo "New bid submitted.";
-
-      $otherbidders = findOtherBidders($userID, $productID, $con);
-      foreach($otherbidders as $item) {
-        echo $item;
-
-      sendmail($item, "You've been outbid!!", "You've been outbid on the $nameOfProduct");
-      }
-      } else {
+		  
+		  if($userID != $productUserID){
+				  $amount = mysqli_escape_string($con, $_POST['amount']);
+				  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
+				  VALUES (?,?,?)");
+				  $stmt->bind_param("sss", $userID, $productID, $amount);
+				  $stmt->execute();
+				  echo "New bid submitted.";
+				  $otherbidders = findOtherBidders($userID, $productID, $con);
+				  foreach($otherbidders as $item) {
+					echo $item;
+				  sendmail($item, "You've been outbid!!", "You've been outbid on the $nameOfProduct");
+				  }
+	  			} else {
+			  		echo "Sorry, you cannot bid on your own product.";
+		  		}
+      }  else {
       echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
       }
 	  }
