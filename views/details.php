@@ -206,11 +206,12 @@ if ($con->connect_error) {
 	  } else {
 		  $userID = $_SESSION['userID'];
 		  $productID = mysqli_escape_string($con, $_GET['id']);
+      $amount = mysqli_escape_string($con, $_POST['amount']);
 			/*echo $_POST['amount'];
 			echo $_GET['id'];*/
 		  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
 		  VALUES (?,?,?)");
-		  $stmt->bind_param("sss", $userID, $productID, $_POST['amount']);
+		  $stmt->bind_param("sss", $userID, $productID, $amount);
 		  $stmt->execute();
 		  echo "New bid submitted.";
 
