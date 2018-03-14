@@ -445,11 +445,9 @@ echo $_SESSION['userID'];
     // called from buyer_dashboardphp
     $sellinghist = sellinghist($userID,$con);
     $productsAuction = yourCurrentItemAuctioned($userID, $con);
+
+
     $allFeedback2 = allFeedbackSeller($userID, $con);
-    //print_r($allFeedback);
-    //echo $allFeedback[0]['commentsSeller'];
-    //echo $allFeedback[0]['ratingSeller'];
-    //$highestbid = highestBid(62, $con);
 
 
     ?>
