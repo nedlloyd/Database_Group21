@@ -263,6 +263,7 @@ echo $_SESSION['userID'];
             <div class="panel-body">
               <p><?php echo $_SESSION['userID'];?><p>
             <h2>Finished Items</h2>
+            <p> click on products you've won to add feedback </p>
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -531,6 +532,7 @@ echo $_SESSION['userID'];
               <div class="panel-body">
                 <p><?php echo $_SESSION['userID'];?><p>
               <h2>Finished Items</h2>
+              <p> click on finished items to add feedback </p>
               <table class="table table-striped">
                 <thead>
                   <tr>

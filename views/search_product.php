@@ -32,7 +32,7 @@ $r_query = null;
         <div>
 
         </div>
-        
+
         <script>
         function goForward() {
             window.history.forward();
@@ -187,10 +187,12 @@ $r_query = mysqli_query($con, $sql);
   <?php
   if ($_SESSION['role'] == "admin") {
     echo "<a class='btn btn-lg btn-primary btn-block' href='admin_dashboard.php'>View Dashboard</a>";
+  } else if ($_SESSION['role'] == "buyer") {
+    echo "<a class='btn btn-lg btn-primary btn-block' href='buyer_dashboard.php'>View Dashboard</a>";
   } else {
     echo "<a class='btn btn-lg btn-primary btn-block' href='add_product_form.php'>Add a new item</a>";
     echo "<a class='btn btn-lg btn-primary btn-block' href='buyer_dashboard.php'>View Dashboard</a>";
-  } ?>
+  }?>
   <table class="table table-striped" id="myTable2">
     <thead>
       <tr>
