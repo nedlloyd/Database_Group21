@@ -69,7 +69,7 @@ function yourfeedbackAverage($userID, $con) {
 }
 
 function allFeedback($userID, $con) {
-  $sql = "SELECT commentsBuyer, ratingBuyer, productID from purchase WHERE userID=$userID";
+  $sql = "SELECT * from purchase WHERE userID=$userID";
   $r_query = mysqli_query($con, $sql);
 
   $products = array();

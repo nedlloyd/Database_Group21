@@ -335,7 +335,7 @@ echo $_SESSION['userID'];
                 <?php if ($allFeedback != null) {
                   $i = 0;
                 while ($i < count($allFeedback)) {
-                    if (($allFeedback[$i]['commentsBuyer'] != NULL) && ($allFeedback[$i]['ratingBuyer'] != NULL)) {
+                    if (($allFeedback[$i]['ratingBuyer'] != NULL)) {
                   ?>
                 <tr>
                   <td><?php echo $allFeedback[$i]['commentsBuyer']?></td>
