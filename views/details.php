@@ -232,7 +232,6 @@ if ($con->connect_error) {
 				  echo "New bid submitted.";
 				  $otherbidders = findOtherBidders($userID, $productID, $con);
 				  foreach($otherbidders as $item) {
-					echo $item;
 				  sendmail($item, "You've been outbid!!", "You've been outbid on the $nameOfProduct");
 				  }
 	  			} else {
