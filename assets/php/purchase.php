@@ -13,7 +13,7 @@ while ($row = mysqli_fetch_array($r_query)) {
 
 
 
- $sql = "SELECT a.productID, a.userID, a.amount, p.endDateTime
+ $sql = "SELECT a.productID, a.userID, a.amount, p.endDateTime, p.reservePrice
  FROM bid a
  INNER JOIN (
    SELECT productID, MAX(amount) amount
@@ -29,18 +29,23 @@ while ($row = mysqli_fetch_array($r_query)) {
  $r_query = mysqli_query($con, $sql);
  $sql = "";
 
+$_SESSION['reservePrice'] = '';
 $i = 0;
  while ($row = mysqli_fetch_array($r_query)) {
 
     if (strtotime($lastChecked) < strtotime($row['endDateTime'])) {
-     if ($i == 0) {
-       $sql = "INSERT INTO purchase (productID, userID) VALUES";
-      $i++;
-     } else if ($i != 0) {
-       $sql = $sql . ',';
-     }
-     $sql = $sql . ' (' . $row['productID'] . ', ' . $row['userID'] . ')';
-  }
+      if ($row['reservePrice'] < $row['amount']) {
+        if ($i == 0) {
+          $sql = "INSERT INTO purchase (productID, userID) VALUES";
+          $i++;
+        } else if ($i != 0) {
+          $sql = $sql . ',';
+        }
+        $sql = $sql . ' (' . $row['productID'] . ', ' . $row['userID'] . ')';
+      } else {
+        $_SESSION['reservePrice'] = "Highest bid is less than reserve Price";
+      }
+    }
 
     }
     $sql = $sql . ';';
@@ -71,6 +76,6 @@ $i = 0;
  ?>
 
 
- <!-- SELECT a.productID, a.userID, a.amount, p.endDateTime FROM bid a INNER JOIN (SELECT productID, MAX(amount) amount FROM bid GROUP BY productID) b ON a.productID = b.productID AND a.amount = b.amount INNER JOIN product p ON a.productID=p.productID INNER JOIN users u ON u.id=a.userID WHERE p.endDateTime < CURRENT_TIMESTAMP;
+ <!-- SELECT a.productID, a.userID, a.amount, p.endDateTime, p.reservePrice FROM bid a INNER JOIN (SELECT productID, MAX(amount) amount FROM bid GROUP BY productID) b ON a.productID = b.productID AND a.amount = b.amount INNER JOIN product p ON a.productID=p.productID INNER JOIN users u ON u.id=a.userID WHERE p.endDateTime < CURRENT_TIMESTAMP;
 
  SELECT a.productID, a.userID, a.amount FROM bid a INNER JOIN (SELECT productID, MAX(amount) amount FROM bid GROUP BY productID) b ON a.productID = b.productID AND a.amount = b.amount INNER JOIN product p ON a.productID=p.productID INNER JOIN users u ON u.id=a.userID WHERE p.endDateTime < CURRENT_TIMESTAMP; -->

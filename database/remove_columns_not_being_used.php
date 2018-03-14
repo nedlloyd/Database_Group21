@@ -14,22 +14,44 @@ if ($con->connect_error) {
 }
 
 //remove column
-$sql = "ALTER TABLE users DROP COLUMN userID;";
+$sql = "ALTER TABLE users DROP COLUMN reg_date;";
 if ($con->query($sql) === TRUE) {
     echo "column removed";
 } else {
     echo "removing column: " . $con->error;
 }
 
+$sql = "ALTER TABLE purchase DROP COLUMN reg_date;";
+if ($con->query($sql) === TRUE) {
+    echo "column removed";
+} else {
+    echo "removing column: " . $con->error;
+}
+
+//remove column
+$sql = "ALTER TABLE purchase DROP COLUMN payementComplete;";
+if ($con->query($sql) === TRUE) {
+    echo "column removed";
+} else {
+    echo "removing column: " . $con->error;
+}
+
+$sql = "ALTER TABLE purchase DROP COLUMN dateAndTimeCompletion;";
+if ($con->query($sql) === TRUE) {
+    echo "column removed";
+} else {
+    echo "removing column: " . $con->error;
+}
 
 // add_column
-$sql = "ALTER TABLE users ADD COLUMN id INTEGER AUTO_INCREMENT PRIMARY KEY;";
+$sql = "ALTER TABLE purchase ADD COLUMN dateAndTimeComplete TIMESTAMP DEFAULT CURRENT_TIMESTAMP;";
 
 if ($con->query($sql) === TRUE) {
     echo "column added";
 } else {
     echo "column added" . $con->error;
 }
+
 
 $con->close();
 ?>
