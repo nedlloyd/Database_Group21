@@ -147,14 +147,14 @@ function viewAllUsers($con) {
 }
 
 function findOtherBidders($userID, $productID, $con) {
-  $sql = "SELECT u.email u.id FROM bid b INNER JOIN users u ON u.id=b.userID WHERE b.productID=$productID;";
+  $sql = "SELECT u.email, u.id FROM bid b INNER JOIN users u ON u.id=b.userID WHERE b.productID=$productID;";
   $r_query = mysqli_query($con, $sql);
 
   $otherBidders = [];
 
   while ($row = mysqli_fetch_array($r_query)) {
 
-    if ($row['email'] != $userID) {
+    if ($row['id'] != $userID) {
     array_push($otherBidders, $row['email']);
     echo $row['email'];
     }
