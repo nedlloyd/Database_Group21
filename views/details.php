@@ -208,10 +208,10 @@ if ($con->connect_error) {
  $seller = '';
  while ($row = mysqli_fetch_array($result)) {
    $seller = $row['sellerID'];
-   
+
  }
 
-	
+
  $userID = $_SESSION['userID'];
  $productID = mysqli_escape_string($con, $_GET['id']);
  $sql4 = "SELECT role from users Where id=$userID";
@@ -219,7 +219,7 @@ if ($con->connect_error) {
  $role = '';
  while ($row = mysqli_fetch_array($result4)) {
    $role = $row['role'];
-	 
+
  }
 
   if (isset($_POST['submit-bid'])) {
@@ -227,7 +227,7 @@ if ($con->connect_error) {
 
 		  if($userID != $seller && $role != "seller"){
 			  if($currentbid > $highestBid || ($highestBid == 'No Bids Yet' && $currentbid > $startPrice)) {
-			  
+
 			      $amount = mysqli_escape_string($con, $_POST['amount']);
 				  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
 				  VALUES (?,?,?)");
@@ -238,26 +238,30 @@ if ($con->connect_error) {
 				  foreach($otherbidders as $item) {
 				  sendmail($item, "You've been outbid!!", "You've been outbid on the $nameOfProduct");
 				  }
+          $otherbidders = findFromWatchlist($userID, $productID, $con);
+				  foreach($otherbidders as $item) {
+				  sendmail($item, "Watchlist Update", "Someone has bid on $nameOfProduct");
+				  }
 			  	  }  else {
 					 if ($highestBid == "No Bids Yet") {
 					   echo "Sorry, your bid must be higher than the Starting Price";
 				  } else {
 				       echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
 				  }
-			  	  
+
 			      }
-			  
+
 	  			} elseif ($userID == $seller && $role != "seller") {
 			  		echo "Sorry, you cannot bid on your own product.";
-			  
+
 		        } else {
 			  		echo "Sorry, you cannot bid on any product since you are a seller.";
 		  		}
-		  
-      
+
+
 	  }
-	
-	
+
+
   ?>
 
   <?php
@@ -292,7 +296,7 @@ if ($con->connect_error) {
 
 
  <?php
-	
+
  $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
  $result = $con -> query($sql);
  $buyer = '';
@@ -302,8 +306,8 @@ if ($con->connect_error) {
    $buyer = $row['buyerID'];
    $seller = $row['sellerID'];
  }
-	
-	
+
+
 
  if ($buyer == $_SESSION['userID'] || $seller == $_SESSION['userID']) {
 
@@ -363,7 +367,7 @@ if ($con->connect_error) {
 
 <?php
 }
-	
+
 if (isset($_POST['submit-purchase'])) {
   $comment = mysqli_escape_string($con, $_POST['comments']);
   $rating = mysqli_escape_string($con, $_POST['rating']);

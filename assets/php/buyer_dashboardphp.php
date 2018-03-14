@@ -147,7 +147,7 @@ function viewAllUsers($con) {
 }
 
 function findOtherBidders($userID, $productID, $con) {
-  $sql = "SELECT u.email, u.id FROM bid b INNER JOIN users u ON u.id=b.userID WHERE b.productID=$productID;";
+  $sql = "SELECT DISTINCT u.email, u.id FROM bid b INNER JOIN users u ON u.id=b.userID WHERE b.productID=$productID;";
   $r_query = mysqli_query($con, $sql);
 
   $otherBidders = [];
@@ -164,4 +164,24 @@ function findOtherBidders($userID, $productID, $con) {
 
   return $otherBidders;
 }
+
+function findFromWatchlist($userID, $productID, $con) {
+  $sql = "SELECT  u.email, u.id FROM watchlist w INNER JOIN users u ON u.id=w.userID WHERE w.productID=$productID;";
+  $r_query = mysqli_query($con, $sql);
+
+  $otherBidders = [];
+
+  while ($row = mysqli_fetch_array($r_query)) {
+
+    if ($row['id'] != $userID) {
+    array_push($otherBidders, $row['email']);
+    echo $row['email'];
+    }
+  }
+
+  array_unique($otherBidders);
+
+  return $otherBidders;
+}
+
 ?>
