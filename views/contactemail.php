@@ -21,6 +21,11 @@ require '../assets/php/connect.php';
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
         </div>
+
+        <div>
+
+        </div>
+
         <script>
         function goForward() {
             window.history.forward();
@@ -54,21 +59,50 @@ require '../assets/php/connect.php';
 
 </head>
 
+<html>
+<head>
+</head>
 <body>
+ <div class="wrapperforstickyfooter">
+  <div class="content-wrap">
+    <div class="container">
+    <form class="form-horizontal" enctype="text/plain" method="post" action="mailto:esway@mail.com">
 
-<form action="mailto:esway@mail.com" method="post" enctype="text/plain">
+      <fieldset>
+        <legend>Contact us</legend>
 
-Name:<br>
-<input type="text" name="name"><br>
-Your e-mail address:<br>
-<input type="text" name="email" size="30"><br><br>
-Subject:<br>
-<input type="text" name="subject" size="30"><br><br>
-Comment:<br>
-<input type="text" name="comment" size="200"><br><br>
+          <div class="form-group">
+            <label for="name" class="col-sm-4 control-label">Name</label>
+            <div class="col-sm-4">
+              <input name="name" type="text" class="form-control" columns="7" id="name" placeholder="Name">
+            </div>
+          </div>
 
-<input type="submit" value="Send">
-</form>
+          <div class="form-group">
+            <label for="emailaddress" class="col-sm-4 control-label">Email address</label>
+            <div class="col-sm-4">
+              <input name="emailaddress" type="text" class="form-control" columns="7" id="productID" placeholder="Email address">
+            </div>
+          </div>
 
-</body>
-</html>
+            <div class="form-group">
+              <label for="subject" class="col-sm-4 control-label">Subject</label>
+              <div class="col-sm-4">
+              <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="comments" class="col-sm-4 control-label">Comments</label>
+            <div class="col-sm-4">
+            <input name="comments" type="text" class="form-control" id="comments" placeholder="Comments">
+          </div>
+        </div>
+
+          <div class="form-group send-email">
+            <div class="col-sm-8 col-sm-offset-4">
+              <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </form>
+      </body>

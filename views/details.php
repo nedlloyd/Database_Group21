@@ -79,10 +79,39 @@ if ($con->connect_error) {
             <span class="glyphicon glyphicon-envelope"></span> Contact Us
           </button>
         </div>
+        
+        <div>
+
+        </div>
+
+      <script>
+      function goForward() {
+          window.history.forward();
+      }
+      </script>
+      <script>
+        function goBack() {
+            window.history.back()
+        }
+        </script>
+      <body>
+
+        <a button onclick="goBack()">&laquo; Previous</a>
+        <a button onclick="goForward()">Next &raquo;</a>
+
+      </body>
+
+      </div>
+      <h1 class="loginTitle"> Esway </h1>
       </div>
 
-      <h1 class="loginTitle"> Esway </h1>
-
+      <div class="top-container">
+      <div class="header" id="header">
+      <a class="active" href="search_product.php">Home</a>
+      <a class="active" href="buyer_dashboard.php">Dashboard</a>
+      <a class="active" href="logout.php">Logout</a>
+      </div>
+      </div>
     </div>
   </header>
 
@@ -181,7 +210,7 @@ if ($con->connect_error) {
 
   <?php
   $productID = mysqli_escape_string($con, $_GET['id']);
-  echo $productID;
+  /*echo $productID;*/
   $sql = "SELECT endDateTime FROM product WHERE productID=$productID";
   /*echo $productID;*/
   $r_query_DT = mysqli_query($con, $sql);
@@ -220,7 +249,7 @@ if ($con->connect_error) {
      + minutes + "m " + seconds + "s ";
      if (distance < 0) {
          clearInterval(x);
-         document.getElementById("timer").innerHTML = "EXPIRED";
+         document.getElementById("timer").innerHTML = "Bidding ended";
      }
  }, 1000);
  </script>

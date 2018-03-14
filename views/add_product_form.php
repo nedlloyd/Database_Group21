@@ -88,7 +88,9 @@ if (isset($_POST['submit-product'])) {
             <a class="active" href="contactemail.php"></span> Contact Us</a>
           </button>
         </div>
+        <div>
 
+        </div>
         <script>
 				function goForward() {
 						window.history.forward();
@@ -174,9 +176,9 @@ if (isset($_POST['submit-product'])) {
           </div>
         </div>
 
-        <?php echo date('Y-m-d\Th:m'); ?>
+        </*?php echo date('Y-m-d\Th:m'); */?>
         <br>
-        <?php echo date("h:m"); ?>
+        </*?php echo date("h:m"); ?*/>
 
         <div class="form-group">
           <label for="category" class="col-sm-4 control-label">category</label>
@@ -209,7 +211,7 @@ if (isset($_POST['submit-product'])) {
       </fieldset>
     </form>
 
-<input name="setTodaysDate" type="date">
+</*input name="setTodaysDate" type="date"*/>
 
     </div>
   </div>

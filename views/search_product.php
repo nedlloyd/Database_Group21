@@ -22,7 +22,17 @@ $r_query = null;
       <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
       <div class='btn-toolbar pull-right'>
         <div class='btn-group'>
+          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
+            <a class="active" href="contactemail.php"></span> Contact Us</a>
+          </button>
         </div>
+        <div class='btn-group'>
+        </div>
+
+        <div>
+
+        </div>
+        
         <script>
         function goForward() {
             window.history.forward();
@@ -45,7 +55,6 @@ $r_query = null;
 
     <div class="top-container">
       <div class="header" id="header">
-        <a class="active" href="product.php">Products </a>
         <a class="active" href="login.php">Login</a>
   	    <a class="active" href="sign_up.php">Signup</a>
         </div>

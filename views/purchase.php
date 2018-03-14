@@ -27,6 +27,11 @@ require '../assets/php/connect.php';
         </div>
 
       </div>
+      
+      <div>
+
+      </div>
+
       <script>
       function goForward() {
           window.history.forward();
@@ -75,7 +80,7 @@ require '../assets/php/connect.php';
      $row = $result -> fetch_assoc();
      if($row){
       if($row['userID'] == $_SESSION['userID']){
-      ?> 
+      ?>
         <div class="form-group">
             <label for="payementComplete" class="col-sm-4 control-label">payementComplete</label>
             <div class="col-sm-4">
@@ -116,7 +121,7 @@ require '../assets/php/connect.php';
               </select>
               <span class="error"></span>
             </div>
-          </div>       
+          </div>
 
           <div class="form-group">
             <label for="comments" class="col-sm-4 control-label">comments</label>
@@ -131,14 +136,14 @@ require '../assets/php/connect.php';
               <button type="submit" name="submit-purchase" value="submit-purchase" class="btn btn-primary">Submit</button>
             </div>
           </div>
-          
+
           <!-- <input name="userID" type="hidden" value="69"/> -->
           <!-- <input name="productID" type="hidden" value="49"/>
           <input name="purchaseID" type="hidden" value="25"/> -->
           <input name="userID" type="hidden" value="<?php echo $row['userID']; ?>"/>
           <input name="productID" type="hidden" value="<?php echo $row['productID']; ?>"/>
-          <input name="purchaseID" type="hidden" value="<?php echo $row['purchaseID']; ?>"/> 
-      </div>   
+          <input name="purchaseID" type="hidden" value="<?php echo $row['purchaseID']; ?>"/>
+      </div>
     </form>
     </div>
       <?php
@@ -156,7 +161,7 @@ if (isset($_POST['submit-purchase'])) {
    $sqlCode = "commentsSeller='".$_POST['comments']."', ratingSeller='".$_POST['rating']."'";
   }
 
-  
+
   $stmt = $con->query("UPDATE purchase SET ".$sqlCode.", reg_date='".date("Y-m-d H:i:s")."' WHERE productID='".$_GET["id"]."'");
   // $stmt = $con->prepare("INSERT INTO purchase (purchaseID, userID, productID, payementComplete, dateAndTimeCompletion, reg_date, commentsSeller, commentsBuyer, ratingSeller, ratingBuyer ) VALUES (?,?,?,?,?,?,?,?,?,?)");
   // @$stmt->bind_param("iiibbdssii", $_POST['(purchaseID'], $_POST['userID'], $_POST['productID'], $_POST['payementComplete'], $_POST['dateAndTimeCompletion'], date("Y-m-d H:s:i"), $_POST['commentsSeller'], $_POST['commentsBuyer'], $_POST['ratingSeller'], $_POST['ratingBuyer']);
@@ -182,8 +187,8 @@ if (isset($_POST['submit-purchase'])) {
 
 
 
-<?php 
-//(“isdb", $id,$name,$score,$image) 代表$id为int型，$name为字符串型，$score为double型，$image为二进制型。 
+<?php
+//(“isdb", $id,$name,$score,$image) 代表$id为int型，$name为字符串型，$score为double型，$image为二进制型。
 
 
 //if the userID matchs the userID in the purchase table, it is buyerID;  else it is sellerID
