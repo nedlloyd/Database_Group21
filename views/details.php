@@ -203,21 +203,18 @@ if ($con->connect_error) {
   </form>
 
   <?php
-  $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
+  $sql = "SELECT userID AS sellerID FROM product WHERE product.productID=$productID";
  $result = $con -> query($sql);
- $buyer = '';
  $seller = '';
- $startingPrice = '';
  while ($row = mysqli_fetch_array($result)) {
-   $buyer = $row['buyerID'];
    $seller = $row['sellerID'];
+   
  }
 
 
 
   if (isset($_POST['submit-bid'])) {
     $currentbid = mysqli_escape_string($con, $_POST['amount']);
-    echo $startingPrice;
 
 	  if($currentbid > $highestBid || ($highestBid == 'No Bids Yet' && $currentbid > $startPrice)) {
 		  $userID = $_SESSION['userID'];
@@ -242,7 +239,7 @@ if ($con->connect_error) {
         if ($highestBid == "No Bids Yet") {
           echo "Sorry, your bid must be higher than the Starting Price";
     } else {
-      echo "Sorry, your bid must be higher than the current bid";
+      echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
     }
       }
 	  }
@@ -279,18 +276,19 @@ if ($con->connect_error) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
  <?php
+	
+ $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
+ $result = $con -> query($sql);
+ $buyer = '';
+ $seller = '';
+ $startingPrice = '';
+ while ($row = mysqli_fetch_array($result)) {
+   $buyer = $row['buyerID'];
+   $seller = $row['sellerID'];
+ }
+	
+	
 
  if ($buyer == $_SESSION['userID'] || $seller == $_SESSION['userID']) {
 
@@ -350,7 +348,7 @@ if ($con->connect_error) {
 
 <?php
 }
-
+	
 if (isset($_POST['submit-purchase'])) {
   $comment = mysqli_escape_string($con, $_POST['comments']);
   $rating = mysqli_escape_string($con, $_POST['rating']);
