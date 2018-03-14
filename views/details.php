@@ -138,7 +138,6 @@ if ($con->connect_error) {
 <div class="container product-details">
   <h1 class="header-details"><?php $nameOfProduct = $row['productName'];
   echo $nameOfProduct?></h1>
-  <h1> <?php echo 'nameOfProduct' ?> </h1>
 
 <a class="btn btn-lg btn-primary btn-block" href="search_product.php">Back to Search Products</a>
 
