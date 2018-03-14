@@ -82,6 +82,7 @@ if (isset($_POST['submit-product'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/application.css">
+    <link rel="stylesheet" href="../../Database_Group21/assets/stylesheets/add_product_form.css">
 
 
   <header role="banner" class="header-reports">
@@ -138,6 +139,9 @@ if (isset($_POST['submit-product'])) {
     <form class="form-horizontal" method="post">
       <fieldset>
         <legend>Add New Product</legend>
+
+        <a class='btn btn-lg btn-primary btn-block add-new-link' href='search_product.php'>Search Product</a>
+        <a class='btn btn-lg btn-primary btn-block add-new-link-dash' href='admin_dashboard.php'>View Dashboard</a>
 
 
         <div class="form-group">
