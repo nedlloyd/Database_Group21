@@ -85,3 +85,29 @@ ul.product li {
     *display: inline;
     *zoom: 1;
 }
+
+
+#breadcrumbs li {
+    display: inline-block;
+    position: relative;
+    padding-right: 14px;
+}
+#breadcrumbs li:last-child {
+    padding-right: 0;
+}
+#breadcrumbs li:after {
+    color: #3f90ad;
+    content: '>';
+    position: absolute;
+    right: 0px;
+    top: 0;
+}
+#breadcrumbs li:last-child:after {
+    display: none;
+}
+#breadcrumbs a {
+    text-decoration: underline;
+}
+#breadcrumbs a:hover, #breadcrumbs a:focus, #breadcrumbs li:last-child a {
+    text-decoration: none;
+}
