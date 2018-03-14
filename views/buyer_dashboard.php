@@ -389,6 +389,7 @@ echo $_SESSION['userID'];
     $recomendation2 = '';
     $recomendation3 = '';
     $sql = "";
+    $items = sizeof($cfPorducts);
 
     $recomendation1 = $cfPorducts[0];
     $sql = "SELECT * FROM product WHERE productID=$recomendation1";
