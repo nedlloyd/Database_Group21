@@ -328,8 +328,9 @@ if ($con->connect_error) {
 }
 
 if (isset($_POST['submit-purchase'])) {
- if($_POST['userID'] == $_SESSION['userID']){
-   $sqlCode = "payementComplete='".$_POST['payementComplete']."', dateAndTimeCompletion='".$_POST['dateAndTimeCompletion']."', commentsBuyer='".$_POST['comments']."', ratingBuyer='".$_POST['rating']."'";
+ if($_SESSION['userID'] == $buyer){
+   echo "buyer";
+   $sqlCode = "commentsBuyer='".$_POST['comments']."', ratingBuyer='".$_POST['rating']."'";
  }else{
   $sqlCode = "commentsSeller='".$_POST['comments']."', ratingSeller='".$_POST['rating']."'";
  }
