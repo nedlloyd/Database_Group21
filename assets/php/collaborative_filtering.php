@@ -49,7 +49,7 @@ $popular = array_slice(array_keys($values), 0, 2, true);
 $id1 = $popular[0];
 $id2 = $popular[1];
 
-$sql = "SELECT * FROM bid";
+$sql = "SELECT b.userID, p.productID FROM bid b INNER JOIN product p ON p.productID=b.productID WHERE p.endDateTime > CURRENT_TIMESTAMP";
 $r_query = mysqli_query($con, $sql);
 
 $filteredProducts = [];
@@ -57,6 +57,7 @@ $filteredProducts = [];
 while ($row = mysqli_fetch_array($r_query)) {
   if (($row['userID'] != $_SESSION['userID']) && (($row['userID'] == $id1) || ($row['userID'] == $id2))) {
     if ((!in_array($row['productID'], $userProducts))) {
+
 
       array_push($filteredProducts, $row['productID']);
     }
