@@ -37,7 +37,8 @@ function numberofbid($productID, $con) {
 
 
 function yourCurrentItemAuctioned($userID, $con) {
-	$sql = "SELECT DISTINCT product.productID from bid, product WHERE bid.productID=product.productID AND product.userID=$userID";
+	// $sql = "SELECT DISTINCT product.productID from bid, product WHERE bid.productID=product.productID AND product.userID=$userID";
+	$sql = "SELECT productID from product WHERE userID=$userID";
 	$r_query = mysqli_query($con, $sql);
 	$productIDs = array();
 	while ($row = mysqli_fetch_array($r_query)) {

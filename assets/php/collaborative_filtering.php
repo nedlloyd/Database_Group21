@@ -46,6 +46,9 @@ arsort($values);
 $popular = array_slice(array_keys($values), 0, 2, true);
 
 
+if ($popular != NULL) {
+
+
 $id1 = $popular[0];
 $id2 = $popular[1];
 
@@ -72,4 +75,5 @@ $_SESSION['popularProducts'] = $popularProducts;
 
 
 $con->close();
+}
 ?>

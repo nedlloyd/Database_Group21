@@ -378,16 +378,18 @@ echo $_SESSION['userID'];
     </div>
 
     <?php
+    if ($_SESSION['popularProducts'] == NULL)  {
+
+
+      echo "<h2 class='colab-filtering-head'>Place Some Bids to get recommendations</h2>";
+  } else {
+
     $cfPorducts = $_SESSION['popularProducts'];
     $recomendation1 = '';
     $recomendation2 = '';
     $recomendation3 = '';
     $sql = "";
-    $items = sizeof($cfPorducts);
 
-    if ($items < 1) {
-      echo "<h2 class='colab-filtering-head'>Place Some Bids to get recommendations</h2>";
-  } else {
     $recomendation1 = $cfPorducts[0];
     $sql = "SELECT * FROM product WHERE productID=$recomendation1";
     if ($items > 1) {
@@ -445,11 +447,9 @@ echo $_SESSION['userID'];
     // called from buyer_dashboardphp
     $sellinghist = sellinghist($userID,$con);
     $productsAuction = yourCurrentItemAuctioned($userID, $con);
+
+
     $allFeedback2 = allFeedbackSeller($userID, $con);
-    //print_r($allFeedback);
-    //echo $allFeedback[0]['commentsSeller'];
-    //echo $allFeedback[0]['ratingSeller'];
-    //$highestbid = highestBid(62, $con);
 
 
     ?>
