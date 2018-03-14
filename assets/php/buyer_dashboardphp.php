@@ -52,7 +52,7 @@ $products = [];
   return $products;
 }
 
-function yourfeebackAverage($userID, $con) {
+function yourfeedbackAverage($userID, $con) {
   $sql = "SELECT AVG(ratingBuyer) from purchase WHERE userID=$userID";
   $r_query = mysqli_query($con, $sql);
   if ($r_query != null) {
@@ -147,7 +147,7 @@ function viewAllUsers($con) {
 }
 
 function findOtherBidders($userID, $productID, $con) {
-  $sql = "SELECT u.email u.id FROM bid b INNER JOIN users u ON u.id=b.userID WHERE b.productID=$productID";
+  $sql = "SELECT u.email u.id FROM bid b INNER JOIN users u ON u.id=b.userID WHERE b.productID=$productID;";
   $r_query = mysqli_query($con, $sql);
 
   $otherBidders = [];
@@ -155,7 +155,7 @@ function findOtherBidders($userID, $productID, $con) {
   while ($row = mysqli_fetch_array($r_query)) {
 
     if ($row['email'] != $userID) {
-    array_push($otherBidders, $row['email'])
+    array_push($otherBidders, $row['email']);
     echo $row['email'];
     }
   }

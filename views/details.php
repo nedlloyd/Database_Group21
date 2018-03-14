@@ -213,7 +213,7 @@ if ($con->connect_error) {
 		  $stmt->bind_param("sss", $userID, $productID, $_POST['amount']);
 		  $stmt->execute();
 		  echo "New bid submitted.";
-		  $con->close();
+
 	  }
   }
   ?>

@@ -71,7 +71,7 @@ function allBid($productID, $con) {
 }
 
 
-function yourfeebackAverageSeller($userID, $con) {
+function yourfeedbackAverageSeller($userID, $con) {
   $sql = "SELECT ROUND(AVG(purchase.ratingSeller),2)AS rateSeller FROM purchase, product
 			WHERE purchase.productID = product.productID AND product.userID=$userID";
   $r_query = mysqli_query($con, $sql);
