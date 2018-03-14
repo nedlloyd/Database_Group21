@@ -4,7 +4,7 @@ require '../assets/php/collaborative_filtering.php';
 include '../assets/php/buyer_dashboardphp.php';
 include '../assets/php/seller_dashboardphp.php';
 require '../assets/php/connect.php';
-//require '../assets/php/purchase.php';
+require '../assets/php/purchase.php';
 echo $_SESSION['userID'];
 ?>
 
