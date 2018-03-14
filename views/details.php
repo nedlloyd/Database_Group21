@@ -50,6 +50,7 @@ if ($con->connect_error) {
 		$row3 = $result3 -> fetch_assoc();
 	}
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -155,7 +156,8 @@ if ($con->connect_error) {
   </thead>
   <tbody>
     <tr>
-      <td><?php echo $row['startPrice']; ?></td>
+      <td><?php $startPrice = $row['startPrice'];
+      echo $startPrice;?></td>
       <td><?php
       $productID = $row['productID'];
       $highestBid = highestBid($productID, $con)['amount'];
@@ -201,7 +203,7 @@ if ($con->connect_error) {
   </form>
 
   <?php
-  $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID, pr.startPrice FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
+  $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
  $result = $con -> query($sql);
  $buyer = '';
  $seller = '';
@@ -209,15 +211,15 @@ if ($con->connect_error) {
  while ($row = mysqli_fetch_array($result)) {
    $buyer = $row['buyerID'];
    $seller = $row['sellerID'];
-   $startingPrice = $row['startPrice'];
  }
 
 
 
   if (isset($_POST['submit-bid'])) {
     $currentbid = mysqli_escape_string($con, $_POST['amount']);
+    echo $startingPrice;
 
-	  if($currentbid > $highestBid || ($highestBid == '' && $currentbid > $startingPrice)) {
+	  if($currentbid > $highestBid || ($highestBid == 'No Bids Yet' && $currentbid > $startPrice)) {
 		  $userID = $_SESSION['userID'];
 		  $productID = mysqli_escape_string($con, $_GET['id']);
 
@@ -237,7 +239,11 @@ if ($con->connect_error) {
 			  		echo "Sorry, you cannot bid on any product since you are a seller.";
 		  		}
       }  else {
-      echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
+        if ($highestBid == "No Bids Yet") {
+          echo "Sorry, your bid must be higher than the Starting Price";
+    } else {
+      echo "Sorry, your bid must be higher than the current bid";
+    }
       }
 	  }
   ?>
