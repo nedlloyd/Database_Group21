@@ -128,14 +128,14 @@ $r_query = null;
         <div class="form-group">
         <label for="lowprice" class="col-sm-4 control-label">Starting Price: more than</label>
         <div class="col-sm-1">
-        <input class="form-control" type="number" id="lowprice" name="lowprice">
+        <input class="form-control" type="number" min="0" id="lowprice" name="lowprice">
         </div>
         </div>
 
         <div class="form-group">
         <label for="highprice" class="col-sm-4 control-label">Starting Price: less than</label>
         <div class="col-sm-1">
-        <input class="form-control" type="number" id="highprice" name="highprice">
+        <input class="form-control" type="number" min="0" id="highprice" name="highprice">
         </div>
 
       </div>
