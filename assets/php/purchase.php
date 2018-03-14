@@ -34,7 +34,7 @@ $i = 0;
  while ($row = mysqli_fetch_array($r_query)) {
 
     if (strtotime($lastChecked) < strtotime($row['endDateTime'])) {
-      if ($row['reservePrice'] < $row['amount']) {
+      // if ($row['reservePrice'] < $row['amount']) {
         if ($i == 0) {
           $sql = "INSERT INTO purchase (productID, userID) VALUES";
           $i++;
@@ -42,9 +42,9 @@ $i = 0;
           $sql = $sql . ',';
         }
         $sql = $sql . ' (' . $row['productID'] . ', ' . $row['userID'] . ')';
-      } else {
-        $_SESSION['reservePrice'] = "Highest bid is less than reserve Price";
-      }
+      // } else {
+      //   $_SESSION['reservePrice'] = "Highest bid is less than reserve Price";
+      // }
     }
 
     }
