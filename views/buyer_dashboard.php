@@ -273,6 +273,7 @@ echo $_SESSION['userID'];
                   <th>End Time and Date</th>
                   <th>Winning Bid</th>
                   <th>Your Highest Bid</th>
+                  <th>Result</th>
                 </tr>
               </thead>
               <tbody>
@@ -281,6 +282,13 @@ echo $_SESSION['userID'];
                   $endDateArray = [];
                 while ($i < count($productsBid)) {
                    if((time() >= strtotime($productsBid[$i]['endDateTime']))) {
+
+                     $currentProductID = $productsBid[$i]['productID'];
+
+                     $yourHighestBid = yourHighestBid($_SESSION['userID'], $currentProductID, $con)['amount'];
+                     $totalHighestBid = highestBid($currentProductID, $con)['amount'];
+
+
                     ?>
                 <tr>
                   <td><a href="details.php?id=<?php echo $productsBid[$i]['productID']?>"><?php echo $productsBid[$i]['productName'];?></a></td>
@@ -292,14 +300,21 @@ echo $_SESSION['userID'];
                 } else {
                   echo "Bid Ended";
                 }?></td>
-                <td><?php echo highestBid($productsBid[$i]['productID'], $con)['amount'] ?></td>
-                <td><?php $yhb = YourHighestBid($_SESSION['userID'], $productsBid[$i]['productID'], $con);
-                if ($yhb != NULL) {
-                echo YourHighestBid($_SESSION['userID'], $productsBid[$i]['productID'], $con)['amount'];
+                <td><?php echo $totalHighestBid ?></td>
+                <td><?php if ($yourHighestBid != NULL) {
+                echo $yourHighestBid;
               } else {
                 echo "You've yet to bid";
               }
                 ?></td>
+                <td><?php if ($yourHighestBid < $totalHighestBid) {
+                echo "Lost";
+              } else {
+                echo "Won";
+              }
+                ?></td>
+
+
                 </tr>
         <?php
          }
@@ -533,6 +548,9 @@ echo $_SESSION['userID'];
                     $endDateArray = [];
                   while ($i < count($sellinghist)) {
                      if((time() >= strtotime($sellinghist[$i]['endDateTime']))) {
+                       $currentProductID = $sellinghist[$i]['productID'];
+                       $totalHighestBid = highestBid($currentProductID, $con)['amount'];
+
                       ?>
                   <tr>
                     <td><a href="details.php?id=<?php echo $sellinghist[$i]['productID']?>"><?php echo $sellinghist[$i]['productName'];?></a></td>
@@ -544,7 +562,7 @@ echo $_SESSION['userID'];
                   } else {
                     echo "Bid Ended";
                   }?></td>
-                  <td><?php echo highestBid($sellinghist[$i]['productID'], $con)['amount'] ?></td>
+                  <td><?php echo $totalHighestBid ?></td>
                   </tr>
           <?php
            }
