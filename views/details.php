@@ -315,9 +315,7 @@ if ($con->connect_error) {
            </div>
          </div>
 
-         <!-- <input name="userID" type="hidden" value="69"/> -->
-         <!-- <input name="productID" type="hidden" value="49"/>
-         <input name="purchaseID" type="hidden" value="25"/> -->
+         
          <input name="userID" type="hidden" value="<?php echo $row['userID']; ?>"/>
          <input name="productID" type="hidden" value="<?php echo $row['productID']; ?>"/>
          <input name="purchaseID" type="hidden" value="<?php echo $row['purchaseID']; ?>"/>
