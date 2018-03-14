@@ -138,6 +138,7 @@ if ($con->connect_error) {
 <div class="container product-details">
   <h1 class="header-details"><?php $nameOfProduct = $row['productName'];
   echo $nameOfProduct?></h1>
+  <h1> <?php echo 'nameOfProduct' ?> </h1>
 
 <a class="btn btn-lg btn-primary btn-block" href="search_product.php">Back to Search Products</a>
 
@@ -211,17 +212,24 @@ if ($con->connect_error) {
    
  }
 
-
+	
+ $userID = $_SESSION['userID'];
+ $productID = mysqli_escape_string($con, $_GET['id']);
+ $sql4 = "SELECT role from users Where id=$userID";
+ $result4 = $con -> query($sql4);
+ $role = '';
+ while ($row = mysqli_fetch_array($result4)) {
+   $role = $row['role'];
+	 
+ }
 
   if (isset($_POST['submit-bid'])) {
     $currentbid = mysqli_escape_string($con, $_POST['amount']);
 
-	  if($currentbid > $highestBid || ($highestBid == 'No Bids Yet' && $currentbid > $startPrice)) {
-		  $userID = $_SESSION['userID'];
-		  $productID = mysqli_escape_string($con, $_GET['id']);
-
-		  if($userID != $seller){
-				  $amount = mysqli_escape_string($con, $_POST['amount']);
+		  if($userID != $seller && $role != "seller"){
+			  if($currentbid > $highestBid || ($highestBid == 'No Bids Yet' && $currentbid > $startPrice)) {
+			  
+			      $amount = mysqli_escape_string($con, $_POST['amount']);
 				  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
 				  VALUES (?,?,?)");
 				  $stmt->bind_param("sss", $userID, $productID, $amount);
@@ -231,17 +239,26 @@ if ($con->connect_error) {
 				  foreach($otherbidders as $item) {
 				  sendmail($item, "You've been outbid!!", "You've been outbid on the $nameOfProduct");
 				  }
-	  			} else {
+			  	  }  else {
+					 if ($highestBid == "No Bids Yet") {
+					   echo "Sorry, your bid must be higher than the Starting Price";
+				  } else {
+				       echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
+				  }
+			  	  
+			      }
+			  
+	  			} elseif ($userID == $seller && $role != "seller") {
+			  		echo "Sorry, you cannot bid on your own product.";
+			  
+		        } else {
 			  		echo "Sorry, you cannot bid on any product since you are a seller.";
 		  		}
-      }  else {
-        if ($highestBid == "No Bids Yet") {
-          echo "Sorry, your bid must be higher than the Starting Price";
-    } else {
-      echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
-    }
-      }
+		  
+      
 	  }
+	
+	
   ?>
 
   <?php
