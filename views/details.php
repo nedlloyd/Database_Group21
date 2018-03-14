@@ -201,7 +201,14 @@ if ($con->connect_error) {
   </form>
 
   <?php
-  
+  $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
+ $result = $con -> query($sql);
+ $buyer = '';
+ $seller = '';
+ while ($row = mysqli_fetch_array($result)) {
+   $buyer = $row['buyerID'];
+   $seller = $row['sellerID'];
+ }
   
 	
 	
@@ -210,7 +217,7 @@ if ($con->connect_error) {
 		  $userID = $_SESSION['userID'];
 		  $productID = mysqli_escape_string($con, $_GET['id']);
 		  
-		  if($userID != $productUserID){
+		  if($userID != $seller){
 				  $amount = mysqli_escape_string($con, $_POST['amount']);
 				  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
 				  VALUES (?,?,?)");
@@ -223,7 +230,7 @@ if ($con->connect_error) {
 				  sendmail($item, "You've been outbid!!", "You've been outbid on the $nameOfProduct");
 				  }
 	  			} else {
-			  		echo "Sorry, you cannot bid on your own product.";
+			  		echo "Sorry, you cannot bid on any product since you are a seller.";
 		  		}
       }  else {
       echo "Sorry, your bid must be higher than the current bid, which is $highestBid";
@@ -274,14 +281,7 @@ if ($con->connect_error) {
 
 
  <?php
- $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
- $result = $con -> query($sql);
- $buyer = '';
- $seller = '';
- while ($row = mysqli_fetch_array($result)) {
-   $buyer = $row['buyerID'];
-   $seller = $row['sellerID'];
- }
+ 
  if ($buyer == $_SESSION['userID'] || $seller == $_SESSION['userID']) {
 
     ?>
