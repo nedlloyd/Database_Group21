@@ -6,6 +6,7 @@ include '../assets/php/seller_dashboardphp.php';
 require '../assets/php/connect.php';
 require '../assets/php/purchase.php';
 echo $_SESSION['userID'];
+echo $_SESSION['reservePrice'];
 ?>
 
 
