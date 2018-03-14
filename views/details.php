@@ -217,7 +217,7 @@ if ($con->connect_error) {
   if (isset($_POST['submit-bid'])) {
     $currentbid = mysqli_escape_string($con, $_POST['amount']);
 
-	  if($currentbid >= $highestBid || ($highestBid == '' && $currentbid > $startingPrice)) {
+	  if($currentbid > $highestBid || ($highestBid == '' && $currentbid > $startingPrice)) {
 		  $userID = $_SESSION['userID'];
 		  $productID = mysqli_escape_string($con, $_GET['id']);
 
