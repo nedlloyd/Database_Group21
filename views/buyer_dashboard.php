@@ -343,7 +343,7 @@ echo $_SESSION['userID'];
                   <td><?php echo findSellerEmail($allFeedback[$i]['productID'], $con)?></td>
                 </tr>
         <?php
-        }
+         }
               $i += 1;
          }
         }
@@ -425,7 +425,7 @@ echo $_SESSION['userID'];
     // called from buyer_dashboardphp
     $sellinghist = sellinghist($userID,$con);
     $productsAuction = yourCurrentItemAuctioned($userID, $con);
-    $allFeedback = allFeedbackSeller($userID, $con);
+    $allFeedback2 = allFeedbackSeller($userID, $con);
     //print_r($allFeedback);
     //echo $allFeedback[0]['commentsSeller'];
     //echo $allFeedback[0]['ratingSeller'];
@@ -577,14 +577,14 @@ echo $_SESSION['userID'];
                   </tr>
                 </thead>
                 <tbody>
-                  <?php if ($allFeedback != null) {
+                  <?php if ($allFeedback2 != null) {
                     $i = 0;
-                  while ($i < count($allFeedback)) {
+                  while ($i < count($allFeedback2)) {
                     ?>
                   <tr>
-    				<td><?php echo $allFeedback[$i]['productName']?></td>
-                    <td><?php echo $allFeedback[$i]['ratingSeller']?></td>
-                    <td><?php echo $allFeedback[$i]['commentsSeller']?></td>
+    				<td><?php echo $allFeedback2[$i]['productName']?></td>
+                    <td><?php echo $allFeedback2[$i]['ratingSeller']?></td>
+                    <td><?php echo $allFeedback2[$i]['commentsSeller']?></td>
                   </tr>
           <?php
                 $i += 1;
