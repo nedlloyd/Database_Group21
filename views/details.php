@@ -2,7 +2,7 @@
 session_start();
 require '../assets/php/connect.php';
 include '../assets/php/buyer_dashboardphp.php';
-require '../assets/php/email-script.php';
+//require '../assets/php/email-script.php';
 echo $_SESSION['userID'];
 ?>
 

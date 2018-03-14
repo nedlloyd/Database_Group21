@@ -326,8 +326,8 @@ echo $_SESSION['userID'];
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Rating</th>
                   <th>Comments</th>
+                  <th>Rating</th>
                   <th>Feedback From</th>
                 </tr>
               </thead>
@@ -580,6 +580,7 @@ echo $_SESSION['userID'];
                   <?php if ($allFeedback2 != null) {
                     $i = 0;
                   while ($i < count($allFeedback2)) {
+					  if (($allFeedback2[$i]['ratingSeller'] != NULL)) {
                     ?>
                   <tr>
     				<td><?php echo $allFeedback2[$i]['productName']?></td>
@@ -587,7 +588,9 @@ echo $_SESSION['userID'];
                     <td><?php echo $allFeedback2[$i]['commentsSeller']?></td>
                   </tr>
           <?php
+					  }
                 $i += 1;
+				
            	}
           }
           ?>
