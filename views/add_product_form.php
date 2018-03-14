@@ -45,7 +45,11 @@ if (isset($_POST['submit-product'])) {
   if (empty($_POST["endDateTime"])) {
     $endDateTimeErr = "End Date and Time is required";
   } else {
+    if (time() > $_POST["endDateTime"]) {
+      $endDateTimeErr = "Date and Time must be in the past";
+    } else {
     $endDateTime = mysqli_escape_string($con, $_POST['endDateTime']);
+  }
   }
   if (empty($_POST["category"])) {
     $categoryErr = "Category is required";
@@ -218,7 +222,7 @@ if (isset($_POST['submit-product'])) {
 </div>
 </body>
 
-  <script> var today = new Date().toISOString().split('T')[0];
+  <script> var today = new DateTime().toISOString().split('T')[0];
 document.getElementsByName("setTodaysDate")[0].setAttribute('min', today);</script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
