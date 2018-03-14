@@ -1,5 +1,6 @@
 <?php
 require '../assets/php/connect.php';
+require '../assets/php/email-script.php';
 ?>
 
 
@@ -44,6 +45,15 @@ require '../assets/php/connect.php';
 <body>
 
 
+<?php
+
+$to = "nedparrylloyd@hotmail.co.uk";
+$subject = "let's go let's goth attempt";
+$txt = "its worked! - 4th time lucky";
+
+sendmail($to,$subject,$txt)
+
+?>
 
 </body>
 

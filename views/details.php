@@ -2,6 +2,7 @@
 session_start();
 require '../assets/php/connect.php';
 include '../assets/php/buyer_dashboardphp.php';
+require '../assets/php/email-script.php';
 ?>
 
 
@@ -99,7 +100,8 @@ if ($con->connect_error) {
 
 
 <div class="container product-details">
-  <h1 class="header-details"><?php echo $row['productName']; ?></h1>
+  <h1 class="header-details"><?php $nameOfProduct = $row['productName'];
+  echo $nameOfProduct?></h1>
 
 <a class="btn btn-lg btn-primary btn-block" href="search_product.php">Back to Search Products</a>
 
@@ -166,16 +168,30 @@ if ($con->connect_error) {
   <?php
 
   if (isset($_POST['submit-bid'])) {
+    $amount = mysqli_escape_string($con, $_POST['amount']);
+
+    $highestBid = highestBid($productID, $con);
+    echo $highestBid;
+    if ($amount > $highestBid) {
+
     $userID = $_SESSION['userID'];
     $productID = mysqli_escape_string($con, $_GET['id']);
     /*echo $_POST['amount'];
     echo $_GET['id'];*/
   $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
   VALUES (?,?,?)");
-  $stmt->bind_param("sss", $userID, $productID, $_POST['amount']);
+  $stmt->bind_param("sss", $userID, $productID, $amount);
   $stmt->execute();
-  echo "New bid submitted.";
-  $con->close();
+  echo "New highest bid submitted.";
+
+  $otherbidders = findOtherBidders($userID, $productID, $con);
+  foreach($otherbidders as $item) {
+    sendmail($item['email'], "You've been outbid!!", "You've been outbid on the $nameOfProduct")
+}
+
+} else {
+
+}
   }
   ?>
 
