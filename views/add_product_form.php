@@ -57,7 +57,8 @@ if (isset($_POST['submit-product'])) {
     $category = mysqli_escape_string($con, $_POST['category']);
   }
 
-
+	
+  
   $stmt = $con->prepare("INSERT INTO product (description, startPrice, reservePrice, productName, endDateTime, category, userID)
   VALUES (?,?,?,?,?,?,?)");
   $stmt->bind_param("sssssss", $description, $startPrice, $reservePrice, $productName, $endDateTime, $category, $_SESSION['userID']);
@@ -137,7 +138,9 @@ if (isset($_POST['submit-product'])) {
     <form class="form-horizontal" method="post">
       <fieldset>
         <legend>Add New Product</legend>
-
+		
+		  <?php echo date('m/d/Y H:i:s',time()) ?>
+		  
         <div class="form-group">
           <label for="productName" class="col-sm-4 control-label">Product Title</label>
           <div class="col-sm-4">
