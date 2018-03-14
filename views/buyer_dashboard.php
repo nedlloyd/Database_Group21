@@ -360,7 +360,6 @@ echo $_SESSION['userID'];
 
     <?php
     $cfPorducts = $_SESSION['popularProducts'];
-
     $recomendation1 = '';
     $recomendation2 = '';
     $recomendation3 = '';
@@ -381,6 +380,7 @@ echo $_SESSION['userID'];
     $sql = "SELECT * FROM product WHERE productID=$recomendation1 OR productID=$recomendation2 OR productID=$recomendation3";
     }
     $r_query = mysqli_query($con, $sql);
+
     ?>
 
     <div class="colab-filtering col-sm-12">
@@ -398,10 +398,11 @@ echo $_SESSION['userID'];
       </tr>
       <?php
     }
-  }
       ?>
       </table>
     </div>
+
+  <?php } ?>
 
   </div>
 
@@ -590,7 +591,7 @@ echo $_SESSION['userID'];
           <?php
 					  }
                 $i += 1;
-				
+
            	}
           }
           ?>
