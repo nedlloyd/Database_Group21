@@ -333,9 +333,9 @@ if (isset($_POST['submit-purchase'])) {
 
 
  if($_SESSION['userID'] == $buyer){
-   $sqlCode = "commentsBuyer='".$comment."', ratingBuyer='".$rating."'";
+   $sqlCode = "commentsSeller='".$comment."', ratingSeller='".$rating."'";
  }else{
-  $sqlCode = "commentsSeller='".$comment."', ratingSeller='".$rating."'";
+  $sqlCode = "commentsBuyer='".$comment."', ratingBuyer='".$rating."'";
  }
 
  $feedbackproductID = mysqli_escape_string($con, $_GET['id']);
