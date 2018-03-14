@@ -93,10 +93,14 @@ if ($con->connect_error) {
 <body>
 	<div id="site">
 		<div id="content">
-
-
-
-
+			<div id="breadcrumbs" class="reset menu">
+            <ul>
+                <li><a href="../search_product.php">Home</a></li>
+                <li><?php 
+				echo "Bid Page"; 
+				?></li>
+            </ul>
+            </div>
 
 <div class="container product-details">
   <h1 class="header-details"><?php echo $row['productName']; ?></h1>
