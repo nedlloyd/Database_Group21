@@ -201,22 +201,26 @@ if ($con->connect_error) {
   </form>
 
   <?php
-  $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
+  $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID, pr.startPrice FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
  $result = $con -> query($sql);
  $buyer = '';
  $seller = '';
+ $startingPrice = '';
  while ($row = mysqli_fetch_array($result)) {
    $buyer = $row['buyerID'];
    $seller = $row['sellerID'];
+   $startingPrice = $row['startPrice'];
  }
-  
-	
-	
+
+
+
   if (isset($_POST['submit-bid'])) {
-	  if($_POST['amount'] >= $highestBid || $highestBid =! '') {
+    $currentbid = mysqli_escape_string($con, $_POST['amount']);
+
+	  if($currentbid >= $highestBid || ($highestBid == '' && $currentbid > $startingPrice)) {
 		  $userID = $_SESSION['userID'];
 		  $productID = mysqli_escape_string($con, $_GET['id']);
-		  
+
 		  if($userID != $seller){
 				  $amount = mysqli_escape_string($con, $_POST['amount']);
 				  $stmt = $con->prepare("INSERT INTO bid (userID, productID, amount)
@@ -281,23 +285,23 @@ if ($con->connect_error) {
 
 
  <?php
- 
+
  if ($buyer == $_SESSION['userID'] || $seller == $_SESSION['userID']) {
 
     ?>
 
    <form method="POST"  class="form-horizontal">
    <div class="container">
-         
+
 	   <?php
 	     if($_SESSION['userID'] == $buyer){ ?>
             <h2> <?php echo "Feedback for your seller";?> </h2>
 	   <?php }else{ ?>
 		    <h2> <?php echo "Feedback for your buyer";?> </h2>
 	   <?php }
-	   
+
 	   ?>
-	   
+
          <div class="form-group">
            <label for="rating" class="col-sm-4 control-label">rating score<br>(10=very satisfied; 1=very poor)</label>
            <div class="col-sm-4">
@@ -331,7 +335,7 @@ if ($con->connect_error) {
            </div>
          </div>
 
-         
+
          <input name="userID" type="hidden" value="<?php echo $row['userID']; ?>"/>
          <input name="productID" type="hidden" value="<?php echo $row['productID']; ?>"/>
          <input name="purchaseID" type="hidden" value="<?php echo $row['purchaseID']; ?>"/>
@@ -346,7 +350,7 @@ if (isset($_POST['submit-purchase'])) {
   $rating = mysqli_escape_string($con, $_POST['rating']);
 
 
- if($_SESSION['userID'] == $buyer){ 
+ if($_SESSION['userID'] == $buyer){
    $sqlCode = "commentsSeller='".$comment."', ratingSeller='".$rating."'";
  }else{
   $sqlCode = "commentsBuyer='".$comment."', ratingBuyer='".$rating."'";
