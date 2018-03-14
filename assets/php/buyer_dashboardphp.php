@@ -14,6 +14,7 @@ $r_query = mysqli_query($con, $sql);
 $products = array();
 while ($row = mysqli_fetch_array($r_query)) {
    if (in_array($row['productID'], $productIDs)){
+
       array_push($products, $row);
    }
 }
