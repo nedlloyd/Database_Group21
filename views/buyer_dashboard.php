@@ -69,7 +69,7 @@ echo $_SESSION['reservePrice'];
 	  #If user's role is seller, shows the seller dashboard.
    if ($_SESSION['role'] === 'seller') {
      echo "<li class='active col-sm-5'><a href=''#seller' role='tab' data-toggle='tab'>Seller Dashboard</a></li>";
-	  #If user's role is buyer, shows the buyer dashboard. 
+	  #If user's role is buyer, shows the buyer dashboard.
    } else if ($_SESSION['role'] === 'buyer') {
      echo "<li class='active col-sm-5'><a href='#buyer' role='tab' data-toggle='tab'>Buyer Dashboard</a></li>";
   } else {
@@ -95,7 +95,7 @@ echo $_SESSION['reservePrice'];
       echo "<div class='tab-pane active' id='buyer'>";
      ?>
     <?php
-	// if user click remove-watchlist button, the product in the watchlist table will be deleted.	
+	// if user click remove-watchlist button, the product in the watchlist table will be deleted.
     if (isset($_POST['remove-watchlist'])) {
     $id = $_POST['productID'];
     echo $id;
@@ -119,7 +119,7 @@ echo $_SESSION['reservePrice'];
   $productsBid = findProdcuts('bid', $userID, $con);
   $allFeedback = allFeedback($userID, $con);
 
-  
+
 
 
   ?>
@@ -167,14 +167,14 @@ echo $_SESSION['reservePrice'];
                   <td><a href="details.php?id=<?php echo $productsWatch[$i]['productID']?>"><?php echo $productsWatch[$i]['productName'];?></a></td>
                   <td><?php echo $productsWatch[$i]['description'];?></td>
                   <td><?php echo $productsWatch[$i]['category'];?></td>
-                  <td><?php echo $productsWatch[$i]['startPrice'];?></td>	
-                  <td><?php 
+                  <td><?php echo $productsWatch[$i]['startPrice'];?></td>
+                  <td><?php
 				  // check if the current time is after bid end date time or not
 				  // if the current time is earlier than the bid end date time, show the bid end date time
-				  // else, show bid ended.	
-				  if ((time() - strtotime($productsWatch[$i]['endDateTime']) <= 0)) {	  
+				  // else, show bid ended.
+				  if ((time() - strtotime($productsWatch[$i]['endDateTime']) <= 0)) {
                   echo substr($productsWatch[$i]['endDateTime'], 0, 10);
-                } else {  
+                } else {
                   echo "Bid Ended";
                 }?></td>
                  <td><?php
@@ -183,7 +183,7 @@ echo $_SESSION['reservePrice'];
                  }
                  echo $highestBid;?></td>
 
-                <td><?php 
+                <td><?php
 				// setting variable $yhb as the user's highest bid of the product in the watchlist
 			    // if the yhb is not null, it will show the highest bid of current user on the product in the watchlist
 				// else it means the user have yet to bid on the product
@@ -234,7 +234,7 @@ echo $_SESSION['reservePrice'];
                 </tr>
               </thead>
               <tbody>
-                <?php 
+                <?php
 				// if the array of user's bided product is not null, it will go through every product in the array
 		        // if the bid end date time is later than the current time, it will show every detail info of the product
 		        // such as product name, description, category, start price, end time and date, current highest bid, your highest bid.
@@ -301,12 +301,12 @@ echo $_SESSION['reservePrice'];
                 </tr>
               </thead>
               <tbody>
-                <?php 
-		
+                <?php
+
 				  // Similar to the current items section.
 		          // the only different is that if the bid end date time is earlier than the current time, it will show every detail info of the product
 		          // if the bid end date time is later than the current time, it will show nothing.
-				  
+
 				  if ($productsBid != null) {
                   $i = 0;
                   $endDateArray = [];
@@ -315,10 +315,10 @@ echo $_SESSION['reservePrice'];
 
                      $currentProductID = $productsBid[$i]['productID'];
                      $yourHighestBid = yourHighestBid($_SESSION['userID'], $currentProductID, $con)['amount'];
-					 
+
 					 // setting variable $totalHighestBid as the current product's highest bid from all bid of this product
 					 // setting variable $reservedprice as the current product's reserved price.
-					   
+
                      $totalHighestBid = highestBid($currentProductID, $con)['amount'];
 					 $reservedprice = reservedprice($currentProductID, $con)['reservePrice'];
 
@@ -340,12 +340,12 @@ echo $_SESSION['reservePrice'];
                 echo "You've yet to bid";
               }
                 ?></td>
-                <td><?php 
-				
+                <td><?php
+
 				// if the total highest bid is higher than your highest bid, it will show lost
 				// if the reserved price is higher than your highest bid, it will show lower than reserved price
 				// else, it will show won
-					   
+
 				if ($yourHighestBid < $totalHighestBid) {
                 echo "Lost";
               } elseif ($yourHighestBid < $reservedprice) {
@@ -378,7 +378,7 @@ echo $_SESSION['reservePrice'];
           </div>
           <div id="collapse4" class="panel-collapse collapse">
             <div class="panel-body">
-            <h2>Average Feedback: <?php 
+            <h2>Average Feedback: <?php
 			// yourfeedbackaverage function will calculate the average value of the rating for the current user.
 			echo yourfeedbackAverage($_SESSION['userID'], $con);?></h2>
             <table class="table table-striped">
@@ -390,13 +390,13 @@ echo $_SESSION['reservePrice'];
                 </tr>
               </thead>
               <tbody>
-                <?php 
-				
+                <?php
+
 				// if the purchase record is not null, it will go through every record on the purchase table of the current user.
-				// if the rating for buyer is not null, 
-				//it will show the 'Comments for buyer' for the current user and the 'rating for buyer' for the current user 
+				// if the rating for buyer is not null,
+				//it will show the 'Comments for buyer' for the current user and the 'rating for buyer' for the current user
 				// and it will show the seller's email, which is from who gave the rating and comments.
-				
+
 				if ($allFeedback != null) {
                   $i = 0;
                 while ($i < count($allFeedback)) {
@@ -437,9 +437,9 @@ echo $_SESSION['reservePrice'];
     $recomendation3 = '';
     $sql = "";
     $items = sizeof($cfPorducts);
-	
+
 	// if there is one item in the session 'popularproducts', it will run the first sql, if there is 2 items, it will run the second sql, etc.
-	
+
     $recomendation1 = $cfPorducts[0];
     $sql = "SELECT * FROM product WHERE productID=$recomendation1";
     if ($items > 1) {
@@ -484,7 +484,7 @@ echo $_SESSION['reservePrice'];
 
     <?php
     $role = $_SESSION['role'];
-	
+
 	// if user role is buyer, the seller dashboard tab is not displayed
     if ($role == 'buyer') {
         echo "<div>";
@@ -497,7 +497,7 @@ echo $_SESSION['reservePrice'];
 
     // called from buyer_dashboardphp
     $sellinghist = sellinghist($userID,$con);
-		
+
 	// called from seller_dashboardphp
 	// setting variable $productsAuction as the current user's product.
     $productsAuction = yourCurrentItemAuctioned($userID, $con);
@@ -534,7 +534,7 @@ echo $_SESSION['reservePrice'];
                   </tr>
                 </thead>
                 <tbody>
-                  <?php 
+                  <?php
 					//similar to the buyer dashboard
 					if ($productsAuction != null) {
                     $i = 0;
@@ -603,7 +603,7 @@ echo $_SESSION['reservePrice'];
                   </tr>
                 </thead>
                 <tbody>
-                  <?php 
+                  <?php
 					//similar to the buyer dashboard
 					if ($sellinghist != null) {
                     $i = 0;
@@ -611,10 +611,10 @@ echo $_SESSION['reservePrice'];
                   while ($i < count($sellinghist)) {
                      if((time() >= strtotime($sellinghist[$i]['endDateTime']))) {
                        $currentProductID = $sellinghist[$i]['productID'];
-                       
+
                        $totalHighestBid = highestBid($currentProductID, $con)['amount'];
                        $reservedprice = reservedprice($currentProductID, $con)['reservePrice'];
-                       
+
                       ?>
                   <tr>
                     <td><a href="details.php?id=<?php echo $sellinghist[$i]['productID']?>"><?php echo $sellinghist[$i]['productName'];?></a></td>
