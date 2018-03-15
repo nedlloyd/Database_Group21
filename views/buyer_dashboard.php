@@ -85,6 +85,7 @@ echo $_SESSION['reservePrice'];
 <div class="tab-content">
 
     <?php
+    // if user role is seller the buyer dashboard is not displayed
     if ($_SESSION['role'] == 'seller') {
       echo "<div>";
     } else {
@@ -96,7 +97,6 @@ echo $_SESSION['reservePrice'];
     echo $id;
     $sql = "DELETE FROM watchlist WHERE productID='$id'";
       if ($con->query($sql) === TRUE) {
-        echo '<script></script>';
       } else {
         echo "Error deleting record: " . $con->error;
       }
@@ -108,6 +108,7 @@ echo $_SESSION['reservePrice'];
   $userID = mysqli_real_escape_string($con, $_SESSION['userID']);
 
   // called from buyer_dashboardphp
+  //   MAYBE?????? setting variable $productsWatch as an array of all products in the watchlist
   $productsWatch = findProdcuts('watchlist', $userID, $con);
   $productsBid = findProdcuts('bid', $userID, $con);
   $allFeedback = allFeedback($userID, $con);
@@ -149,6 +150,7 @@ echo $_SESSION['reservePrice'];
                   $i = 0;
                   $endDateArray = [];
                 while ($i < count($productsWatch)) {
+                  // if porduct has finished more than 5 days 
                    if(((time() - (60*60*120)) <= strtotime($productsWatch[$i]['endDateTime']))) {
                      $productID = $row['productID'];
                      $highestBid = highestBid($productsWatch[$i]['productID'], $con)['amount'];
