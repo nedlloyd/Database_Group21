@@ -549,6 +549,7 @@ echo $_SESSION['reservePrice'];
                     <th>Start Price</th>
                     <th>End Time and Date</th>
                     <th>Winning Bid</th>
+                    <th>Result</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -558,7 +559,16 @@ echo $_SESSION['reservePrice'];
                   while ($i < count($sellinghist)) {
                      if((time() >= strtotime($sellinghist[$i]['endDateTime']))) {
                        $currentProductID = $sellinghist[$i]['productID'];
+                       // echo "currentID";
+                       // echo $currentProductID;
+                       // echo "<br>";
+                       // echo "<br>";
                        $totalHighestBid = highestBid($currentProductID, $con)['amount'];
+                       $reservedprice = reservedprice($currentProductID, $con)['reservePrice'];
+                       // echo "highestBID";
+                       // echo $yourHighestBid;
+                       // echo "<br>";
+                       // echo "<br>";
 
                       ?>
                   <tr>
@@ -572,6 +582,15 @@ echo $_SESSION['reservePrice'];
                     echo "Bid Ended";
                   }?></td>
                   <td><?php echo $totalHighestBid ?></td>
+                  <td><?php
+                  if ($yourHighestBid == "") {
+                  echo "No Bids";
+                } else if ($reservedprice > $totalHighestBid) {
+                  echo "Lower than reserve Price";
+                } else {
+  				        echo "Won";
+  			        }
+                  ?></td>
                   </tr>
           <?php
            }
@@ -614,7 +633,7 @@ echo $_SESSION['reservePrice'];
     				<td><?php echo $allFeedback2[$i]['productName']?></td>
                     <td><?php echo $allFeedback2[$i]['ratingSeller']?></td>
                     <td><?php echo $allFeedback2[$i]['commentsSeller']?></td>
-					<td><?php echo findbuyeremail($allFeedback2[$i]['productID'], $con)?></td>  
+					<td><?php echo findbuyeremail($allFeedback2[$i]['productID'], $con)?></td>
                   </tr>
           <?php
 					  }
