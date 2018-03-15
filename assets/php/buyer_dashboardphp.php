@@ -36,6 +36,20 @@ function highestBid($productID, $con) {
   return $products;
 }
 
+function reservedprice($productID, $con) {
+  $sql = "SELECT * from product WHERE productID=$productID";
+  $products=array('reservePrice'=>'');
+
+  $r_query = mysqli_query($con, $sql);
+  while ($row = mysqli_fetch_array($r_query)) {
+    if ($row['reservePrice'] != NULL) {
+      $products['reservePrice']= $row['reservePrice'];
+    }
+  }
+
+  return $products;
+}
+
 function yourHighestBid($userID, $productID, $con) {
   $sql = "SELECT * from bid WHERE userID=$userID AND productID=$productID";
 
@@ -88,7 +102,7 @@ return $products;
 }
 
 function findSellerEmail($productID, $con) {
-  $sql = "SELECT userID, email FROM purchase AS p JOIN users AS u ON p.userID=u.ID WHERE productID=$productID";
+  $sql = "SELECT userID, email FROM product AS p JOIN users AS u ON p.userID=u.ID WHERE productID=$productID";
   $r_query = mysqli_query($con, $sql);
 
   $products = "";

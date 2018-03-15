@@ -108,4 +108,27 @@ function allFeedbackSeller($userID, $con) {
 return $products;
 }
 
+function findbuyeremail ($productID, $con){
+ $sql = "SELECT userID, email FROM purchase AS p JOIN users AS u ON p.userID=u.ID WHERE productID=$productID";
+  $r_query = mysqli_query($con, $sql);
+
+  $products = "";
+
+  while ($row = mysqli_fetch_array($r_query)) {
+  $products=$row['email'];
+  }
+
+
+return $products;
+}
+	
+	
+	
+
+
+
+
+
+
+
 ?>

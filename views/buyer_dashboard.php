@@ -292,7 +292,7 @@ echo $_SESSION['reservePrice'];
 
                      $yourHighestBid = yourHighestBid($_SESSION['userID'], $currentProductID, $con)['amount'];
                      $totalHighestBid = highestBid($currentProductID, $con)['amount'];
-
+					 $reservedprice = reservedprice($currentProductID, $con)['reservePrice'];
 
                     ?>
                 <tr>
@@ -314,9 +314,11 @@ echo $_SESSION['reservePrice'];
                 ?></td>
                 <td><?php if ($yourHighestBid < $totalHighestBid) {
                 echo "Lost";
+              } elseif ($yourHighestBid < $reservedprice) {
+                echo "Lower than reserve Price";
               } else {
-                echo "Won";
-              }
+				echo "Won";
+			  }
                 ?></td>
 
 
@@ -599,7 +601,7 @@ echo $_SESSION['reservePrice'];
     				<th>Product Name</th>
                     <th>Rating</th>
                     <th>Comments</th>
-
+					<th>Feedback From</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -612,6 +614,7 @@ echo $_SESSION['reservePrice'];
     				<td><?php echo $allFeedback2[$i]['productName']?></td>
                     <td><?php echo $allFeedback2[$i]['ratingSeller']?></td>
                     <td><?php echo $allFeedback2[$i]['commentsSeller']?></td>
+					<td><?php echo findbuyeremail($allFeedback2[$i]['productID'], $con)?></td>  
                   </tr>
           <?php
 					  }
