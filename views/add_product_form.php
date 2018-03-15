@@ -136,7 +136,13 @@ if (isset($_POST['submit-product'])) {
         <legend>Add New Product</legend>
 
         <a class='btn btn-lg btn-primary btn-block add-new-link' href='search_product.php'>Search Product</a>
-        <a class='btn btn-lg btn-primary btn-block add-new-link-dash' href='admin_dashboard.php'>View Dashboard</a>
+        <?php
+        if ($_SESSION['role'] == 'admin') {
+        echo "<a class='btn btn-lg btn-primary btn-block add-new-link-dash' href='admin_dashboard.php'>View Dashboard</a>";
+      } else {
+        echo "<a class='btn btn-lg btn-primary btn-block add-new-link-dash' href='buyer_dashboard.php'>View Dashboard</a>";
+      }
+        ?>
 
 
         <div class="form-group">
@@ -212,7 +218,6 @@ if (isset($_POST['submit-product'])) {
       </fieldset>
     </form>
 
-</*input name="setTodaysDate" type="date"*/>
 
     </div>
   </div>
