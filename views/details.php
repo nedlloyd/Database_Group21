@@ -160,7 +160,7 @@ if ($con->connect_error) {
   </thead>
   <tbody>
     <tr>
-      <td><?php 
+      <td><?php
 	  //show values of starting price, current bid, description of product, category of product, bid end date, bid end time
 	  //seller's name, and seller's rating.
 	  // if the highest bid exist, show the highest bid, otherwise, show No bid yet.
@@ -303,7 +303,7 @@ if ($con->connect_error) {
 
  <?php
 
- $sql = "SELECT pr.userID AS sellerID, pu.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID WHERE pu.productID=$productID";
+ $sql = "SELECT pr.userID AS sellerID, b.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID INNER JOIN bid b ON  b.bidID=pu.bidID WHERE pu.productID=$productID";
  $result = $con -> query($sql);
  $buyer = '';
  $seller = '';
@@ -316,7 +316,7 @@ if ($con->connect_error) {
 
  // if the bid is not end, the purchase table will not have the record of buyer, and the variable buyer and seller will be empty
  // Thus the following feedback will not be shown for the users.
-	
+
  if ($buyer == $_SESSION['userID'] || $seller == $_SESSION['userID']) {
 
     ?>
@@ -377,17 +377,17 @@ if ($con->connect_error) {
 }
 
 if (isset($_POST['submit-purchase'])) {
-  
+
   //get comments and rating of the feedback form
   $comment = mysqli_escape_string($con, $_POST['comments']);
   $rating = mysqli_escape_string($con, $_POST['rating']);
 
- 
-	
- //if the user ID equals to the buyer's userID, the form of feedback is for seller, 
+
+
+ //if the user ID equals to the buyer's userID, the form of feedback is for seller,
  //if the user ID equals to the seller's userID, the form of feedback if for buyer.
  //Then update information into the feedback table
-	
+
  if($_SESSION['userID'] == $buyer){
    $sqlCode = "commentsSeller='".$comment."', ratingSeller='".$rating."'";
  }else{

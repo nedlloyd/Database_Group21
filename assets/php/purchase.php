@@ -13,7 +13,7 @@ while ($row = mysqli_fetch_array($r_query)) {
 
 
 
- $sql = "SELECT a.productID, a.userID, a.amount, p.endDateTime, p.reservePrice
+ $sql = "SELECT a.productID, a.bidID, a.amount, p.endDateTime, p.reservePrice
  FROM bid a
  INNER JOIN (
    SELECT productID, MAX(amount) amount
@@ -38,12 +38,12 @@ echo $row['reservePrice'];
       echo $row['reservePrice'];
        if ($row['reservePrice'] <= $row['amount']) {
         if ($i == 0) {
-          $sql = "INSERT INTO purchase (productID, userID) VALUES";
+          $sql = "INSERT INTO purchase (productID, bidID) VALUES";
           $i++;
         } else if ($i != 0) {
           $sql = $sql . ',';
         }
-        $sql = $sql . ' (' . $row['productID'] . ', ' . $row['userID'] . ')';
+        $sql = $sql . ' (' . $row['productID'] . ', ' . $row['bidID'] . ')';
       } else {
         $_SESSION['reservePrice'] = "Highest bid is less than reserve Price";
       }
@@ -78,6 +78,6 @@ echo $row['reservePrice'];
  ?>
 
 
- <!-- SELECT a.productID, a.userID, a.amount, p.endDateTime, p.reservePrice FROM bid a INNER JOIN (SELECT productID, MAX(amount) amount FROM bid GROUP BY productID) b ON a.productID = b.productID AND a.amount = b.amount INNER JOIN product p ON a.productID=p.productID INNER JOIN users u ON u.id=a.userID WHERE p.endDateTime < CURRENT_TIMESTAMP;
+ <!-- SELECT a.productID, a.bidID, a.amount, p.endDateTime, p.reservePrice FROM bid a INNER JOIN (SELECT productID, MAX(amount) amount FROM bid GROUP BY productID) b ON a.productID = b.productID AND a.amount = b.amount INNER JOIN product p ON a.productID=p.productID INNER JOIN users u ON u.id=a.userID WHERE p.endDateTime < CURRENT_TIMESTAMP;
 
  SELECT a.productID, a.userID, a.amount FROM bid a INNER JOIN (SELECT productID, MAX(amount) amount FROM bid GROUP BY productID) b ON a.productID = b.productID AND a.amount = b.amount INNER JOIN product p ON a.productID=p.productID INNER JOIN users u ON u.id=a.userID WHERE p.endDateTime < CURRENT_TIMESTAMP; -->
