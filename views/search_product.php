@@ -20,11 +20,7 @@ $r_query = null;
     <div class="content-wrap">
       <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
       <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
-            <a class="active" href="contactemail.php"></span> Contact Us</a>
-          </button>
-        </div>
+
         <div class='btn-group'>
         </div>
 
@@ -181,7 +177,7 @@ $r_query = mysqli_query($con, $sql);
 }
 ?>
 <div class="container">
-    <p><?php echo $_SESSION['userID'];?><p>
+    <p><?php// echo $_SESSION['userID'];?><p>
   <h2>What we've got</h2>
   <?php
   if ($_SESSION['role'] == "admin") {

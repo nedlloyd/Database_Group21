@@ -36,7 +36,7 @@ echo $row['reservePrice'];
 
     if (strtotime($lastChecked) < strtotime($row['endDateTime'])) {
       echo $row['reservePrice'];
-       if ($row['reservePrice'] < $row['amount']) {
+       if ($row['reservePrice'] <= $row['amount']) {
         if ($i == 0) {
           $sql = "INSERT INTO purchase (productID, userID) VALUES";
           $i++;
@@ -61,7 +61,7 @@ echo $row['reservePrice'];
 
     }
 
- $sql = "DELETE FROM lastChecked; ;";
+ $sql = "DELETE FROM lastChecked;";
 
  if ($con->query($sql) === TRUE) {
  } else {

@@ -89,11 +89,6 @@ if (isset($_POST['submit-product'])) {
     <div class="content-wrap">
       <img class="logo" src="../images/Logo-Logo.svg.png" alt="AMRC Logo">
       <div class='btn-toolbar pull-right'>
-        <div class='btn-group'>
-          <button type="button" class="btn btn-default templateBtnToolbar contactLogin">
-            <a class="active" href="contactemail.php"></span> Contact Us</a>
-          </button>
-        </div>
         <div>
 
         </div>
