@@ -10,10 +10,13 @@ echo $_SESSION['userID'];
 <?php
 $message = '';
 
+// get productID
 $productID = mysqli_escape_string($con, $_GET['id']);
 echo "product ID:";
 echo $_GET['id'];
 
+
+//get current product's seller userID
 $sql = "SELECT userID FROM product WHERE productID=$productID;";
 $r_query = mysqli_query($con, $sql);
 $productUserID = '';
@@ -23,6 +26,7 @@ while ($row = mysqli_fetch_array($r_query)) {
 }
 }
 
+// calculate the number of views of the current product.
 echo $_SESSION['userID'];
 if ($_SESSION['userID'] != $productUserID){
 $sql = "UPDATE product SET views = views + 1 WHERE productID=$productID";
@@ -156,7 +160,11 @@ if ($con->connect_error) {
   </thead>
   <tbody>
     <tr>
-      <td><?php $startPrice = $row['startPrice'];
+      <td><?php 
+	  //show values of starting price, current bid, description of product, category of product, bid end date, bid end time
+	  //seller's name, and seller's rating.
+	  // if the highest bid exist, show the highest bid, otherwise, show No bid yet.
+	  $startPrice = $row['startPrice'];
       echo $startPrice;?></td>
       <td><?php
       $productID = $row['productID'];
@@ -203,7 +211,8 @@ if ($con->connect_error) {
   </form>
 
   <?php
-  $sql = "SELECT userID AS sellerID FROM product WHERE product.productID=$productID";
+ // get seller's userID from product table
+ $sql = "SELECT userID AS sellerID FROM product WHERE product.productID=$productID";
  $result = $con -> query($sql);
  $seller = '';
  while ($row = mysqli_fetch_array($result)) {
@@ -211,7 +220,7 @@ if ($con->connect_error) {
 
  }
 
-
+ // get user's role from users table, and assign the value to the variable $role
  $userID = $_SESSION['userID'];
  $productID = mysqli_escape_string($con, $_GET['id']);
  $sql4 = "SELECT role from users Where id=$userID";
@@ -308,7 +317,7 @@ if ($con->connect_error) {
  }
 
 
-
+ // if the 
  if ($buyer == $_SESSION['userID'] || $seller == $_SESSION['userID']) {
 
     ?>
@@ -369,10 +378,17 @@ if ($con->connect_error) {
 }
 
 if (isset($_POST['submit-purchase'])) {
+  
+  //get comments and rating of the feedback form
   $comment = mysqli_escape_string($con, $_POST['comments']);
   $rating = mysqli_escape_string($con, $_POST['rating']);
 
-
+ 
+	
+ //if the user ID equals to the buyer's userID, the form of feedback is for seller, 
+ //if the user ID equals to the seller's userID, the form of feedback if for buyer.
+ //Then update information into the feedback table
+	
  if($_SESSION['userID'] == $buyer){
    $sqlCode = "commentsSeller='".$comment."', ratingSeller='".$rating."'";
  }else{
