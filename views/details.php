@@ -275,15 +275,12 @@ if ($con->connect_error) {
 
   <?php
   $productID = mysqli_escape_string($con, $_GET['id']);
-  //echo $productID;
   $sql = "SELECT endDateTime FROM product WHERE productID=$productID";
-  /*echo $productID;*/
   $r_query_DT = mysqli_query($con, $sql);
   $time = '';
   if ($r_query_DT != null) {
   while ($row = mysqli_fetch_array($r_query_DT)) {
     $time = $row['endDateTime'];
-    /*echo $time;*/
     }
   }
    ?>
@@ -317,7 +314,9 @@ if ($con->connect_error) {
  }
 
 
- // if the 
+ // if the bid is not end, the purchase table will not have the record of buyer, and the variable buyer and seller will be empty
+ // Thus the following feedback will not be shown for the users.
+	
  if ($buyer == $_SESSION['userID'] || $seller == $_SESSION['userID']) {
 
     ?>
