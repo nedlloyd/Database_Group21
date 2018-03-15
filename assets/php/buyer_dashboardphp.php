@@ -68,12 +68,12 @@ $products = [];
 }
 
 function yourfeedbackAverage($userID, $con) {
-  $sql = "SELECT AVG(ratingBuyer) from purchase WHERE userID=$userID";
+  $sql = "SELECT AVG(p.ratingBuyer) FROM purchase p INNER JOIN bid b ON p.bidID = b.bidID WHERE b.userID=$userID";
   $r_query = mysqli_query($con, $sql);
   if ($r_query != null) {
   $av = '';
   while ($row = mysqli_fetch_array($r_query)) {
-  $av = $row['AVG(ratingBuyer)'];
+  $av = $row['AVG(p.ratingBuyer)'];
   }
   } else {
     $av = "empty";
@@ -84,7 +84,7 @@ function yourfeedbackAverage($userID, $con) {
 }
 
 function allFeedback($userID, $con) {
-  $sql = "SELECT * from purchase WHERE userID=$userID";
+  $sql = "SELECT * from purchase p INNER JOIN bid b ON p.bidID = b.bidID WHERE b.userID=$userID";
   $r_query = mysqli_query($con, $sql);
 
   $products = array();
