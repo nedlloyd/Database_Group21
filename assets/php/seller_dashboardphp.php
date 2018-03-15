@@ -89,8 +89,8 @@ function yourfeedbackAverageSeller($userID, $con) {
 }
 
 function allFeedbackSeller($userID, $con) {
-  $sql = "SELECT * FROM purchase, product
-			WHERE purchase.productID = product.productID AND product.userID=$userID";
+  $sql = "SELECT * FROM purchase, product, bid
+			WHERE purchase.productID = product.productID AND purchase.bidID = bid.bidID AND product.userID=$userID";
   $r_query = mysqli_query($con, $sql);
 
     $products = array();
@@ -109,7 +109,13 @@ return $products;
 }
 
 function findbuyeremail ($productID, $con){
- $sql = "SELECT userID, email FROM purchase AS p JOIN users AS u ON p.userID=u.ID WHERE productID=$productID";
+ $sql = "SELECT b.userID, u.email 
+ FROM bid AS b 
+ INNER JOIN purchase AS p
+ ON b.bidID = p.bidID
+ INNER JOIN users AS u
+ ON b.userID = u.ID
+ WHERE p.productID=$productID";
   $r_query = mysqli_query($con, $sql);
 
   $products = "";
