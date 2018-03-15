@@ -38,12 +38,12 @@ echo $row['reservePrice'];
       echo $row['reservePrice'];
        if ($row['reservePrice'] <= $row['amount']) {
         if ($i == 0) {
-          $sql = "INSERT INTO purchase (productID, bidID) VALUES";
+          $sql = "INSERT INTO purchase (bidID) VALUES";
           $i++;
         } else if ($i != 0) {
           $sql = $sql . ',';
         }
-        $sql = $sql . ' (' . $row['productID'] . ', ' . $row['bidID'] . ')';
+        $sql = $sql . ' (' . $row['bidID'] . ')';
       } else {
         $_SESSION['reservePrice'] = "Highest bid is less than reserve Price";
       }

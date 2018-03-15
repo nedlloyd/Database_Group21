@@ -38,8 +38,7 @@ if ($con->connect_error) {
 } else {
 	$sql = "SELECT * FROM product WHERE productID=" . $con->real_escape_string($_GET['id']);
 	$sql2 = "SELECT * FROM users, product WHERE users.id = product.userID AND product.productID=" . $con->real_escape_string($_GET['id']);
-	$sql3 = "SELECT product.userID, ROUND(AVG(purchase.ratingSeller),2)AS rateSeller FROM purchase, product
-			WHERE purchase.productID = product.productID AND product.userID=$productUserID;";
+	$sql3 = "SELECT bid.userID, ROUND(AVG(purchase.ratingSeller),2) AS rateSeller FROM purchase, bid WHERE purchase.bidID = bid.bidID AND bid.userID=$productUserID;";
 
 
 	$result = $con -> query($sql);
@@ -303,7 +302,7 @@ if ($con->connect_error) {
 
  <?php
 
- $sql = "SELECT pr.userID AS sellerID, b.userID AS buyerID FROM purchase pu INNER JOIN product pr ON pu.productID = pr.productID INNER JOIN bid b ON  b.bidID=pu.bidID WHERE pu.productID=$productID";
+ $sql = "SELECT pr.userID AS sellerID, b.userID AS buyerID FROM product pr INNER JOIN bid b ON pr.productID = b.productID INNER JOIN purchase pu ON  b.bidID=pu.bidID WHERE b.productID=$productID";
  $result = $con -> query($sql);
  $buyer = '';
  $seller = '';
@@ -395,7 +394,15 @@ if (isset($_POST['submit-purchase'])) {
  }
 
  $feedbackproductID = mysqli_escape_string($con, $_GET['id']);
- $stmt = $con->query("UPDATE purchase SET ".$sqlCode." WHERE productID='".$feedbackproductID."'");
+
+ $sql = "SELECT bidID FROM bid WHERE productID=$feedbackproductID";
+ $result = $con -> query($sql);
+ $bidID = '';
+ while ($row = mysqli_fetch_array($result)) {
+   $bidID = $row['bidID'];
+ }
+
+ $stmt = $con->query("UPDATE purchase SET ".$sqlCode." WHERE bidID='".$bidID."'");
 
  echo "done";
  $con->close();
