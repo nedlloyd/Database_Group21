@@ -150,6 +150,8 @@ echo $_SESSION['reservePrice'];
                   $endDateArray = [];
                 while ($i < count($productsWatch)) {
                    if(((time() - (60*60*120)) <= strtotime($productsWatch[$i]['endDateTime']))) {
+                     $productID = $row['productID'];
+                     $highestBid = highestBid($productsWatch[$i]['productID'], $con)['amount'];
                     ?>
                 <tr>
                   <td><a href="details.php?id=<?php echo $productsWatch[$i]['productID']?>"><?php echo $productsWatch[$i]['productName'];?></a></td>
@@ -162,8 +164,6 @@ echo $_SESSION['reservePrice'];
                   echo "Bid Ended";
                 }?></td>
                  <td><?php
-                 $productID = $row['productID'];
-                 $highestBid = highestBid($productsWatch[$i]['productID'], $con)['amount'];
                  if ($highestBid == NULL){
                    $highestBid = 'No Bids Yet';
                  }
@@ -578,7 +578,7 @@ echo $_SESSION['reservePrice'];
                   }?></td>
                   <td><?php echo $totalHighestBid ?></td>
                   <td><?php
-                  if ($yourHighestBid == "") {
+                  if ($totalHighestBid == "") {
                   echo "No Bids";
                 } else if ($reservedprice > $totalHighestBid) {
                   echo "Lower than reserve Price";

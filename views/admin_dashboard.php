@@ -38,7 +38,7 @@ require '../assets/php/connect.php';
       </div>
 
       <h1 class="loginTitle"> Esway </h1>
-
+      <a class="active" href="logout.php">Logout</a>
     </div>
   </header>
 
