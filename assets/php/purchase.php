@@ -13,7 +13,7 @@ while ($row = mysqli_fetch_array($r_query)) {
 
 
 
- $sql = "SELECT a.productID, a.bidID, a.amount, p.endDateTime, p.reservePrice
+ $sql = "SELECT a.bidID, a.amount, p.endDateTime, p.reservePrice
  FROM bid a
  INNER JOIN (
    SELECT productID, MAX(amount) amount
@@ -23,8 +23,6 @@ while ($row = mysqli_fetch_array($r_query)) {
    AND a.amount = b.amount
    INNER JOIN product p
    ON a.productID=p.productID
-   INNER JOIN users u
-   ON u.id=a.userID
    WHERE p.endDateTime < CURRENT_TIMESTAMP;";
  $r_query = mysqli_query($con, $sql);
  $sql = "";
@@ -78,6 +76,6 @@ echo $row['reservePrice'];
  ?>
 
 
- <!-- SELECT a.productID, a.bidID, a.amount, p.endDateTime, p.reservePrice FROM bid a INNER JOIN (SELECT productID, MAX(amount) amount FROM bid GROUP BY productID) b ON a.productID = b.productID AND a.amount = b.amount INNER JOIN product p ON a.productID=p.productID INNER JOIN users u ON u.id=a.userID WHERE p.endDateTime < CURRENT_TIMESTAMP;
+ <!-- SELECT a.bidID, a.amount, p.endDateTime, p.reservePrice FROM bid a INNER JOIN (SELECT productID, MAX(amount) amount FROM bid GROUP BY productID) b ON a.productID = b.productID AND a.amount = b.amount INNER JOIN product p ON a.productID=p.productID WHERE p.endDateTime < CURRENT_TIMESTAMP;
 
  SELECT a.productID, a.userID, a.amount FROM bid a INNER JOIN (SELECT productID, MAX(amount) amount FROM bid GROUP BY productID) b ON a.productID = b.productID AND a.amount = b.amount INNER JOIN product p ON a.productID=p.productID INNER JOIN users u ON u.id=a.userID WHERE p.endDateTime < CURRENT_TIMESTAMP; -->

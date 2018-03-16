@@ -302,7 +302,7 @@ if ($con->connect_error) {
 
  <?php
 
- $sql = "SELECT pr.userID AS sellerID, b.userID AS buyerID FROM product pr INNER JOIN bid b ON pr.productID = b.productID INNER JOIN purchase pu ON  b.bidID=pu.bidID WHERE b.productID=$productID";
+ $sql = "SELECT pr.userID AS sellerID, b.userID AS buyerID FROM product pr INNER JOIN bid b ON pr.productID = b.productID WHERE b.productID=$productID";
  $result = $con -> query($sql);
  $buyer = '';
  $seller = '';
