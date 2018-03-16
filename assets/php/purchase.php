@@ -2,6 +2,7 @@
 require 'connect.php';
 
 
+// query finds the last time the databaase was checked for expired products
 $sql = "SELECT * FROM lastChecked";
 $r_query = mysqli_query($con, $sql);
 
@@ -12,7 +13,7 @@ while ($row = mysqli_fetch_array($r_query)) {
 
 
 
-
+//  See report for explanation of query
  $sql = "SELECT a.bidID, a.amount, p.endDateTime, p.reservePrice
  FROM bid a
  INNER JOIN (
@@ -32,8 +33,10 @@ $i = 0;
 echo $row['reservePrice'];
  while ($row = mysqli_fetch_array($r_query)) {
 
+   // if the expired product expired after the last time the database was checked
     if (strtotime($lastChecked) < strtotime($row['endDateTime'])) {
       echo $row['reservePrice'];
+      // if the reserve price was less than the highest bid the bidID is not entered into the purchase table
        if ($row['reservePrice'] <= $row['amount']) {
         if ($i == 0) {
           $sql = "INSERT INTO purchase (bidID) VALUES";
@@ -59,6 +62,7 @@ echo $row['reservePrice'];
 
     }
 
+// the last time the database was checked is deleted from the table
  $sql = "DELETE FROM lastChecked;";
 
  if ($con->query($sql) === TRUE) {
@@ -66,6 +70,7 @@ echo $row['reservePrice'];
      echo "Error deleting row: " . $con->error;
  }
 
+// the most recent time the database was checked is added to the table 
     $sql = "INSERT INTO lastChecked (lastChecked) VALUES (CURRENT_TIMESTAMP);";
 
     if ($con->query($sql) === TRUE) {

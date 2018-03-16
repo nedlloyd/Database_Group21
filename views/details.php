@@ -302,6 +302,7 @@ if ($con->connect_error) {
 
  <?php
 
+// query determines the seller and the buyer for a certain product (if the product has not finished or was not won nothing is returned)
  $sql = "SELECT pr.userID AS sellerID, b.userID AS buyerID FROM product pr INNER JOIN bid b ON pr.productID = b.productID WHERE b.productID=$productID";
  $result = $con -> query($sql);
  $buyer = '';
@@ -313,9 +314,7 @@ if ($con->connect_error) {
  }
 
 
- // if the bid is not end, the purchase table will not have the record of buyer, and the variable buyer and seller will be empty
- // Thus the following feedback will not be shown for the users.
-
+// the option to fill out feedback will only be shown if the user is the buyer or the seller of a product that has been won (there is a max bid higher than the reserve price)
  if ($buyer == $_SESSION['userID'] || $seller == $_SESSION['userID']) {
 
     ?>
@@ -386,7 +385,6 @@ if (isset($_POST['submit-purchase'])) {
  //if the user ID equals to the buyer's userID, the form of feedback is for seller,
  //if the user ID equals to the seller's userID, the form of feedback if for buyer.
  //Then update information into the feedback table
-
  if($_SESSION['userID'] == $buyer){
    $sqlCode = "commentsSeller='".$comment."', ratingSeller='".$rating."'";
  }else{
