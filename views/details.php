@@ -303,7 +303,7 @@ if ($con->connect_error) {
  <?php
 
 // query determines the seller and the buyer for a certain product (if the product has not finished or was not won nothing is returned)
- $sql = "SELECT pr.userID AS sellerID, b.userID AS buyerID FROM product pr INNER JOIN bid b ON pr.productID = b.productID WHERE b.productID=$productID";
+ $sql = "SELECT pr.userID AS sellerID, b.userID AS buyerID FROM product pr INNER JOIN bid b ON pr.productID = b.productID INNER JOIN purcahse pu ON b.bidID=pu.bidID WHERE b.productID=$productID";
  $result = $con -> query($sql);
  $buyer = '';
  $seller = '';
